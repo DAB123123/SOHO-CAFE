@@ -148,7 +148,7 @@ if ($result->num_rows > 0) {
 	echo '<input type="text" data-step="1" data-min="0" value="1" id="'. $row["menu_id"] .'" title="Qty" class="input-qty qty" size="4">';
 	echo '<a   class="btn-number qtyplus quantity-plus" price="'. $row["menu_id"] .'" onclick="increasePrice('. $row["price"] .',' .$row["menu_id"]. ')">+</a>';
 	echo '</div> </div> </td> <td class="product-price" data-title="Price">';
-	echo '<span class="woocommerce-Price-amount amount"> <span class="woocommerce-Price-currencySymbol"> $</span> <span id="pricy'. $row["menu_id"] .'">'.$row["price"].'</span></span> </td> </tr>';
+	echo '<span class="woocommerce-Price-amount amount"> <span class="woocommerce-Price-currencySymbol"> ₱</span> <span id="pricy'. $row["menu_id"] .'">'.$row["price"].'</span></span> </td> </tr>';
 	$i=$i+1;
 	}
 	
