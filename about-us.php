@@ -147,7 +147,7 @@
 						</p>
 						<br>
 						<p>
-							<a href="contact-us.php" class="btn btn-primary">
+							<a href="contact-us.html" class="btn btn-primary">
 								Contact Us
 							</a>
 						</p>

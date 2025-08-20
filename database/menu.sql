@@ -40,4 +40,3 @@ INSERT INTO `menu` (`menu_id`, `name`, `description`, `price`, `no_order`) VALUE
 (17, 'Hot Chocolate', 'Creamy cocoa topped with whipped cream.', 85, 0),
 (18, 'Bottled Water', 'Mineral water (500ml).', 30, 0);
 COMMIT;
-

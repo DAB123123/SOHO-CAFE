@@ -104,7 +104,7 @@
 								Write us
 							</h4>
 							<p class="section_contact__info__item__content">
-								<a href="mailto:sohocafe&kitchen@gmail.com">sohocafe&kitchen@gmail.com</a>
+								<a href="mailto:sohocafe@gmail.com">sohocafe@gmail.com</a>
 							</p>
 						</div>
 						<div class="section_contact__info__item">
@@ -112,7 +112,7 @@
 								Call us
 							</h4>
 							<p class="section_contact__info__item__content">
-								<a href="tel:+19876543210">09100229687</a>
+								<a href="tel:+19876543210">09910229687</a>
 							</p>
 						</div>
 						<div class="section_contact__info__item">
@@ -180,7 +180,7 @@
 
 	<!-- FOOTER
 	================================================== -->
-  <footer class="section section_footer">
+   <footer class="section section_footer">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4">
@@ -190,7 +190,7 @@
 						About Us
 					</h5>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti dolorum, sint corporis nostrum, possimus unde eos vitae eius quasi saepe.
+						We have been brewing our own coffee and serving for 3 years now, and popular for our great coffee and lively atmosphere.
 					</p>
 
 				</div>
@@ -202,12 +202,13 @@
 					</h5>
 					<ul class="section_footer__info">
 						<li>
-							<i class="fas fa-map-marker-alt"></i> Sōho Cafe + Kitchen Biñan Branch Petron Timbao 
+							<i class="fas fa-map-marker-alt"></i> Sōho Cafe + Kitchen Biñan Branch Petron Timbao
+						</li>
 						<li>
 							<i class="fas fa-phone"></i> 09100229687
 						</li>
 						<li>
-							<i class="far fa-envelope"></i> <a href="mailto:sohocafe&kitchen@gmail.com">sohocafe&kitchen@gmail.com</a>
+							<i class="far fa-envelope"></i> <a href="mailto:tarun1224.cse18@chitkara.edu.in">sohocafe&kitchen@gmail.com</a>
 						</li>
 					</ul>
 
@@ -241,7 +242,6 @@
 			</div> <!-- / .row -->
 		</div> <!-- / .container -->
 	</footer>
-
 	<!-- JAVASCRIPT
 	================================================== -->
 

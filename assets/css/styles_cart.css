@@ -1,11 +1,47 @@
+/*--------------------------/*
+Tempale name : Gnash
 
+/*--------------------------/*
+
+[Table of contents]
+[Color codes]
+Background: #ffffff
+Body Color : #191919
+[Typography]
+Body:       14px/24px Jost, sans-serif;
+Heading:    Jost, sans-serif;
+Input, textarea: 14px/24px Jost, sans-serif;
+
+1 COMPONENT STYLES
+2. HEADER
+  2.1 General
+  2.2 Header Skin
+3. MAIN
+4. BLOG
+  4.1 Blog page
+  4.2 Blog single
+5. SIDEBAR
+  5.1 Left Sidebar
+  5.2 Right Sidebar
+6. SHOP
+  6.1 Shop Page
+  6.2 Shop Single
+7.INNER PAGES
+8. FOOTER
+9. RESPONSIVE
+SLIDESHOW
+REPONSIVE
+/*-------------------------*/
+/*==========================================================================
+  1.0 COMPONENT STYLES
+============================================================================ */
 body {
 	font-family: 'Jost', sans-serif;
 	font-size: 16px;
 	line-height: 26px;
 	color: #666;
 	overflow-x: hidden;
-	background-image: url('assets/img/cart_bg.jpg');
+	/*background-image: url('assets/img/cart_bg.jpg');*/
 }
 label {
 	font-weight: 500;

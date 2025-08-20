@@ -131,20 +131,315 @@
 		</div> <!-- / .container -->
 	</section>
 
+	<!-- EVENTS
+	================================================== -->
+	<section class="section section_events section_no-padding_bottom">
+
+		<!-- Intro -->
+		<div class="container">
+			<div class="row">
+				<div class="col">
+
+					<!-- Heading -->
+					<h2 class="section__heading text-center">
+						Upcoming events
+					</h2>
+
+					<!-- Subheading -->
+					<p class="section__subheading text-center">
+						Commodi rem veritatis quis eaque mollitia.
+					</p>
+
+				</div>
+			</div> <!-- / .row -->
+		</div> <!-- / .container -->
+
+		<!-- Events -->
+		<div class="section_events__items">
+
+			<!-- Event #1 -->
+			<div class="section_events__item active">
+
+				<!-- Bg image -->
+				<div class="section_events__item__bg" style="background-image: url(assets/img/8.jpg)"></div>
+
+				<!-- Content -->
+				<div class="container">
+
+					<!-- Content: Large -->
+					<div class="section_events__item__content_lg">
+						<div class="row">
+							<div class="col-md-8 col-lg-5">
+
+								<!-- Date -->
+								<h3 class="section__preheading text-primary">
+									<time datetime="2017-09-30">September 30, 2017</time>
+								</h3>
+
+								<!-- Heading -->
+								<h2 class="section__heading text-white">
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum voluptas, aut ea quae!
+								</h2>
+
+								<!-- Description -->
+								<p class="section__subheading">
+									Alias earum, labore doloremque iusto a modi et, dolorem veritatis iste quis ab. Facere est optio, voluptate molestias aspernatur impedit perferendis odit?
+								</p>
+
+								<!-- Button -->
+								<a href="#section_reservation" class="btn btn-primary text-white">
+									Reserve a table
+								</a>
+
+							</div>
+						</div> <!-- / .row -->
+					</div> <!-- / .section_events__item__content_lg -->
+
+					<!-- Content: Small -->
+					<div class="section_events__item__content_sm">
+						<div class="row">
+							<div class="col-3 col-md-2 col-lg-1">
+
+								<!-- Date -->
+								<time datetime="2017-09-30">
+									30 <small>Sep</small>
+								</time>
+
+							</div>
+							<div class="col-9 col-md-7 col-lg-8">
+
+								<!-- Heading -->
+								<h4>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum voluptas, aut ea quae!
+								</h4>
+
+							</div>
+							<div class="col-9 ml-auto col-md-3 text-md-right">
+
+								<!-- Button -->
+								<a href="#section_reservation" class="btn btn-primary">
+									Reserve a table
+								</a>
+
+							</div>
+						</div> <!-- / .row -->
+					</div> <!-- / .section_events__item__content_sm -->
+
+				</div> <!-- / .container -->
+
+			</div> <!-- / .section_events__item -->
+
+			<!-- Event #2 -->
+			<div class="section_events__item">
+
+				<!-- Bg image -->
+				<div class="section_events__item__bg" style="background-image: url(assets/img/9.jpg)"></div>
+
+				<!-- Content -->
+				<div class="container">
+
+					<!-- Content: Large -->
+					<div class="section_events__item__content_lg">
+						<div class="row">
+							<div class="col-md-8 col-lg-5">
+
+								<!-- Date -->
+								<h3 class="section__preheading text-primary">
+									<time datetime="2017-09-29">September 29, 2017</time>
+								</h3>
+
+								<!-- Heading -->
+								<h2 class="section__heading text-white">
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum voluptas, aut ea quae!
+								</h2>
+
+								<!-- Description -->
+								<p class="section__subheading">
+									Alias earum, labore doloremque iusto a modi et, dolorem veritatis iste quis ab. Facere est optio, voluptate molestias aspernatur impedit perferendis odit?
+								</p>
+
+								<!-- Button -->
+								<a href="#section_reservation" class="btn btn-primary text-white">
+									Reserve a table
+								</a>
+
+							</div>
+						</div> <!-- / .row -->
+					</div> <!-- / .section_events__item__content_lg -->
+
+					<!-- Content: Small -->
+					<div class="section_events__item__content_sm">
+						<div class="row">
+							<div class="col-3 col-md-2 col-lg-1">
+
+								<!-- Date -->
+								<time datetime="2017-09-29">
+									29 <small>Sep</small>
+								</time>
+
+							</div>
+							<div class="col-9 col-md-7 col-lg-8">
+
+								<!-- Heading -->
+								<h4>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum voluptas, aut ea quae!
+								</h4>
+
+							</div>
+							<div class="col-9 ml-auto col-md-3 text-md-right">
+
+								<!-- Button -->
+								<a href="#section_reservation" class="btn btn-primary">
+									Reserve a table
+								</a>
+
+							</div>
+						</div> <!-- / .row -->
+					</div> <!-- / .section_events__item__content_sm -->
+
+				</div> <!-- / .container -->
+
+			</div> <!-- / .section_events__item -->
+
+			<!-- Event #3 -->
+			<div class="section_events__item">
+
+				<!-- Bg image -->
+				<div class="section_events__item__bg" style="background-image: url(assets/img/10.jpg)"></div>
+
+				<!-- Content -->
+				<div class="container">
+
+					<!-- Content: Large -->
+					<div class="section_events__item__content_lg">
+						<div class="row">
+							<div class="col-md-8 col-lg-5">
+
+								<!-- Date -->
+								<h3 class="section__preheading text-primary">
+									<time datetime="2017-09-28">September 28, 2017</time>
+								</h3>
+
+								<!-- Heading -->
+								<h2 class="section__heading text-white">
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum voluptas, aut ea quae!
+								</h2>
+
+								<!-- Description -->
+								<p class="section__subheading">
+									Alias earum, labore doloremque iusto a modi et, dolorem veritatis iste quis ab. Facere est optio, voluptate molestias aspernatur impedit perferendis odit?
+								</p>
+
+								<!-- Button -->
+								<a href="#section_reservation" class="btn btn-primary text-white">
+									Reserve a table
+								</a>
+
+							</div>
+						</div> <!-- / .row -->
+					</div> <!-- / .section_events__item__content_lg -->
+
+					<!-- Content: Small -->
+					<div class="section_events__item__content_sm">
+						<div class="row">
+							<div class="col-3 col-md-2 col-lg-1">
+
+								<!-- Date -->
+								<time datetime="2017-09-28">
+									28 <small>Sep</small>
+								</time>
+
+							</div>
+							<div class="col-9 col-md-7 col-lg-8">
+
+								<!-- Heading -->
+								<h4>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum voluptas, aut ea quae!
+								</h4>
+
+							</div>
+							<div class="col-9 ml-auto col-md-3 text-md-right">
+
+								<!-- Button -->
+								<a href="#section_reservation" class="btn btn-primary">
+									Reserve a table
+								</a>
+
+							</div>
+						</div> <!-- / .row -->
+					</div> <!-- / .section_events__item__content_sm -->
+
+				</div> <!-- / .container -->
+
+			</div> <!-- / .section_events__item -->
+
+		</div> <!-- / .section_events__items -->
+
+	</section>
+
+	<!-- NEWSLETTER
+	================================================== -->
+	<section class="section section_gray section_newsletter">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+
+					<!-- Heading -->
+					<h2 class="section__heading section_newsletter__heading text-center">
+						Newsletter
+					</h2>
+					<p class="section__subheading text-center">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam illo praesentium sequi in cum, beatae maiores quae qui.
+					</p>
+
+				</div>
+			</div> <!-- / .row -->
+			<div class="row justify-content-center">
+				<div class="col-lg-6">
+
+					<!-- Form -->
+					<div id="mc_embed_signup">
+						<form class="section_newsletter__form validate" action="//simpleqode.us15.list-manage.com/subscribe/post-json?u=507744bbfd1cc2879036c7780&id=4523d25e1b&c=?" method="get" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate="">
+							<div id="mc_embed_signup_scroll" class="row">
+								<div class="mc-field-group form-group col-md-9">
+									<label for="mce-EMAIL" class="sr-only">E-mail address</label>
+									<input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="Email address">
+								</div>
+								<div id="mce-responses" class="clear">
+									<div class="response"></div>
+									<div class="response" id="mce-success-response"></div>
+								</div>
+								<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+								<div aria-hidden="true" id="mce-hidden-input">
+									<input type="text" name="b_507744bbfd1cc2879036c7780_4523d25e1b" tabindex="-1" value="">
+								</div>
+								<div class="clear col-md-3 text-center">
+									<button type="submit" class="btn btn-primary" id="mc-embedded-subscribe">
+										Subscribe
+									</button>
+								</div>
+							</div>
+						</form>
+					</div> <!-- #mc_embed_signup -->
+
+				</div>
+			</div> <!-- / .row -->
+		</div> <!-- / .container -->
+	</section>
 
 	<!-- FOOTER
 	================================================== -->
   <footer class="section section_footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4">
 
-   					<!-- About Us -->
+					<!-- About Us -->
 					<h5 class="section_footer__heading">
 						About Us
 					</h5>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti dolorum, sint corporis nostrum, possimus unde eos vitae eius quasi saepe.
+						We have been brewing our own coffee and serving for 3 years now, and popular for our great coffee and lively atmosphere.
 					</p>
 
 				</div>
@@ -156,12 +451,13 @@
 					</h5>
 					<ul class="section_footer__info">
 						<li>
-							<i class="fas fa-map-marker-alt"></i> Sōho Cafe + Kitchen Biñan Branch Petron Timbao 
+							<i class="fas fa-map-marker-alt"></i> Sōho Cafe + Kitchen Biñan Branch Petron Timbao
+						</li>
 						<li>
 							<i class="fas fa-phone"></i> 09100229687
 						</li>
 						<li>
-							<i class="far fa-envelope"></i> <a href="mailto:sohocafe&kitchen@gmail.com">sohocafe&kitchen@gmail.com</a>
+							<i class="far fa-envelope"></i> <a href="mailto:tarun1224.cse18@chitkara.edu.in">sohocafe&kitchen@gmail.com</a>
 						</li>
 					</ul>
 
@@ -195,6 +491,7 @@
 			</div> <!-- / .row -->
 		</div> <!-- / .container -->
 	</footer>
+
 	<!-- JAVASCRIPT
 	================================================== -->
 

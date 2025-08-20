@@ -18,7 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <title>Soho Cafe</title>
+    <title>Espresso Express</title>
 
     <!-- CSS Plugins -->
     <link rel="stylesheet" href="assets/plugins/font-awesome/css/all.min.css">
@@ -148,7 +148,7 @@ if ($result->num_rows > 0) {
 	echo '<input type="text" data-step="1" data-min="0" value="1" id="'. $row["menu_id"] .'" title="Qty" class="input-qty qty" size="4">';
 	echo '<a   class="btn-number qtyplus quantity-plus" price="'. $row["menu_id"] .'" onclick="increasePrice('. $row["price"] .',' .$row["menu_id"]. ')">+</a>';
 	echo '</div> </div> </td> <td class="product-price" data-title="Price">';
-	echo '<span class="woocommerce-Price-amount amount"> <span class="woocommerce-Price-currencySymbol"> $</span> <span id="pricy'. $row["menu_id"] .'">'.$row["price"].'</span></span> </td> </tr>';
+	echo '<span class="woocommerce-Price-amount amount"> <span class="woocommerce-Price-currencySymbol"> ₱</span> <span id="pricy'. $row["menu_id"] .'">'.$row["price"].'</span></span> </td> </tr>';
 	$i=$i+1;
 	}
 	
@@ -205,7 +205,7 @@ $conn->close();
                                                             Total Price:
                                                         </span>
                                                 <span class="amount_total" >
-                                                            ₱<span id="amount_total">0</span>
+                                                            ₱<span id="amount_total">135</span>
                                                         </span>
                                             </div>
                                             <br>
@@ -235,64 +235,107 @@ $conn->close();
 <div id="det"></div>
     </main>
 
-
-
-</body>
 <script>
-  let total = <?php echo $total; ?>;
-  document.getElementById("amount_total").innerText = total;
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
 
-  function increasePrice(price, id) {
-    let qtyInput = document.getElementById(id);
-    let qty = parseInt(qtyInput.value) || 1;
-    qtyInput.value = qty + 1;
+totalamount= <?php echo $total; ?>;
 
-    updateTotal();
-  }
+document.getElementById("amount_total").innerHTML=totalamount;
 
-  function decreasePrice(price, id) {
-    let qtyInput = document.getElementById(id);
-    let qty = parseInt(qtyInput.value) || 1;
-    if (qty > 1) {
-      qtyInput.value = qty - 1;
-    }
-    updateTotal();
-  }
+$(document).ready(function(){
+  $("#btn_ad").click(function(){
+<?php if(isset($_SESSION['name'])) 
+{
+?>
+var addr=document.getElementById('message').value;
+var checky=document.getElementById('checkz').checked;
+if(checky==""||checky==null)
+{
+$("#add_err").html('<div class="alert-danger"> <strong>Terms & Condition!</strong> field required </div> <br>');
+console.log('dd');
+return ;}
+else if(addr==null || addr=="")
+{
+$("#add_err").html('<div class="alert-danger"> <strong>Address!</strong> Address is required </div> <br>');
+console.log('dd');
+return ;}
+else
+$("#add_err").html('');
 
-  function remove(id, price) {
-    // Remove row
-    document.getElementById("div" + id).remove();
 
-    // Remove item from localStorage
-    let user = JSON.parse(localStorage.getItem("user") || "{}");
-    let userid = <?php echo $_SESSION['login']; ?>;
-    if (user[userid]) {
-      user[userid] = user[userid].filter(i => i !== id);
-      localStorage.setItem("user", JSON.stringify(user));
-    }
+var arry=user[userid];
+var i=0;
+var desc="";
+<?php for($i=0;$i<sizeof($arr);$i+=1) 
+{
+?>
+var idy=<?php echo $arr[$i]; ?>;
+var quantity = document.getElementById(idy).value;
 
-    updateTotal();
-  }
+if(arry.indexOf(idy)!=-1)
+{
+var dish_name=document.getElementById("dish"+idy).innerHTML;
+var dish_price=document.getElementById("pricy"+idy).innerHTML;
+desc+=quantity+"-"+dish_name+"-"+dish_price+",";
 
-  function updateTotal() {
-    let total = 0;
-    const priceElems = document.querySelectorAll(".cart_item");
+$.ajax({
+type:"POST",
+url:"try.php",
+data: "id=" + idy + "&quan=" + quantity,
+success:function(html)
+{
+if(html=='true')
+console.log('done');
+else
+console.log(html);
+}
+                });
+}
+<?php } ?>
 
-    priceElems.forEach(row => {
-      let id = row.id.replace("div", "");
-      let qty = parseInt(document.getElementById(id).value) || 1;
-      let price = parseFloat(document.getElementById("pricy" + id).innerText) || 0;
+var name='<?php echo $_SESSION['name']; ?>';
+console.log(name);
+var totaly=document.getElementById("amount_total").innerHTML;
+var id=<?php echo $_SESSION['login']; ?>;
 
-      total += qty * price;
-    });
 
-    document.getElementById("amount_total").innerText = total;
-  }
 
-  // Initial total calculation (if needed)
-  window.onload = updateTotal;
+$.ajax({
+type:"POST",
+url:"add_order.php",
+data: "name=" + name + "&description=" + desc+ "&addr=" + addr+ "&amount=" + totaly+ "&id=" + id,
+success:function(html)
+{
+if(html=='true')
+{
+delete user[userid];
+delete user[0];
+localStorage.setItem("user",JSON.stringify(user));
+console.log('placed');
+window.location = "order_his.php";
+}
+else
+console.log('false');
+}
+                });
+
+
+<?php } ?>
+
+<?php if(!isset($_SESSION['name'])) 
+{
+?>
+window.location = "login.php";
+<?php } ?>
+
+  });
+});
+
 </script>
 
+</body>
 
 </html>
 

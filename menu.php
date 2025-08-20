@@ -101,8 +101,8 @@ color: #333;
 					</p>
 
 				</div>
-			</div>  
-			<div class="row">
+			</div> <!-- / .row -->
+		<!-- 	<div class="row">
 				<div class="col">
 
 					<nav class="section_menu__nav">
@@ -123,7 +123,7 @@ color: #333;
 					</nav>
 
 				</div>
-			</div> 
+			</div> -->
 			<div class="row section_menu__grid" id="menu_images">
 
 
@@ -132,6 +132,7 @@ require_once "config.php";
 
 $sql = "SELECT * from menu";
 $result = $conn->query($sql);
+
 if ($result->num_rows > 0) {
     // output data of each row
 
@@ -156,9 +157,6 @@ if ($result->num_rows > 0) {
 } else {
     echo "0 results";
 }
-
-
-
 
 $conn->close();
 ?>
@@ -251,7 +249,7 @@ $conn->close();
 			<div class="section_dishes__carousel__item">
 
 				<!-- Image -->
-				<img src="/assets/img/30.jpg" alt="..." class="section_dishes__carousel__item__img">
+				<img src="assets/img/30.jpg" alt="..." class="section_dishes__carousel__item__img">
 
 				<!-- Body -->
 				<div class="section_dishes__carousel__item__body">
@@ -280,19 +278,19 @@ $conn->close();
 
 
 
-		<!-- FOOTER
+	<!-- FOOTER
 	================================================== -->
-  <footer class="section section_footer">
+   <footer class="section section_footer">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4">
 
-   					<!-- About Us -->
+					<!-- About Us -->
 					<h5 class="section_footer__heading">
 						About Us
 					</h5>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti dolorum, sint corporis nostrum, possimus unde eos vitae eius quasi saepe.
+						We have been brewing our own coffee and serving for 3 years now, and popular for our great coffee and lively atmosphere.
 					</p>
 
 				</div>
@@ -304,12 +302,13 @@ $conn->close();
 					</h5>
 					<ul class="section_footer__info">
 						<li>
-							<i class="fas fa-map-marker-alt"></i> Sōho Cafe + Kitchen Biñan Branch Petron Timbao 
+							<i class="fas fa-map-marker-alt"></i> Sōho Cafe + Kitchen Biñan Branch Petron Timbao
+						</li>
 						<li>
 							<i class="fas fa-phone"></i> 09100229687
 						</li>
 						<li>
-							<i class="far fa-envelope"></i> <a href="mailto:sohocafe&kitchen@gmail.com">sohocafe&kitchen@gmail.com</a>
+							<i class="far fa-envelope"></i> <a href="mailto:tarun1224.cse18@chitkara.edu.in">sohocafe&kitchen@gmail.com</a>
 						</li>
 					</ul>
 

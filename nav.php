@@ -2,7 +2,7 @@
 <div class="container">
 
 <!-- Navbar: Brand -->
-<a class="navbar-brand d-lg-none" href="index.html">SOHO Cafe</a>
+<a class="navbar-brand d-lg-none" href="index.html">SOHO CAFE</a>
 
 <!-- Navbar: Toggler -->
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@
 
 <!-- Navbar: Brand -->
 <a class="navbar-brand d-none d-lg-flex" href="index.php">
-SOHO Cafe
+SOHO CAFE
 </a>
 
 <!-- Navbar navigation: Right -->

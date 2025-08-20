@@ -112,6 +112,20 @@
 			<div class="row section_gallery__grid">
 				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
 
+					<a href="assets/img/viy.jpg" data-lightbox="gallery">
+						<img src="assets/img/viy.jpg" class="img-fluid" alt="...">
+					</a>
+
+				</div>
+				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+
+					<a href="assets/img/congviy.jpg" data-lightbox="gallery">
+						<img src="assets/img/congviy.jpg" class="img-fluid" alt="...">
+					</a>
+
+				</div>
+				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+
 					<a href="assets/img/rosmar.jpg" data-lightbox="gallery">
 						<img src="assets/img/rosmar.jpg" class="img-fluid" alt="...">
 					</a>
@@ -126,15 +140,8 @@
 				</div>
 				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
 
-					<a href="assets/img/congviy.jpg" data-lightbox="gallery">
-						<img src="assets/img/congviy.jpg" class="img-fluid" alt="...">
-					</a>
-
-				</div>
-				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
-
-					<a href="assets/img/jai.jpg" data-lightbox="gallery">
-						<img src="assets/img/jai.jpg" class="img-fluid" alt="...">
+					<a href="assets/img/ninongry.jpg" data-lightbox="gallery">
+						<img src="assets/img/ninongry.jpg" class="img-fluid" alt="...">
 					</a>
 
 				</div>
@@ -145,39 +152,60 @@
 					</a>
 
 				</div>
-				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
 
-					<a href="assets/img/bosstoyo.jpg" data-lightbox="gallery">
-						<img src="assets/img/bosstoyo.jpg" class="img-fluid" alt="...">
-					</a>
+			</div> <!-- / .row -->
+		</div> <!-- / .container -->
+	</section>
+
+	<!-- NEWSLETTER
+	================================================== -->
+	<section class="section section_gray section_newsletter">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+
+					<!-- Heading -->
+					<h2 class="section__heading section_newsletter__heading text-center">
+						Newsletter
+					</h2>
+					<p class="section__subheading text-center">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam illo praesentium sequi in cum, beatae maiores quae qui.
+					</p>
 
 				</div>
-				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+			</div> <!-- / .row -->
+			<div class="row justify-content-center">
+				<div class="col-lg-6">
 
-					<a href="assets/img/viy.jpg" data-lightbox="gallery">
-						<img src="assets/img/viy.jpg" class="img-fluid" alt="...">
-					</a>
-
-				</div>
-				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
-
-					<a href="assets/img/ninongry.jpg" data-lightbox="gallery">
-						<img src="assets/img/ninongry.jpg" class="img-fluid" alt="...">
-					</a>
-
-				</div>
-				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
-
-					<a href="assets/img/diwata.jpg" data-lightbox="gallery">
-						<img src="assets/img/diwata.jpg" class="img-fluid" alt="...">
-					</a>
+					<!-- Form -->
+					<div id="mc_embed_signup">
+						<form class="section_newsletter__form validate" action="//simpleqode.us15.list-manage.com/subscribe/post-json?u=507744bbfd1cc2879036c7780&id=4523d25e1b&c=?" method="get" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate="">
+							<div id="mc_embed_signup_scroll" class="row">
+								<div class="mc-field-group form-group col-md-9">
+									<label for="mce-EMAIL" class="sr-only">E-mail address</label>
+									<input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="Email address">
+								</div>
+								<div id="mce-responses" class="clear">
+									<div class="response"></div>
+									<div class="response" id="mce-success-response"></div>
+								</div>
+								<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+								<div aria-hidden="true" id="mce-hidden-input">
+									<input type="text" name="b_507744bbfd1cc2879036c7780_4523d25e1b" tabindex="-1" value="">
+								</div>
+								<div class="clear col-md-3 text-center">
+									<button type="submit" class="btn btn-primary" id="mc-embedded-subscribe">
+										Subscribe
+									</button>
+								</div>
+							</div>
+						</form>
+					</div> <!-- #mc_embed_signup -->
 
 				</div>
 			</div> <!-- / .row -->
 		</div> <!-- / .container -->
 	</section>
-
-	
 
 	<!-- FOOTER
 	================================================== -->
@@ -186,12 +214,12 @@
 			<div class="row">
 				<div class="col-sm-4">
 
-   					<!-- About Us -->
+					<!-- About Us -->
 					<h5 class="section_footer__heading">
 						About Us
 					</h5>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti dolorum, sint corporis nostrum, possimus unde eos vitae eius quasi saepe.
+						We have been brewing our own coffee and serving for 3 years now, and popular for our great coffee and lively atmosphere.
 					</p>
 
 				</div>
@@ -203,12 +231,13 @@
 					</h5>
 					<ul class="section_footer__info">
 						<li>
-							<i class="fas fa-map-marker-alt"></i> Sōho Cafe + Kitchen Biñan Branch Petron Timbao 
+							<i class="fas fa-map-marker-alt"></i> Sōho Cafe + Kitchen Biñan Branch Petron Timbao
+						</li>
 						<li>
 							<i class="fas fa-phone"></i> 09100229687
 						</li>
 						<li>
-							<i class="far fa-envelope"></i> <a href="mailto:sohocafe&kitchen@gmail.com">sohocafe&kitchen@gmail.com</a>
+							<i class="far fa-envelope"></i> <a href="mailto:tarun1224.cse18@chitkara.edu.in">sohocafe&kitchen@gmail.com</a>
 						</li>
 					</ul>
 

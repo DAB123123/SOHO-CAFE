@@ -26,4 +26,3 @@ INSERT INTO `orders` (`order_id`, `id`, `name`, `description`, `status`, `addres
 
 COMMIT;
 
-

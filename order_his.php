@@ -12,7 +12,7 @@
 	<meta name="msapplication-config" content="assets/ico/browserconfig.xml">
 	<meta name="theme-color" content="#ffffff">
 
-	<title>SOHO Cafe</title>
+	<title>Espresso Express</title>
 
 	<!-- CSS Plugins -->
 	<link rel="stylesheet" href="assets/plugins/font-awesome/css/all.min.css">
@@ -100,7 +100,7 @@ if ($result->num_rows > 0) {
 	echo '<div class="col-lg-4" style="border:50px; "> <div class="card " id="card-a" > <h4 class="card-title header" id="order_number">Order-Number:</h4>';
 	echo '<p id="order-number-'. $row["order_id"] .'" class="content">'. $row["order_id"] .'</p>';
 	echo '<br> <h4 class="amount header" >Total-Amount:</h4>';
-	echo '<p id="amount-' . $row["order_id"] . '" class="content ">' . $row["amount"] .  '</p>';
+	echo '<p id="amount-' . $row["order_id"] . '" class="content ">₱ ' . $row["amount"] .  '</p>';
 	echo '<br> <h4 class="items header" >Items</h4>';
 	echo '<p class="hidden-data" id="hidden-data-' . $row["order_id"] . '">'. $row["description"] .'</p>';	
 	echo '<p id="items-' . $row["order_id"] . '" class="no-of-items content">' . $row["description"] . '</p> <br> <h4 class="date header" >Ordered On:</h4>';
@@ -108,7 +108,7 @@ if ($result->num_rows > 0) {
 	echo '<br> <h4 class="status header" >Status</h4>';
 	echo '<p id="status-'. $row["order_id"] . '" class="delivered content">' . $row["status"] .'</p>';
 	echo '<br> <div class="card-block modal-button">';
-	echo '<button href="#" onclick="modalshow(' . $row['order_id'] . ')" class="add-to-cart btn btn-outline-primary button" data-toggle="modal" data-target="#exampleModalCenter">View Order</button> </div> </div> </div>';
+	echo '<button href="#" onclick="modalshow(' . $row['order_id'] . ')" class="add-to-cart btn btn-outline-primary button" data-toggle="modal" data-target="#exampleModalCenter"disabled>View Order</button> </div> </div> </div>';
 	if($i==2)
 	{
 	echo '</div>';
@@ -181,16 +181,16 @@ echo 'login first';
   </div>
 
   <footer class="section section_footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4">
 
-   					<!-- About Us -->
+					<!-- About Us -->
 					<h5 class="section_footer__heading">
 						About Us
 					</h5>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti dolorum, sint corporis nostrum, possimus unde eos vitae eius quasi saepe.
+						We have been brewing our own coffee and serving for 3 years now, and popular for our great coffee and lively atmosphere.
 					</p>
 
 				</div>
@@ -202,12 +202,13 @@ echo 'login first';
 					</h5>
 					<ul class="section_footer__info">
 						<li>
-							<i class="fas fa-map-marker-alt"></i> Sōho Cafe + Kitchen Biñan Branch Petron Timbao 
+							<i class="fas fa-map-marker-alt"></i> Sōho Cafe + Kitchen Biñan Branch Petron Timbao
+						</li>
 						<li>
 							<i class="fas fa-phone"></i> 09100229687
 						</li>
 						<li>
-							<i class="far fa-envelope"></i> <a href="mailto:sohocafe&kitchen@gmail.com">sohocafe&kitchen@gmail.com</a>
+							<i class="far fa-envelope"></i> <a href="mailto:tarun1224.cse18@chitkara.edu.in">sohocafe&kitchen@gmail.com</a>
 						</li>
 					</ul>
 
