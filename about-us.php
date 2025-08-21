@@ -147,7 +147,7 @@
 						</p>
 						<br>
 						<p>
-							<a href="contact-us.html" class="btn btn-primary">
+							<a href="contact-us.php" class="btn btn-primary">
 								Contact Us
 							</a>
 						</p>
@@ -190,7 +190,7 @@
 							<i class="fas fa-phone"></i> 09100229687
 						</li>
 						<li>
-							<i class="far fa-envelope"></i> <a href="mailto:tarun1224.cse18@chitkara.edu.in">sohocafe&kitchen@gmail.com</a>
+							<i class="far fa-envelope"></i> <a href="mailto:johndoedelacruz69@gmail.com">sohocafe&kitchen@gmail.com</a>
 						</li>
 					</ul>
 

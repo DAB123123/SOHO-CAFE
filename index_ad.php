@@ -246,7 +246,7 @@ if ($result->num_rows > 0) {
 	echo ' <img src="assets/img/menu/'. $row["menu_id"] .'.png" class="rounded10 w-80 mx-15" alt="">';
 	echo '</div><div>';
 	echo '<h5 class="mb-0 fw-500">'. $row["name"] .'</h5>';
-	echo '<p class="mb-0">$'. $row['price'] .'<span class="text-success">&nbsp;</span></p>';
+	echo '<p class="mb-0">₱'. $row['price'] .'<span class="text-success">&nbsp;</span></p>';
 	echo '</div> </div> <div class="d-flex justify-content-md-end align-items-center"> <div class="text-end mx-15"> <span class="fs-50 text-success icon-Chart-line"><span class="path1"></span><span class="path2"></span></span> </div> <div class="text-start w-90">';
 	echo '<h3 class="box-title mb-0 fw-500">' . $row["no_order"] . '</h3>';
 	echo '<p class="mb-0">no of order</p> </div> </div> </div> <hr>';
