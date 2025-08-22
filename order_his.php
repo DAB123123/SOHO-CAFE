@@ -12,7 +12,7 @@
 	<meta name="msapplication-config" content="assets/ico/browserconfig.xml">
 	<meta name="theme-color" content="#ffffff">
 
-	<title>Espresso Express</title>
+	<title>SOHO CAFE</title>
 
 	<!-- CSS Plugins -->
 	<link rel="stylesheet" href="assets/plugins/font-awesome/css/all.min.css">
