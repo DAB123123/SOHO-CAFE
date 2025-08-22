@@ -108,7 +108,7 @@ if ($result->num_rows > 0) {
 	echo '<br> <h4 class="status header" >Status</h4>';
 	echo '<p id="status-'. $row["order_id"] . '" class="delivered content">' . $row["status"] .'</p>';
 	echo '<br> <div class="card-block modal-button">';
-	echo '<button href="#" onclick="modalshow(' . $row['order_id'] . ')" class="add-to-cart btn btn-outline-primary button" data-toggle="modal" data-target="#exampleModalCenter"disabled>View Order</button> </div> </div> </div>';
+	echo '<button href="#" onclick="modalshow(' . $row['order_id'] . ')" class="add-to-cart btn btn-outline-primary button" data-toggle="modal" data-target="#exampleModalCenter">View Order</button> </div> </div> </div>';
 	if($i==2)
 	{
 	echo '</div>';
