@@ -23,10 +23,10 @@ echo 'true';
 }
 else
 {
-unlink('assets\img\menu/'.$id.'.jpg');
+unlink('assets\img\menu/'.$id.'.png');
 $uploaddir =  __DIR__ .'\assets\img\menu/';
 $imageFileType = strtolower(pathinfo($_FILES['userfile']['name'],PATHINFO_EXTENSION));
-$uploadfile = $uploaddir . $id . '.jpg';
+$uploadfile = $uploaddir . $id . '.png';
 
 if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
   echo "true";

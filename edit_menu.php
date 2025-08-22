@@ -127,7 +127,7 @@ $(document).ready(function (e) {
                 <div class="col-md-3">
                   <h4 class="box-title mt-20">Uploaded Image</h4>
                   <div class="product-img text-start">
-                    <img src="assets/img/menu/<?php echo $row['menu_id'];?>.png?12334" alt="" class="mb-15 img_size"  id="output">
+                    <img src="assets/img/menu/<?php echo $row['menu_id'];?>.png?" alt="" class="mb-15 img_size"  id="output">
                     <p>Upload Anonther Image</p>
                     <div class="btn btn-info mb-10 d-grid">
 <input type="hidden" name="id" value="<?php echo $row['menu_id'];?>" />
