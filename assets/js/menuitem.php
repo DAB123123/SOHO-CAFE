@@ -1,7 +1,11 @@
 
+<?php
+header('Content-Type: application/javascript');
+session_start();
+?>
+
 var userid=0;
 <?php
-session_start();
 $x=0;
 if (isset($_SESSION['login'])) 
 $x=$_SESSION['login'];

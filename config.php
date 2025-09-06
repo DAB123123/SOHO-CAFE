@@ -1,6 +1,8 @@
 <?php
-$conn=new mysqli("localhost", "root", "", "sohocafe");
+// No whitespace or output before this line
+$conn = new mysqli("localhost", "root", "", "sohocafe");
 
-if($conn->connect_error)
-die("Connection error is ".$conn->connect_error);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 ?>

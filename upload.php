@@ -5,8 +5,15 @@ require_once "config.php";
 $name=mysqli_real_escape_string($conn, $_POST['name']);
 $description=mysqli_real_escape_string($conn, $_POST['description']);
 $price=mysqli_real_escape_string($conn, $_POST['price']);
+$category=mysqli_real_escape_string($conn, $_POST['category']);
+$temperature = !empty($_POST['temperature']) ? mysqli_real_escape_string($conn, $_POST['temperature']) : NULL;
 
-$sql = "INSERT INTO menu (name, description, price,no_order) VALUES ('$name', '$description', '$price','0')";
+// Prepare the SQL statement with category and temperature
+if ($temperature === NULL) {
+    $sql = "INSERT INTO menu (name, description, price, category, temperature, no_order) VALUES ('$name', '$description', '$price', '$category', NULL, '0')";
+} else {
+    $sql = "INSERT INTO menu (name, description, price, category, temperature, no_order) VALUES ('$name', '$description', '$price', '$category', '$temperature', '0')";
+}
 
 if ( $_FILES['userfile']['error']==1)
 echo 'size';

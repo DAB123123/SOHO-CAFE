@@ -16,7 +16,7 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <link rel="stylesheet" href="assets/css/styles.css" />
-    <link rel="stylesheet" href="assets/css/styles.css?v=1" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=2" />
     <title>Admin Dashboard</title>
     <style>
 
@@ -103,7 +103,7 @@ $result = mysqli_fetch_assoc($sql);
 $sql = mysqli_query($conn,"SELECT count(*) as deliverd FROM `orders` WHERE status = 'delivered'");
 $total_deliverd =  mysqli_fetch_assoc($sql); 
 
-$sql = mysqli_query($conn,"SELECT count(*) as cancel FROM `orders` WHERE status = 'cancel'");
+$sql = mysqli_query($conn,"SELECT count(*) as cancel FROM `orders` WHERE status IN ('cancel', 'cancelled', 'canceled')");
 $total_cancel =  mysqli_fetch_assoc($sql); 
 
 ?>

@@ -20,7 +20,7 @@ $row = mysqli_fetch_assoc($result);
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="assets/css/styles.css?v=1" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=2" />
     <title>Admin Dashboard</title>
     <style>
 html{
@@ -185,6 +185,7 @@ var reader = new FileReader();
 
 
 </script>
+<script src="assets/js/script.js"></script>
 
 </body>
 </html>

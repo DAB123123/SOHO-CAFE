@@ -1,3 +1,9 @@
+<?php
+// Check if session is already started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <nav class="navbar navbar-dark navbar-expand-lg fixed-top">
 <div class="container">
 
@@ -40,7 +46,6 @@ SOHO CAFE
 </li>
 
 <?php
-session_start();
 if (! isset($_SESSION['login']))
 {
 ?>	

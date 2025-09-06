@@ -1,4 +1,7 @@
-var totalamount=0;
+<?php
+header('Content-Type: application/javascript');
+?>
+// totalamount variable will be set from cart.php
 
 
 function increasePrice(p,id){
@@ -7,6 +10,8 @@ document.getElementById(id).value++;
 totalamount+=p;
 
 document.getElementById("amount_total").innerHTML=totalamount;
+document.getElementById("payment_amount").innerHTML=totalamount;
+document.getElementById("payment_amount_qr").innerHTML=totalamount;
 
 };
 function decreasePrice(p,id){
@@ -18,6 +23,8 @@ if(totalamount<=0)
 totalamount=0;
 
 document.getElementById("amount_total").innerHTML=totalamount;
+document.getElementById("payment_amount").innerHTML=totalamount;
+document.getElementById("payment_amount_qr").innerHTML=totalamount;
 }
 
 
@@ -43,6 +50,8 @@ if(totalamount<=0)
 totalamount=0;
 
 document.getElementById("amount_total").innerHTML=totalamount;
+document.getElementById("payment_amount").innerHTML=totalamount;
+document.getElementById("payment_amount_qr").innerHTML=totalamount;
 
   
 }

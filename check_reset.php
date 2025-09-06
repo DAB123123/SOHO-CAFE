@@ -8,7 +8,7 @@ $inemail=$_POST['inemail'];
 
 
 $query="SELECT * FROM user where email='$inemail'";
-$result=mysqli_query($conn,$query) or die(mysqli_error());
+$result=mysqli_query($conn,$query) or die(mysqli_error($conn));
 $num_row=mysqli_num_rows($result);
 $row=mysqli_fetch_array($result);
 $email2 = "";

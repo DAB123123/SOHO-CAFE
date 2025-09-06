@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   
     <link rel="stylesheet" href="assets/css/styles.css" />
-    <link rel="stylesheet" href="assets/css/styles.css?v=1" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=2" />
     <style type="text/css">
     #todoList li {cursor: pointer;}
     </style>

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -24,30 +25,6 @@
   <link rel="stylesheet" href="assets/css/theme.min.css">
   <link rel="stylesheet" href="assets/css/history.css">
 
-<style >
-  .ejewMc {
-    margin: 2rem 0px 5rem;
-    text-align: center;
-   
-}
-.cNjMLA {
-    width: 12.5%;
-    height: 12.5%;
-    object-fit: contain;
-    transform: none;
-    opacity: 1;
-    will-change: transform, opacity;
-    border-radius: inherit;
-    filter: unset;
-    transition: opacity 0.25s ease 0s, transform 0.25s ease 0s;
-}
-.egPsux{
-   font-size: 20px;
-    padding-left: 30px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-</style>
   </head>
   <body>
 
@@ -97,7 +74,47 @@ if ($result->num_rows > 0) {
 	
 	if($i==0)
 	echo '<div class="row">';
-	echo '<div class="col-lg-4" style="border:50px; "> <div class="card " id="card-a" > <h4 class="card-title header" id="order_number">Order-Number:</h4>';
+	echo '<div class="col-lg-4" style="border:50px; "> <div class="card " id="card-a" >';
+	
+	// Add order tracker
+	echo '<div class="order-tracker">';
+	echo '<h5 style="text-align: center; margin-bottom: 15px; color: #495057;">Order Progress</h5>';
+	echo '<div class="tracker-container" data-status="' . strtolower(str_replace(['_', ' '], '-', $row["status"])) . '">';
+	echo '<div class="tracker-steps">';
+	echo '<div class="progress-line" id="progress-' . $row["order_id"] . '"></div>';
+	
+	// Check if order is cancelled - if so, only show cancelled step
+	if (strtolower($row["status"]) === 'cancelled' || strtolower($row["status"]) === 'cancel') {
+		echo '<div class="tracker-step" data-step="cancelled">';
+		echo '<div class="step-icon"><i class="fas fa-times-circle"></i></div>';
+		echo '<div class="step-label">Cancelled</div>';
+		echo '</div>';
+	} else {
+		// Show normal progression steps for non-cancelled orders
+		// Step 1: In Progress
+		echo '<div class="tracker-step" data-step="in-progress">';
+		echo '<div class="step-icon"><i class="fas fa-clock"></i></div>';
+		echo '<div class="step-label">In Progress</div>';
+		echo '</div>';
+		
+		// Step 2: Food OTW
+		echo '<div class="tracker-step" data-step="food-otw">';
+		echo '<div class="step-icon"><i class="fas fa-motorcycle"></i></div>';
+		echo '<div class="step-label">Food OTW</div>';
+		echo '</div>';
+		
+		// Step 3: Delivered
+		echo '<div class="tracker-step" data-step="delivered">';
+		echo '<div class="step-icon"><i class="fas fa-check-circle"></i></div>';
+		echo '<div class="step-label">Delivered</div>';
+		echo '</div>';
+	}
+	
+	echo '</div>'; // end tracker-steps
+	echo '</div>'; // end tracker-container
+	echo '</div>'; // end order-tracker
+	
+	echo '<h4 class="card-title header" id="order_number">Order-Number:</h4>';
 	echo '<p id="order-number-'. $row["order_id"] .'" class="content">'. $row["order_id"] .'</p>';
 	echo '<br> <h4 class="amount header" >Total-Amount:</h4>';
 	echo '<p id="amount-' . $row["order_id"] . '" class="content ">₱ ' . $row["amount"] .  '</p>';
@@ -145,6 +162,40 @@ echo 'login first';
           </button>
         </div>
         <div class="modal-body">
+          <!-- Order Tracker in Modal -->
+          <div class="order-tracker" id="modal-tracker">
+            <h5 style="text-align: center; margin-bottom: 15px; color: #495057;">Order Progress</h5>
+            <div class="tracker-container" id="modal-tracker-container">
+              <div class="tracker-steps">
+                <div class="progress-line" id="modal-progress-line"></div>
+                
+                <!-- Step 1: In Progress -->
+                <div class="tracker-step" data-step="in-progress">
+                  <div class="step-icon"><i class="fas fa-clock"></i></div>
+                  <div class="step-label">In Progress</div>
+                </div>
+                
+                <!-- Step 2: Food OTW -->
+                <div class="tracker-step" data-step="food-otw">
+                  <div class="step-icon"><i class="fas fa-motorcycle"></i></div>
+                  <div class="step-label">Food OTW</div>
+                </div>
+                
+                <!-- Step 3: Delivered -->
+                <div class="tracker-step" data-step="delivered">
+                  <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                  <div class="step-label">Delivered</div>
+                </div>
+                
+                <!-- Step 4: Cancelled (only show if cancelled) -->
+                <div class="tracker-step" data-step="cancelled" style="display: none;">
+                  <div class="step-icon"><i class="fas fa-times-circle"></i></div>
+                  <div class="step-label">Cancelled</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
           <table>
             <tbody >
               <tr>
@@ -258,6 +309,204 @@ echo 'login first';
 	<!-- JS Custom -->
 	<script src="assets/js/theme.min.js"></script>
 	<script src="assets/js/custom.js"></script>
+
+<script>
+// Function to update order tracker based on status
+function updateOrderTracker() {
+    document.querySelectorAll('.tracker-container').forEach(function(container) {
+        const status = container.getAttribute('data-status');
+        console.log('Processing order with status:', status); // Debug line
+        const steps = container.querySelectorAll('.tracker-step');
+        const progressLine = container.querySelector('.progress-line');
+        
+        // Reset all steps
+        steps.forEach(step => {
+            step.classList.remove('active', 'completed', 'in-progress', 'otw', 'food-otw', 'cancelled');
+        });
+        
+        let progressWidth = 0;
+        
+        // For cancelled orders, hide all other steps and show only cancelled
+        if (status === 'cancelled' || status === 'cancel' || status === 'canceled') {
+            // Hide all normal steps
+            steps.forEach((step, index) => {
+                if (step.getAttribute('data-step') !== 'cancelled') {
+                    step.style.display = 'none';
+                } else {
+                    step.style.display = 'flex';
+                    step.classList.add('cancelled');
+                }
+            });
+            // Hide progress line for cancelled orders
+            if (progressLine) {
+                progressLine.style.display = 'none';
+            }
+            return; // Exit early for cancelled orders
+        } else {
+            // Show all normal steps and hide cancelled step for non-cancelled orders
+            steps.forEach((step, index) => {
+                if (step.getAttribute('data-step') === 'cancelled') {
+                    step.style.display = 'none';
+                } else {
+                    step.style.display = 'flex';
+                }
+            });
+            // Show progress line for active orders
+            if (progressLine) {
+                progressLine.style.display = 'block';
+            }
+        }
+        
+        switch(status) {
+            case 'in-progress':
+            case 'in_progress':
+                steps[0].classList.add('in-progress');
+                progressWidth = 0;
+                break;
+                
+            case 'food-otw':
+            case 'food_otw':
+            case 'otw':
+                steps[0].classList.add('completed');
+                steps[1].classList.add('food-otw');
+                progressWidth = 33.33;
+                break;
+                
+            case 'delivered':
+                steps[0].classList.add('completed');
+                steps[1].classList.add('completed');
+                steps[2].classList.add('active');
+                progressWidth = 100;
+                break;
+                
+            default:
+                // Default to in progress
+                steps[0].classList.add('in-progress');
+                progressWidth = 0;
+        }
+        
+        // Update progress line width
+        if (progressLine) {
+            progressLine.style.width = progressWidth + '%';
+        }
+    });
+}
+
+// Initialize trackers when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    updateOrderTracker();
+});
+
+// Existing modal function
+function modalshow(orderId) {
+    // Get order details
+    const orderNumber = document.getElementById('order-number-' + orderId).textContent;
+    const amount = document.getElementById('amount-' + orderId).textContent;
+    const items = document.getElementById('hidden-data-' + orderId).textContent;
+    const ordered = document.getElementById('ordered-' + orderId).textContent;
+    const status = document.getElementById('status-' + orderId).textContent;
+    
+    // Update modal content
+    document.getElementById('modal-number').textContent = orderNumber;
+    document.getElementById('modal-amount').textContent = amount;
+    document.getElementById('modal-ordered').textContent = ordered;
+    document.getElementById('modal-status').textContent = status;
+    
+    // Parse and display items
+    const itemsArray = items.split(',');
+    let itemsHtml = '<ul>';
+    itemsArray.forEach(function(item) {
+        if (item.trim()) {
+            itemsHtml += '<li>' + item.trim() + '</li>';
+        }
+    });
+    itemsHtml += '</ul>';
+    document.getElementById('kuch').innerHTML = itemsHtml;
+    
+    // Update modal tracker
+    updateModalTracker(status);
+}
+
+// Function to update modal tracker based on status
+function updateModalTracker(status) {
+    console.log('Updating modal tracker with status:', status); // Debug line
+    const container = document.getElementById('modal-tracker-container');
+    const steps = container.querySelectorAll('.tracker-step');
+    const progressLine = document.getElementById('modal-progress-line');
+    const cancelledStep = container.querySelector('[data-step="cancelled"]');
+    
+    // Set the data-status attribute on the modal container for CSS targeting
+    const normalizedStatus = status.toLowerCase().replace(/\s+/g, '-');
+    container.setAttribute('data-status', normalizedStatus);
+    console.log('Set modal container data-status to:', normalizedStatus); // Debug line
+    
+    // Reset all steps
+    steps.forEach(step => {
+        step.classList.remove('active', 'completed', 'in-progress', 'otw', 'food-otw', 'cancelled');
+    });
+    
+    let progressWidth = 0;
+    console.log('Normalized status:', normalizedStatus); // Debug line
+    
+    // For cancelled orders, hide all other steps and show only cancelled
+    if (normalizedStatus === 'cancelled' || normalizedStatus === 'cancel' || normalizedStatus === 'canceled') {
+        // Hide all normal steps
+        steps.forEach((step, index) => {
+            if (step.getAttribute('data-step') !== 'cancelled') {
+                step.style.display = 'none';
+            } else {
+                step.style.display = 'flex';
+                step.classList.add('cancelled');
+            }
+        });
+        // Hide progress line for cancelled orders
+        progressLine.style.display = 'none';
+        return; // Exit early for cancelled orders
+    } else {
+        // Show all normal steps and hide cancelled step for non-cancelled orders
+        steps.forEach((step, index) => {
+            if (step.getAttribute('data-step') === 'cancelled') {
+                step.style.display = 'none';
+            } else {
+                step.style.display = 'flex';
+            }
+        });
+        // Show progress line for active orders
+        progressLine.style.display = 'block';
+    }
+    
+    switch(normalizedStatus) {
+        case 'in-progress':
+        case 'in_progress':
+            steps[0].classList.add('in-progress');
+            progressWidth = 0;
+            break;
+            
+        case 'food-otw':
+        case 'food_otw':
+        case 'otw':
+            steps[0].classList.add('completed');
+            steps[1].classList.add('food-otw');
+            progressWidth = 33.33;
+            break;
+            
+        case 'delivered':
+            steps[0].classList.add('completed');
+            steps[1].classList.add('completed');
+            steps[2].classList.add('active');
+            progressWidth = 100;
+            break;
+            
+        default:
+            // Default to in progress
+            steps[0].classList.add('in-progress');
+            progressWidth = 0;
+    }
+    
+    // Update progress line width
+    progressLine.style.width = progressWidth + '%';
+}
+</script>
 
   </body>
 </html>

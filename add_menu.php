@@ -12,7 +12,7 @@
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="assets/css/styles.css?v=1" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=2" />
     <title>Admin Dashboard</title>
     <style>
 html{
@@ -123,6 +123,31 @@ $(document).ready(function (e) {
               </div>
 
               <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="fw-700 fs-16 form-label">Category</label>
+                    <select class="form-control" name="category" id="category" required>
+                      <option value="">Select Category</option>
+                      <option value="drinks">Drinks</option>
+                      <option value="food">Food</option>
+                      <option value="pastries">Pastries</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="fw-700 fs-16 form-label">Temperature</label>
+                    <select class="form-control" name="temperature" id="temperature">
+                      <option value="">Not Applicable</option>
+                      <option value="hot">Hot</option>
+                      <option value="cold">Cold</option>
+                    </select>
+                    <small class="form-text text-muted">Leave as "Not Applicable" for food items that don't have temperature options</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
               
                 <div class="col-md-3">
                   <h4 class="box-title mt-20">Uploaded Image</h4>
@@ -182,6 +207,7 @@ var reader = new FileReader();
 };
 
 </script>
+<script src="assets/js/script.js"></script>
 
 </body>
 </html>

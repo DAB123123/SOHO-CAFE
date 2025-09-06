@@ -1,3 +1,7 @@
+<?php
+// Start session before any HTML output
+session_start();
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -25,37 +29,9 @@
 	<script src="assets/js/modernizr.js"></script>
 	<link rel="stylesheet" href="assets/css/theme.min.css">
 	
-	<style >
-		.adtcart {
-			width: 93px;
+	<style>
 
-   border-radius: 10px;
-   color: #000000;
-   font-family: Verdana;
-   font-size: 10px;
-   font-weight: 100;
-   padding: 5px;
-color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-       display: inline-block;
-    margin-bottom: 0;
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-	border: 1px solid gray;
-}
-
-.adtcart:hover {
-   background: #8AC4D0;
-   border: solid #8AC4D0 1px;
-   -webkit-border-radius: 20px;
-   -moz-border-radius: 20px;
-   border-radius: 20px;
-   text-decoration: none;
-}
-	</style>
+    </style>
 
 
 <script type="text/javascript" src="assets/js/menuitem.php"></script>
@@ -96,77 +72,92 @@ color: #333;
 						Browse by categories
 					</h2>
 					<p class="section__subheading text-center">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-						Ratione numquam eos perferendis itaque hic unde, ad, laudantium minima.
+						Choose from our selection of hot & cold drinks, fresh pastries, and delicious food.
 					</p>
 
+					<!-- Category Filter Buttons -->
+					<div class="category-filter">
+						<button class="filter-btn active" onclick="showCategory('all')">All Items</button>
+						<button class="filter-btn" onclick="showCategory('drinks')">Drinks</button>
+						<button class="filter-btn" onclick="showCategory('hot')">Hot Drinks</button>
+						<button class="filter-btn" onclick="showCategory('cold')">Cold Drinks</button>
+						<button class="filter-btn" onclick="showCategory('pastries')">Pastries</button>
+						<button class="filter-btn" onclick="showCategory('food')">Food</button>
+					</div>
 				</div>
-			</div> <!-- / .row -->
-		<!-- 	<div class="row">
-				<div class="col">
+			</div>
 
-					<nav class="section_menu__nav">
-						<ul>
-							<li class="active">
-								<a href="#menu_images" data-filter=".mains">Mains</a>
-							</li>
-							<li>
-								<a href="#menu_images" data-filter=".lunch">Lunch</a>
-							</li>
-							<li>
-								<a href="#menu_images" data-filter=".dinner">Dinner</a>
-							</li>
-							<li>
-								<a href="#menu_images" data-filter=".drinks">Drinks</a>
-							</li>
-						</ul>
-					</nav>
+			<?php
+			require_once "config.php";
 
-				</div>
-			</div> -->
-			<div class="row section_menu__grid" id="menu_images">
+			// Get drinks (hot & cold)
+			$hot_drinks = $conn->query("SELECT * FROM menu WHERE category = 'drinks' AND temperature = 'hot' ORDER BY name");
+			$cold_drinks = $conn->query("SELECT * FROM menu WHERE category = 'drinks' AND temperature = 'cold' ORDER BY name");
+			
+			// Get other categories
+			$pastries = $conn->query("SELECT * FROM menu WHERE category = 'pastries' ORDER BY name");
+			$food = $conn->query("SELECT * FROM menu WHERE category = 'food' ORDER BY name");
 
+			function displayMenuItems($result, $show_temperature = false) {
+				if ($result->num_rows > 0) {
+					while($row = $result->fetch_assoc()) {
+						echo '<div class="col-md-6 section_menu__grid__item">';
+						echo '<div class="section_menu__item"><div class="row"><div class="col-3 align-self-center"><div class="section_menu__item__img">';
+						echo '<img src="assets/img/menu/' . $row["menu_id"] . '.png" alt="not found">';
+						echo '</div></div><div class="col-6"><h4 class="1">' . $row["name"];
+						
+						// Add temperature badge for drinks
+						if ($show_temperature && !empty($row["temperature"])) {
+							$badge_class = $row["temperature"] == 'hot' ? 'hot-badge' : 'cold-badge';
+							echo '<span class="temperature-badge ' . $badge_class . '">' . strtoupper($row["temperature"]) . '</span>';
+						}
+						
+						echo '</h4><p>' . $row["description"] . '</p></div>';
+						echo '<div class="col-3"><div class="section_menu__item__price text-center"><p class="1">₱' . $row["price"] .'</p><br></div>';
+						echo '<div class="cd-single-item" style="position:absolute;bottom:0"><a href="#0"><ul class="cd-slider-wrapper" style="margin-bottom:0"><li class="selected"><button style="padding:7px 9px; font-size:small" class="add-to-cart btn btn-outline-primary button">ADD TO CART</button></li></ul></a><div class="cd-customization" style="padding:0px;">';	
+                        echo '<button class="add-to-cart" style="width:100%;font-size:small;margin-bottom:0" onclick="addtolocal('. $row["menu_id"] . ')">';
+                        echo '<em>Add to Cart</em><svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32"><path stroke-dasharray="19.79 19.79" stroke-dashoffset="19.79" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/></svg></button></div><button class="cd-customization-trigger">Customize</button></div>';
+                        echo '</div></div></div></div><br>';
+                    }
+                }
+            }
+            ?>
 
-<?php
-require_once "config.php";
+            <!-- Hot Drinks Section -->
+            <div class="menu-section" id="hot-drinks-section">
+                <h3 class="section-title">Hot Drinks</h3>
+                <div class="row section_menu__grid">
+                    <?php displayMenuItems($hot_drinks, true); ?>
+                </div>
+            </div>
 
-$sql = "SELECT * from menu";
-$result = $conn->query($sql);
+            <!-- Cold Drinks Section -->
+            <div class="menu-section" id="cold-drinks-section">
+                <h3 class="section-title">Cold Drinks</h3>
+                <div class="row section_menu__grid">
+                    <?php displayMenuItems($cold_drinks, true); ?>
+                </div>
+            </div>
 
-if ($result->num_rows > 0) {
-    // output data of each row
+            <!-- Pastries Section -->
+            <div class="menu-section" id="pastries-section">
+                <h3 class="section-title">Pastries</h3>
+                <div class="row section_menu__grid">
+                    <?php displayMenuItems($pastries); ?>
+                </div>
+            </div>
 
-    while($row = $result->fetch_assoc()) {
+            <!-- Food Section -->
+            <div class="menu-section" id="food-section">
+                <h3 class="section-title">Food</h3>
+                <div class="row section_menu__grid">
+                    <?php displayMenuItems($food); ?>
+                </div>
+            </div>
 
-	
-	echo '<div class="col-md-6 section_menu__grid__item mains">';
-	echo '<div class="section_menu__item"> <div class="row"> <div class="col-3 align-self-center"> <div class="section_menu__item__img">';
-	echo '<img src="assets/img/menu/' . $row["menu_id"] . '.png" alt="not found">';
-	echo '</div> </div> <div class="col-6"> <h4 class="1">' . $row["name"];
-	echo '</h4><p>';
-	echo $row["description"] . '</p> </div> ';
-	echo ' <div class="col-3"> <div class="section_menu__item__price text-center"> <p class="1">₱';
-	echo $row["price"] .'</p><br></div> ';
-	echo '<div class="cd-single-item" style="position:absolute;bottom:0"> <a href="#0"> <ul class="cd-slider-wrapper" style="margin-bottom:0" style="margin-bottom:0"> <li class="selected"><button style="padding:7px 9px; font-size:small" class="add-to-cart btn btn-outline-primary button">ADD TO CART</button></li> </ul> </a> <div class="cd-customization" style="padding:0px;">';	
-	echo '<button class="add-to-cart" style="width:100%;font-size:small;margin-bottom:0" onclick="addtolocal('. $row["menu_id"] . ')">';
-	echo '<em>Add to Cart</em> <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32"> <path stroke-dasharray="19.79 19.79" stroke-dashoffset="19.79" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/> </svg> </button> </div> <!-- .cd-customization --> <button class="cd-customization-trigger">Customize</button> </div>';
-	echo '</div> </div> <!-- / .row --></div> </div>';
-	echo '<br>';
-	
-    }
-} else {
-    echo "0 results";
-}
-
-$conn->close();
-?>
-
-				
-
-
-			</div> <!-- / .row -->
-		</div> <!-- / .container -->
-	</section>
+            <?php $conn->close(); ?>
+        </div>
+    </section>
 
 	<!-- DISHES
 	================================================== -->
@@ -193,7 +184,7 @@ $conn->close();
 
 		<!-- Carouse -->
 		<div class="section_dishes__carousel">
-			<div class="section_dishes__carousel__item">
+			<div class="section_dishes__carousel__item>
 
 				<!-- Image -->
 				<img src="assets/img/26.jpg" alt="..." class="section_dishes__carousel__item__img">
@@ -366,6 +357,39 @@ $conn->close();
 	<script src="assets/js/javascript.js"></script>	
 	<script src="assets/js/jquery-2.1.4.js"></script>
   <script src="assets/js/main.js"></script>
+
+  <script>
+        function showCategory(category) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Hide all sections
+            document.querySelectorAll('.menu-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected sections
+            if (category === 'all') {
+                document.querySelectorAll('.menu-section').forEach(section => {
+                    section.style.display = 'block';
+                });
+            } else if (category === 'drinks') {
+                document.getElementById('hot-drinks-section').style.display = 'block';
+                document.getElementById('cold-drinks-section').style.display = 'block';
+            } else if (category === 'hot') {
+                document.getElementById('hot-drinks-section').style.display = 'block';
+            } else if (category === 'cold') {
+                document.getElementById('cold-drinks-section').style.display = 'block';
+            } else if (category === 'pastries') {
+                document.getElementById('pastries-section').style.display = 'block';
+            } else if (category === 'food') {
+                document.getElementById('food-section').style.display = 'block';
+            }
+        }
+    </script>
 
   </body>
 </html>

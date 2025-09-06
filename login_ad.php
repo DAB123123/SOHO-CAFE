@@ -9,11 +9,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <style type="assets/css/app.css"></style>
   <style>
-
-body{
-
-}
-
      #app {
   height:1000px;
  	
@@ -100,6 +95,12 @@ body{
   
 
 $(document).ready(function () {
+// Prevent form submission
+$("form").on("submit", function(e) {
+    e.preventDefault();
+    return false;
+});
+
 $("#in_submit").click(function () {
 
 inemail=$("#inemail").val();
@@ -130,7 +131,7 @@ else
 }
 },
 beforeSend: function(){
-                        $("#add_err2").html('<div class="alert alert-info"><strong>Loading...</strong> </div>');
+                        $("#add_err_in").html('<div class="alert alert-info"><strong>Loading...</strong> </div>');
                     }
                 });
 
@@ -142,14 +143,12 @@ return false;
 </head>
 <body>
 <div id="app" style="background-image: url('assets/img/backy.jpg');">
-
-	
        <form method="POST"  class="form-horizontal"><input type="hidden" name="_token" value="lwd9TzVUwqmH3FkV1BJDbvN0oBkeetk7p2zuEJ2Y"> <h2 class="sr-only">Login Form</h2> <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div> <div class="form-group"><input id="inemail" type="email" name="email" value="" required="required" autofocus="autofocus" placeholder="Email" class="form-control"></div> <div class="form-group">
        	<input id="inpassword" type="password" name="password" required="required" placeholder="Password" class="form-control">
        </div> 
        <div id="add_err_in"></div>
        <div class="form-group"><!-- <div class="checkbox"><label><input type="checkbox" name="remember"> Remember Me -->
-                                    <!-- </label></div> --> <button  id="in_submit"type="submit" class="btn btn-primary  btn-block">
+                                    <!-- </label></div> --> <button  id="in_submit" type="button" class="btn btn-primary  btn-block">
                                     Login
                                 </button> <!-- <a href="http://lsapp.test/password/reset" class="btn btn-link forgot">
                                     Forgot Your Password?
