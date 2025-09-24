@@ -47,23 +47,22 @@ function addtolocal(nid)
 
     user[userid][i + 1] = key;
 
-
-
-
-    }
-    
-    
     localStorage.setItem("user",JSON.stringify(user));
-    
 
-  
-
-
+    // Show success notification if function exists
+    if (typeof showCartNotification === 'function') {
+        showCartNotification('success', 'Added to Cart', 'Item has been added to your cart!');
+    }
+  }
+  else 
+  {
+    // Show warning notification if function exists
+    if (typeof showCartNotification === 'function') {
+        showCartNotification('warning', 'Already in Cart', 'This item is already in your cart.');
+    }
+  }
   
   console.log(user);
-  
-  
-
 }
 
 function deletetolocal(nid)

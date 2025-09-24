@@ -35,8 +35,16 @@ if (isset($_FILES['payment_proof']) && $_FILES['payment_proof']['error'] == 0) {
 
 $sql = "INSERT INTO orders (id,name, description, status ,address,amount,payment_proof) VALUES ('$id','$name', '$description', '$status', '$addr', '$amount', '$payment_proof')";
 
-if($conn->query($sql) === TRUE)
-echo 'true';
-else
-echo 'false';
+if($conn->query($sql) === TRUE) {
+    // Get the ID of the newly inserted order
+    $new_order_id = $conn->insert_id;
+    
+    // Insert notification for admin
+    $notification_sql = "INSERT INTO notifications (order_id, message) VALUES ('$new_order_id', 'New order placed by user.')";
+    $conn->query($notification_sql);
+    
+    echo 'true';
+} else {
+    echo 'false';
+}
 ?>

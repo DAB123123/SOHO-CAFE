@@ -37,6 +37,65 @@ padding:20px;
 {
 height:30%;
 }
+
+/* Badge Styles */
+.item-badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-temp.badge-hot {
+  background-color: #ff6b6b;
+  color: white;
+  border: 1px solid #ff5252;
+}
+
+.badge-temp.badge-cold {
+  background-color: #4ecdc4;
+  color: white;
+  border: 1px solid #26a69a;
+}
+
+.badge-size {
+  background-color: #9c27b0;
+  color: white;
+  border: 1px solid #7b1fa2;
+}
+
+.badge-category {
+  background-color: #2196f3;
+  color: white;
+  border: 1px solid #1976d2;
+}
+
+/* Responsive badge styling */
+@media (max-width: 768px) {
+  .item-badges {
+    gap: 4px;
+  }
+  
+  .badge {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+}
     </style>
   </head>
   <body id="body">
@@ -87,7 +146,23 @@ $i=0;
 	echo '<div class="row">';
 	echo '<div class="col-xxxl-3 col-xl-4 col-lg-6 col-12">';
 	echo '<div class="box food-box"> <div class="box-body text-center"> <div class="menu-item"> <img src="assets/img/menu/' . $row["menu_id"] . '.png?" class="img-fluid w-p75 img_size" ></div>';
-	echo '<div class="menu-details text-center"> <h4 class="mt-40 mb-10">' . $row["name"] . '</h4> <p>' . $row["description"] . '</p> </div>';
+	echo '<div class="menu-details text-center"> <h4 class="mt-40 mb-10">' . $row["name"] . '</h4> <p>' . $row["description"] . '</p>';
+	
+	// Display temperature and size badges
+	echo '<div class="item-badges mb-15">';
+	if (!empty($row["temperature"])) {
+		$tempClass = ($row["temperature"] == 'hot') ? 'badge-hot' : 'badge-cold';
+		echo '<span class="badge badge-temp ' . $tempClass . '">' . ucfirst($row["temperature"]) . '</span>';
+	}
+	if (!empty($row["size"])) {
+		echo '<span class="badge badge-size">' . $row["size"] . '</span>';
+	}
+	if (!empty($row["category"])) {
+		echo '<span class="badge badge-category">' . ucfirst($row["category"]) . '</span>';
+	}
+	echo '</div>';
+	
+	echo '</div>';
 	echo '<div class="act-btn  justify-content-between"> <div class="text-center mx-5">';
 	echo '<a href="edit_menu.php?id='. $row["menu_id"]. '" class="waves-effect waves-circle btn btn-circle btn-danger-light btn-xs mb-5"><i class="fa fa-edit"></i></a>';
 	echo '&nbsp;<small class="d-block">Edit</small> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';

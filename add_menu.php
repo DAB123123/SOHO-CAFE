@@ -106,7 +106,7 @@ $(document).ready(function (e) {
                     <label class="fw-700 fs-16 form-label" id="price">Price</label>
               <div class="input-group">
                 <span class="input-group-addon">₱</span>
-                <input type="number" class="form-control" name="price" id="price" placeholder="Enter price" required value="<?php echo $row['price']; ?>">
+                <input type="number" class="form-control" name="price" id="price" placeholder="Enter price" required>
               </div>
                 </div>
                 <!--/span-->
@@ -123,7 +123,7 @@ $(document).ready(function (e) {
               </div>
 
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label class="fw-700 fs-16 form-label">Category</label>
                     <select class="form-control" name="category" id="category" required>
@@ -134,7 +134,7 @@ $(document).ready(function (e) {
                     </select>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label class="fw-700 fs-16 form-label">Temperature</label>
                     <select class="form-control" name="temperature" id="temperature">
@@ -142,7 +142,19 @@ $(document).ready(function (e) {
                       <option value="hot">Hot</option>
                       <option value="cold">Cold</option>
                     </select>
-                    <small class="form-text text-muted">Leave as "Not Applicable" for food items that don't have temperature options</small>
+                    <small class="form-text text-muted">For drinks only</small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="fw-700 fs-16 form-label">Size</label>
+                    <select class="form-control" name="size" id="size">
+                      <option value="">Not Applicable</option>
+                      <option value="S">Small (S)</option>
+                      <option value="M">Medium (M)</option>
+                      <option value="L">Large (L)</option>
+                    </select>
+                    <small class="form-text text-muted">For drinks only</small>
                   </div>
                 </div>
               </div>

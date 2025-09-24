@@ -90,7 +90,7 @@ $(document).ready(function (e) {
         <div class="col-12">
         <div class="box">
           <div class="box-body">
-          <form method="POST" id="submit" action="upload.php" enctype="multipart/form-data">
+          <form method="POST" id="submit" action="edit.php" enctype="multipart/form-data">
             <div class="form-body">
               <div class="row">
                 <div class="col-md-6">
@@ -118,6 +118,43 @@ $(document).ready(function (e) {
                   <div class="form-group">
                     <label class="fw-700 fs-16 form-label">Ingredients and Description</label>
                     <textarea class="form-control p-20" rows="4" id="description" name="description" maxlength="250" placeholder="Add Description" required><?php echo $row['description']; ?></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="fw-700 fs-16 form-label">Category</label>
+                    <select class="form-control" name="category" id="category" required>
+                      <option value="">Select Category</option>
+                      <option value="drinks" <?php echo ($row['category'] == 'drinks') ? 'selected' : ''; ?>>Drinks</option>
+                      <option value="food" <?php echo ($row['category'] == 'food') ? 'selected' : ''; ?>>Food</option>
+                      <option value="pastries" <?php echo ($row['category'] == 'pastries') ? 'selected' : ''; ?>>Pastries</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="fw-700 fs-16 form-label">Temperature</label>
+                    <select class="form-control" name="temperature" id="temperature">
+                      <option value="">Not Applicable</option>
+                      <option value="hot" <?php echo ($row['temperature'] == 'hot') ? 'selected' : ''; ?>>Hot</option>
+                      <option value="cold" <?php echo ($row['temperature'] == 'cold') ? 'selected' : ''; ?>>Cold</option>
+                    </select>
+                    <small class="form-text text-muted">For drinks only</small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="fw-700 fs-16 form-label">Size</label>
+                    <select class="form-control" name="size" id="size">
+                      <option value="">Not Applicable</option>
+                      <option value="S" <?php echo ($row['size'] == 'S') ? 'selected' : ''; ?>>Small (S)</option>
+                      <option value="M" <?php echo ($row['size'] == 'M') ? 'selected' : ''; ?>>Medium (M)</option>
+                      <option value="L" <?php echo ($row['size'] == 'L') ? 'selected' : ''; ?>>Large (L)</option>
+                    </select>
+                    <small class="form-text text-muted">For drinks only</small>
                   </div>
                 </div>
               </div>

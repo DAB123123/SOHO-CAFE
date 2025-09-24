@@ -44,6 +44,13 @@
               <p>Welcome to your admin dashboard</p>
             </div>
           </div>
+
+          <!-- NOTIFICATION AREA -->
+          <div id="notification-area" class="alert alert-info" style="display: none;">
+            <i class="fa fa-bell"></i> <span id="notification-message"></span>
+            <button type="button" class="btn-close" onclick="dismissNotification()"></button>
+          </div>
+
 <br>
           <!-- MAIN TITLE ENDS HERE -->
 
@@ -320,5 +327,37 @@ $conn->close();
 
     <script src="assets/js/script.js"></script>
     <script src="assets/js/chart_ad.js"></script>
+
+    <!-- Notification Polling Script -->
+    <script>
+    let lastNotificationId = 0;
+
+    function checkNotifications() {
+        fetch('get_notifications.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.new && data.id > lastNotificationId) {
+                    lastNotificationId = data.id;
+                    document.getElementById('notification-message').textContent = data.message;
+                    document.getElementById('notification-area').style.display = 'block';
+                    
+                    // Optional: Play a notification sound
+                    // const audio = new Audio('notification-sound.mp3');
+                    // audio.play();
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function dismissNotification() {
+        document.getElementById('notification-area').style.display = 'none';
+    }
+
+    // Check for notifications every 10 seconds
+    setInterval(checkNotifications, 10000);
+    
+    // Check immediately on page load
+    checkNotifications();
+    </script>
   </body>
 </html>

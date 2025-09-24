@@ -28,11 +28,7 @@ session_start();
 	<link rel="stylesheet" href="assets/css/style.css"> <!-- Resource style -->
 	<script src="assets/js/modernizr.js"></script>
 	<link rel="stylesheet" href="assets/css/theme.min.css">
-	
-	<style>
-
-    </style>
-
+	<link rel="stylesheet" href="assets/css/menu.css"> <!-- Menu specific styles -->
 
 <script type="text/javascript" src="assets/js/menuitem.php"></script>
 
@@ -84,6 +80,14 @@ session_start();
 						<button class="filter-btn" onclick="showCategory('pastries')">Pastries</button>
 						<button class="filter-btn" onclick="showCategory('food')">Food</button>
 					</div>
+
+					<!-- Size Filter Buttons (hidden by default) -->
+					<div class="size-filter" id="size-filter" style="display: none;">
+						<button class="size-btn active" onclick="showSize('all')">All Sizes</button>
+						<button class="size-btn" onclick="showSize('S')">Small</button>
+						<button class="size-btn" onclick="showSize('M')">Medium</button>
+						<button class="size-btn" onclick="showSize('L')">Large</button>
+					</div>
 				</div>
 			</div>
 
@@ -98,13 +102,18 @@ session_start();
 			$pastries = $conn->query("SELECT * FROM menu WHERE category = 'pastries' ORDER BY name");
 			$food = $conn->query("SELECT * FROM menu WHERE category = 'food' ORDER BY name");
 
-			function displayMenuItems($result, $show_temperature = false) {
+			function displayMenuItems($result, $show_temperature = false, $show_size = false) {
 				if ($result->num_rows > 0) {
 					while($row = $result->fetch_assoc()) {
-						echo '<div class="col-md-6 section_menu__grid__item">';
-						echo '<div class="section_menu__item"><div class="row"><div class="col-3 align-self-center"><div class="section_menu__item__img">';
-						echo '<img src="assets/img/menu/' . $row["menu_id"] . '.png" alt="not found">';
-						echo '</div></div><div class="col-6"><h4 class="1">' . $row["name"];
+						$size_attr = !empty($row["size"]) ? ' data-size="' . $row["size"] . '"' : '';
+						echo '<div class="menu-item"' . $size_attr . '>';
+						echo '<div class="menu-item-content">';
+						echo '<div class="menu-item-row">';
+						echo '<div class="menu-item-image">';
+						echo '<img src="assets/img/menu/' . $row["menu_id"] . '.png" alt="' . htmlspecialchars($row["name"]) . '">';
+						echo '</div>';
+						echo '<div class="menu-item-details">';
+						echo '<h4>' . htmlspecialchars($row["name"]);
 						
 						// Add temperature badge for drinks
 						if ($show_temperature && !empty($row["temperature"])) {
@@ -112,37 +121,49 @@ session_start();
 							echo '<span class="temperature-badge ' . $badge_class . '">' . strtoupper($row["temperature"]) . '</span>';
 						}
 						
-						echo '</h4><p>' . $row["description"] . '</p></div>';
-						echo '<div class="col-3"><div class="section_menu__item__price text-center"><p class="1">₱' . $row["price"] .'</p><br></div>';
-						echo '<div class="cd-single-item" style="position:absolute;bottom:0"><a href="#0"><ul class="cd-slider-wrapper" style="margin-bottom:0"><li class="selected"><button style="padding:7px 9px; font-size:small" class="add-to-cart btn btn-outline-primary button">ADD TO CART</button></li></ul></a><div class="cd-customization" style="padding:0px;">';	
-                        echo '<button class="add-to-cart" style="width:100%;font-size:small;margin-bottom:0" onclick="addtolocal('. $row["menu_id"] . ')">';
-                        echo '<em>Add to Cart</em><svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32"><path stroke-dasharray="19.79 19.79" stroke-dashoffset="19.79" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/></svg></button></div><button class="cd-customization-trigger">Customize</button></div>';
-                        echo '</div></div></div></div><br>';
-                    }
-                }
-            }
+						// Add size badge for drinks
+						if ($show_size && !empty($row["size"])) {
+							$size_class = 'size-' . strtolower($row["size"]) . '-badge';
+							echo '<span class="size-badge ' . $size_class . '">' . $row["size"] . '</span>';
+						}
+						
+						echo '</h4>';
+						echo '<p>' . htmlspecialchars($row["description"]) . '</p>';
+						echo '</div>';
+						echo '</div>';
+						echo '<div class="menu-item-price">';
+						echo '<p>₱' . number_format($row["price"], 0) .'</p>';
+						echo '<div class="menu-item-actions">';
+						echo '<button class="add-to-cart btn btn-outline-primary" onclick="addToCartWithNotification('. $row["menu_id"] . ', \'' . addslashes($row["name"]) . '\', this)">ADD TO CART</button>';
+						echo '</div>';
+						echo '</div>';
+						echo '</div>';
+						echo '</div>';
+					}
+				}
+			}
             ?>
 
             <!-- Hot Drinks Section -->
             <div class="menu-section" id="hot-drinks-section">
                 <h3 class="section-title">Hot Drinks</h3>
-                <div class="row section_menu__grid">
-                    <?php displayMenuItems($hot_drinks, true); ?>
+                <div class="menu-grid-container">
+                    <?php displayMenuItems($hot_drinks, true, true); ?>
                 </div>
             </div>
 
             <!-- Cold Drinks Section -->
             <div class="menu-section" id="cold-drinks-section">
                 <h3 class="section-title">Cold Drinks</h3>
-                <div class="row section_menu__grid">
-                    <?php displayMenuItems($cold_drinks, true); ?>
+                <div class="menu-grid-container">
+                    <?php displayMenuItems($cold_drinks, true, true); ?>
                 </div>
             </div>
 
             <!-- Pastries Section -->
             <div class="menu-section" id="pastries-section">
                 <h3 class="section-title">Pastries</h3>
-                <div class="row section_menu__grid">
+                <div class="menu-grid-container">
                     <?php displayMenuItems($pastries); ?>
                 </div>
             </div>
@@ -150,7 +171,7 @@ session_start();
             <!-- Food Section -->
             <div class="menu-section" id="food-section">
                 <h3 class="section-title">Food</h3>
-                <div class="row section_menu__grid">
+                <div class="menu-grid-container">
                     <?php displayMenuItems($food); ?>
                 </div>
             </div>
@@ -359,6 +380,30 @@ session_start();
   <script src="assets/js/main.js"></script>
 
   <script>
+        function showSize(size) {
+            // Remove active class from all size buttons
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            if (event && event.target) {
+                event.target.classList.add('active');
+            } else {
+                // If no event, find the button by size
+                const btn = document.querySelector(`.size-btn[onclick*="${size}"]`);
+                if (btn) btn.classList.add('active');
+            }
+            
+            // Filter items based on size
+            document.querySelectorAll('.menu-item').forEach(item => {
+                const itemSize = item.getAttribute('data-size');
+                if (size === 'all' || itemSize === size) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
         function showCategory(category) {
             // Remove active class from all buttons
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
@@ -376,18 +421,165 @@ session_start();
                 document.querySelectorAll('.menu-section').forEach(section => {
                     section.style.display = 'block';
                 });
+                // Hide size filter
+                document.getElementById('size-filter').style.display = 'none';
+                // Show all items
+                document.querySelectorAll('.menu-item').forEach(item => {
+                    item.style.display = 'block';
+                });
             } else if (category === 'drinks') {
                 document.getElementById('hot-drinks-section').style.display = 'block';
                 document.getElementById('cold-drinks-section').style.display = 'block';
+                // Show size filter
+                document.getElementById('size-filter').style.display = 'block';
+                // Reset size filter to all
+                showSize('all');
             } else if (category === 'hot') {
                 document.getElementById('hot-drinks-section').style.display = 'block';
+                // Show size filter
+                document.getElementById('size-filter').style.display = 'block';
+                // Reset size filter to all
+                showSize('all');
             } else if (category === 'cold') {
                 document.getElementById('cold-drinks-section').style.display = 'block';
+                // Show size filter
+                document.getElementById('size-filter').style.display = 'block';
+                // Reset size filter to all
+                showSize('all');
             } else if (category === 'pastries') {
                 document.getElementById('pastries-section').style.display = 'block';
+                // Hide size filter
+                document.getElementById('size-filter').style.display = 'none';
             } else if (category === 'food') {
                 document.getElementById('food-section').style.display = 'block';
+                // Hide size filter
+                document.getElementById('size-filter').style.display = 'none';
             }
+        }
+    </script>
+
+    <script>
+        // Cart notification system
+        function showCartNotification(type, title, message) {
+            // Remove any existing notifications
+            const existingNotification = document.querySelector('.cart-notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `cart-notification ${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <div class="notification-icon">
+                        ${type === 'success' ? '✓' : type === 'warning' ? '⚠' : 'ℹ'}
+                    </div>
+                    <div class="notification-text">
+                        <div class="notification-title">${title}</div>
+                        <div class="notification-message">${message}</div>
+                    </div>
+                    <button class="close-btn" onclick="hideCartNotification(this)">&times;</button>
+                </div>
+            `;
+
+            // Add to page
+            document.body.appendChild(notification);
+
+            // Show notification with animation
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+
+            // Auto-hide after 4 seconds
+            setTimeout(() => {
+                hideCartNotification(notification);
+            }, 4000);
+        }
+
+        function hideCartNotification(element) {
+            const notification = element.closest ? element.closest('.cart-notification') : element;
+            if (notification) {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 400);
+            }
+        }
+
+        // Enhanced addtolocal function with notifications
+        function addToCartWithNotification(menuId, itemName, buttonElement) {
+            // Get button element if not passed
+            if (!buttonElement) {
+                buttonElement = event.target;
+            }
+
+            // Add loading state
+            buttonElement.classList.add('loading');
+            const originalText = buttonElement.textContent;
+
+            // Get the current user cart
+            let user = {};
+            if (localStorage.getItem("user") != null) {
+                user = JSON.parse(localStorage.getItem("user"));
+            }
+
+            if (!(user.hasOwnProperty(userid))) {
+                if ((user.hasOwnProperty(0))) {
+                    user[userid] = user[0];
+                    delete user[0];
+                    localStorage.setItem("user", JSON.stringify(user));
+                } else {
+                    user[userid] = [];
+                }
+            }
+
+            // Simulate a brief delay for better UX
+            setTimeout(() => {
+                // Check if item already exists
+                if (user[userid].indexOf(menuId) !== -1) {
+                    showCartNotification('warning', 'Already in Cart', `${itemName} is already in your cart.`);
+                    
+                    // Remove loading state
+                    buttonElement.classList.remove('loading');
+                    return false;
+                }
+
+                // Add item to cart (same logic as original addtolocal)
+                const n = user[userid].length;
+                const key = menuId;
+                let i;
+                for (i = n - 1; (i >= 0 && user[userid][i] > key); i--) {
+                    user[userid][i + 1] = user[userid][i];
+                }
+                user[userid][i + 1] = key;
+
+                // Update localStorage
+                localStorage.setItem("user", JSON.stringify(user));
+
+                // Remove loading state
+                buttonElement.classList.remove('loading');
+
+                // Brief success animation
+                buttonElement.style.background = '#28a745';
+                buttonElement.style.color = 'white';
+                buttonElement.textContent = 'Added!';
+
+                // Reset button after animation
+                setTimeout(() => {
+                    buttonElement.style.background = '';
+                    buttonElement.style.color = '';
+                    buttonElement.textContent = originalText;
+                }, 1500);
+
+                // Show success notification
+                showCartNotification('success', 'Added to Cart', `${itemName} has been added to your cart!`);
+
+                console.log(user);
+                return true;
+            }, 300); // Small delay for better perceived performance
         }
     </script>
 

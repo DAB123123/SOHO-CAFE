@@ -169,6 +169,294 @@ body {
   padding: 7px;
 }
 
+/* Floating Notification Button Styles */
+.floating-notification-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.floating-notification-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+.floating-notification-btn a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: #3ea175;
+  color: white;
+  text-decoration: none;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.floating-notification-btn a:hover {
+  background: #2d7a5a;
+  color: white;
+}
+
+.floating-notification-btn i {
+  font-size: 24px;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #dc3545;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  min-width: 18px;
+  text-align: center;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile responsiveness for floating button */
+@media only screen and (max-width: 768px) {
+  .floating-notification-btn {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .floating-notification-btn a {
+    width: 50px;
+    height: 50px;
+  }
+
+  .floating-notification-btn i {
+    font-size: 20px;
+  }
+}
+
+/* Notification Panel Styles */
+.notification-panel {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 350px;
+  max-height: 500px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  border: 1px solid #e1e5e9;
+  overflow: hidden;
+}
+
+.notification-panel.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #3ea175;
+  color: white;
+  border-bottom: 1px solid #e1e5e9;
+}
+
+.notification-header h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.notification-content {
+  max-height: 350px;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f2f5;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.order-item:hover {
+  background: #f8f9fa;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.order-info {
+  flex: 1;
+}
+
+.order-id {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.customer-name {
+  color: #6c757d;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+
+.order-time {
+  color: #adb5bd;
+  font-size: 12px;
+}
+
+.order-status {
+  text-align: right;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.status-in-progress {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-otw {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.status-delivered {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-cancelled {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status-default {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.order-amount {
+  font-weight: 600;
+  color: #3ea175;
+  font-size: 14px;
+}
+
+.notification-footer {
+  padding: 16px 20px;
+  background: #f8f9fa;
+  border-top: 1px solid #e1e5e9;
+  text-align: center;
+}
+
+.view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #3ea175;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.view-all-btn:hover {
+  background: #e8f5e8;
+  color: #2d7a5a;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6c757d;
+}
+
+.loading-spinner i {
+  margin-right: 8px;
+}
+
+.no-orders,
+.error {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6c757d;
+  line-height: 1.5;
+}
+
+.no-orders i {
+  font-size: 32px;
+  color: #3ea175;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.no-orders small {
+  color: #adb5bd;
+  font-size: 12px;
+}
+
+.error {
+  color: #dc3545;
+}
+
+/* Mobile responsiveness for notification panel */
+@media only screen and (max-width: 768px) {
+  .notification-panel {
+    right: 20px;
+    bottom: 80px;
+    width: calc(100vw - 40px);
+    max-width: 350px;
+  }
+}
+
 main {
   background: #f3f4f6;
   grid-area: main;
@@ -526,6 +814,11 @@ main {
   /* Hide desktop logout button on mobile */
   .navbar__right .desktop-logout {
     display: none;
+  }
+
+  /* Mobile notification button styles */
+  .notification-btn {
+    margin-left: 15px;
   }
 
   /* Mobile dropdown menu styles - positioned on the right side */
@@ -1255,6 +1548,66 @@ html {
     .table-responsive td:last-child {
       border-bottom: 0;
     }
+  }
+}
+
+/* Menu Item Badges */
+.temperature-badge,
+.size-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 6px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.5px;
+}
+
+.hot-badge {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  box-shadow: 0 2px 6px rgba(220, 53, 69, 0.4);
+}
+
+.cold-badge {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.4);
+}
+
+.size-badge {
+  color: white;
+  animation: pulse 2s infinite;
+}
+
+/* Different colors for each size */
+.size-s-badge {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  box-shadow: 0 2px 6px rgba(255, 107, 107, 0.4);
+}
+
+.size-m-badge {
+  background: linear-gradient(135deg, #4ecdc4, #45b7b8);
+  box-shadow: 0 2px 6px rgba(78, 205, 196, 0.4);
+}
+
+.size-l-badge {
+  background: linear-gradient(135deg, #ffa726, #ff9800);
+  box-shadow: 0 2px 6px rgba(255, 167, 38, 0.4);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 

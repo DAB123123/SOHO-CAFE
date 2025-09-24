@@ -126,9 +126,25 @@ if ($result->num_rows > 0) {
 	echo '<td class="product-thumbnail"><a>';
 	echo '<img src="assets/img/menu/'. $row["menu_id"] . '.png" alt="img" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image"> </a> </td>';
 	echo '<td class="product-name" data-title="Product">';
-	echo '<a  class="title" id="dish'. $row["menu_id"] .'">'. $row["name"] .'</a>';
-	echo '<span class="attributes-select attributes-size">'. $row["description"] .'</span> </td>';
-	echo '</td> <td class="product-quantity" data-title="Quantity"> <div class="quantity"> <div class="control">';
+	echo '<div class="product-title-container">';
+	echo '<a class="title" id="dish'. $row["menu_id"] .'">'. htmlspecialchars($row["name"]) .'</a>';
+	
+	// Add temperature badge
+	if (!empty($row["temperature"])) {
+		$badge_class = $row["temperature"] == 'hot' ? 'hot-badge' : 'cold-badge';
+		echo '<span class="temperature-badge ' . $badge_class . '">' . strtoupper($row["temperature"]) . '</span>';
+	}
+	
+	// Add size badge
+	if (!empty($row["size"])) {
+		$size_class = 'size-' . strtolower($row["size"]) . '-badge';
+		echo '<span class="size-badge ' . $size_class . '">' . $row["size"] . '</span>';
+	}
+	
+	echo '</div>';
+	echo '<span class="attributes-select attributes-size">'. htmlspecialchars($row["description"]) .'</span>';
+	echo '</td>';
+	echo '<td class="product-quantity" data-title="Quantity"> <div class="quantity"> <div class="control">';
 	echo '<a class="btn-number qtyminus quantity-minus" onclick="decreasePrice('. $row["price"] .',' .$row["menu_id"]. ')" >-</a>';
 	echo '<input type="text" data-step="1" data-min="0" value="1" id="'. $row["menu_id"] .'" title="Qty" class="input-qty qty" size="4">';
 	echo '<a class="btn-number qtyplus quantity-plus" onclick="increasePrice('. $row["price"] .',' .$row["menu_id"]. ')">+</a>';

@@ -11485,3 +11485,95 @@ body.cart-page {
         margin-right: 0 !important;
     }
 }
+
+/* Temperature and size badges for cart */
+.temperature-badge, .size-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-left: 8px;
+    margin-right: 4px;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.hot-badge {
+    background: #ff6b35;
+    color: white;
+    box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
+}
+
+.cold-badge {
+    background: #4a90e2;
+    color: white;
+    box-shadow: 0 2px 4px rgba(74, 144, 226, 0.3);
+}
+
+.size-s-badge {
+    background: #28a745;
+    color: white;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+}
+
+.size-m-badge {
+    background: #ffc107;
+    color: black;
+    box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3);
+}
+
+.size-l-badge {
+    background: #dc3545;
+    color: white;
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+}
+
+/* Cart specific badge adjustments */
+.product-title-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+}
+
+.product-name .title {
+    font-weight: 600;
+    color: #333;
+    text-decoration: none;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.product-name .title:hover {
+    color: #f5a637;
+    text-decoration: none;
+}
+
+.product-name .attributes-select {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .temperature-badge, .size-badge {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+        margin-left: 4px;
+        margin-right: 2px;
+    }
+    
+    .product-title-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .product-name .title {
+        margin-right: 0;
+        margin-bottom: 4px;
+    }
+}

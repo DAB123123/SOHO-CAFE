@@ -61,9 +61,84 @@ if (isset($_POST['order_id'])) {
         // Order Description Section
         if (!empty($order_row['description'])) {
             echo '<div class="mb-3">';
-            echo '<h6 class="mb-3"><strong>Order Description</strong></h6>';
+            echo '<h6 class="mb-3"><strong>Order Items</strong></h6>';
             echo '<div class="border-start border-3 border-primary ps-3">';
-            echo '<p class="mb-0">' . nl2br(htmlspecialchars($order_row['description'])) . '</p>';
+            
+            // Parse the description to extract individual items
+            $description = trim($order_row['description'], ',');
+            $items = explode(',', $description);
+            
+            if (!empty($items)) {
+                echo '<div class="table-responsive">';
+                echo '<table class="table table-hover table-sm">';
+                echo '<thead class="table-light">';
+                echo '<tr>';
+                echo '<th>Item</th>';
+                echo '<th>Details</th>';
+                echo '<th>Qty</th>';
+                echo '<th>Price</th>';
+                echo '<th>Subtotal</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
+                
+                $total_calculated = 0;
+                
+                foreach ($items as $item) {
+                    if (!empty(trim($item))) {
+                        $parts = explode('-', $item);
+                        if (count($parts) >= 3) {
+                            $quantity = trim($parts[0]);
+                            $dish_name = trim($parts[1]);
+                            $dish_price = floatval(trim($parts[2]));
+                            $subtotal = $quantity * $dish_price;
+                            $total_calculated += $subtotal;
+                            
+                            // Get menu item details (temperature and size)
+                            $menu_sql = "SELECT temperature, size FROM menu WHERE name = '" . mysqli_real_escape_string($conn, $dish_name) . "'";
+                            $menu_result = mysqli_query($conn, $menu_sql);
+                            $menu_data = mysqli_fetch_array($menu_result);
+                            
+                            echo '<tr>';
+                            echo '<td>';
+                            echo '<strong>' . htmlspecialchars($dish_name) . '</strong>';
+                            echo '</td>';
+                            echo '<td>';
+                            
+                            // Add temperature badge
+                            if ($menu_data && !empty($menu_data['temperature'])) {
+                                $temp_class = $menu_data['temperature'] == 'hot' ? 'hot-badge' : 'cold-badge';
+                                echo '<span class="temperature-badge ' . $temp_class . '">' . strtoupper($menu_data['temperature']) . '</span>';
+                            }
+                            
+                            // Add size badge
+                            if ($menu_data && !empty($menu_data['size'])) {
+                                $size_class = 'size-' . strtolower($menu_data['size']) . '-badge';
+                                echo '<span class="size-badge ' . $size_class . '">' . $menu_data['size'] . '</span>';
+                            }
+                            
+                            echo '</td>';
+                            echo '<td><span class="badge bg-secondary">' . $quantity . '</span></td>';
+                            echo '<td>₱' . number_format($dish_price, 2) . '</td>';
+                            echo '<td><strong>₱' . number_format($subtotal, 2) . '</strong></td>';
+                            echo '</tr>';
+                        }
+                    }
+                }
+                
+                echo '</tbody>';
+                echo '<tfoot class="table-light">';
+                echo '<tr>';
+                echo '<td colspan="4" class="text-end"><strong>Total Amount:</strong></td>';
+                echo '<td><strong class="text-success">₱' . number_format($total_calculated, 2) . '</strong></td>';
+                echo '</tr>';
+                echo '</tfoot>';
+                echo '</table>';
+                echo '</div>';
+            } else {
+                echo '<p class="mb-0 text-muted">No items found in order description.</p>';
+            }
+            
             echo '</div>';
             echo '</div>';
         }
