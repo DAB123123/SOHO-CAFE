@@ -145,18 +145,7 @@ $(document).ready(function (e) {
                     <small class="form-text text-muted">For drinks only</small>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label class="fw-700 fs-16 form-label">Size</label>
-                    <select class="form-control" name="size" id="size">
-                      <option value="">Not Applicable</option>
-                      <option value="S">Small (S)</option>
-                      <option value="M">Medium (M)</option>
-                      <option value="L">Large (L)</option>
-                    </select>
-                    <small class="form-text text-muted">For drinks only</small>
-                  </div>
-                </div>
+
               </div>
 
               <div class="row">

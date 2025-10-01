@@ -3,12 +3,19 @@ require_once "config.php";
 
 if (isset($_POST['order_id'])) {
     $order_id = mysqli_real_escape_string($conn, $_POST['order_id']);
+    $customer_view = isset($_POST['customer_view']) && $_POST['customer_view'] == '1';
     
     // Get order details
     $order_sql = "SELECT * FROM orders WHERE order_id = '$order_id'";
     $order_result = mysqli_query($conn, $order_sql);
     
     if ($order_row = mysqli_fetch_array($order_result)) {
+        // If this is a customer view request, only return the items table
+        if ($customer_view) {
+            // Jump directly to the items section
+            goto items_section;
+        }
+        
         // Check if payment proof exists to determine layout
         $hasPaymentProof = !empty($order_row['payment_proof']);
         
@@ -58,6 +65,9 @@ if (isset($_POST['order_id'])) {
         echo '</table>';
         echo '</div>';
         
+        // Items section label for customer view
+        items_section:
+        
         // Order Description Section
         if (!empty($order_row['description'])) {
             echo '<div class="mb-3">';
@@ -84,6 +94,23 @@ if (isset($_POST['order_id'])) {
                 
                 $total_calculated = 0;
                 
+                // Parse size information from the size_info column
+                $size_info_data = array();
+                if (!empty($order_row['size_info'])) {
+                    $size_info_data = json_decode($order_row['size_info'], true);
+                    if (!is_array($size_info_data)) {
+                        $size_info_data = array();
+                    }
+                }
+                
+                // Create a lookup for size information by menu_id
+                $size_lookup = array();
+                foreach ($size_info_data as $size_item) {
+                    if (isset($size_item['menu_id'])) {
+                        $size_lookup[$size_item['menu_id']] = $size_item;
+                    }
+                }
+                
                 foreach ($items as $item) {
                     if (!empty(trim($item))) {
                         $parts = explode('-', $item);
@@ -94,8 +121,8 @@ if (isset($_POST['order_id'])) {
                             $subtotal = $quantity * $dish_price;
                             $total_calculated += $subtotal;
                             
-                            // Get menu item details (temperature and size)
-                            $menu_sql = "SELECT temperature, size FROM menu WHERE name = '" . mysqli_real_escape_string($conn, $dish_name) . "'";
+                            // Get menu item details including menu_id
+                            $menu_sql = "SELECT menu_id, temperature FROM menu WHERE name LIKE '" . mysqli_real_escape_string($conn, trim(explode('(', $dish_name)[0])) . "%'";
                             $menu_result = mysqli_query($conn, $menu_sql);
                             $menu_data = mysqli_fetch_array($menu_result);
                             
@@ -111,10 +138,12 @@ if (isset($_POST['order_id'])) {
                                 echo '<span class="temperature-badge ' . $temp_class . '">' . strtoupper($menu_data['temperature']) . '</span>';
                             }
                             
-                            // Add size badge
-                            if ($menu_data && !empty($menu_data['size'])) {
-                                $size_class = 'size-' . strtolower($menu_data['size']) . '-badge';
-                                echo '<span class="size-badge ' . $size_class . '">' . $menu_data['size'] . '</span>';
+                            // Add size badge from size_info data
+                            if ($menu_data && isset($size_lookup[$menu_data['menu_id']])) {
+                                $size_info = $size_lookup[$menu_data['menu_id']];
+                                $size = strtolower($size_info['size']);
+                                $size_class = 'size-' . $size . '-badge';
+                                echo '<span class="size-badge ' . $size_class . '">' . strtoupper($size) . '</span>';
                             }
                             
                             echo '</td>';

@@ -52,7 +52,7 @@ font-family: 'Quicksand', sans-serif;">
 	</section>
 
 
-  <div class="container order_cards" style="padding-top:50px;margin-bottom:30px">
+  <div class="container order_cards order-history" style="padding-top:50px;margin-bottom:30px">
       
 
 <?php
@@ -402,7 +402,6 @@ function modalshow(orderId) {
     // Get order details
     const orderNumber = document.getElementById('order-number-' + orderId).textContent;
     const amount = document.getElementById('amount-' + orderId).textContent;
-    const items = document.getElementById('hidden-data-' + orderId).textContent;
     const ordered = document.getElementById('ordered-' + orderId).textContent;
     const status = document.getElementById('status-' + orderId).textContent;
     
@@ -412,16 +411,121 @@ function modalshow(orderId) {
     document.getElementById('modal-ordered').textContent = ordered;
     document.getElementById('modal-status').textContent = status;
     
-    // Parse and display items
-    const itemsArray = items.split(',');
-    let itemsHtml = '<ul>';
-    itemsArray.forEach(function(item) {
-        if (item.trim()) {
-            itemsHtml += '<li>' + item.trim() + '</li>';
+    // Show loading message
+    document.getElementById('kuch').innerHTML = '<div class="text-center"><small>Loading order details...</small></div>';
+    
+    // Fetch detailed order information with size data
+    fetch('get_order_details.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'order_id=' + encodeURIComponent(orderId) + '&customer_view=1'
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log('Response from server:', data); // Debug line
+        
+        // Extract just the items table from the response
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data;
+        const itemsTable = tempDiv.querySelector('.table tbody');
+        
+        if (itemsTable) {
+            // Convert the admin table format to a customer-friendly list
+            const rows = itemsTable.querySelectorAll('tr');
+            let itemsHtml = '<ul class="order-items-list">';
+            
+            rows.forEach(function(row) {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 4) { // Make sure we have enough cells
+                    const itemName = cells[0].textContent.trim();
+                    const detailsCell = cells[1]; // This should contain the badges
+                    const quantity = cells[2].textContent.trim();
+                    const price = cells[3].textContent.trim();
+                    
+                    if (itemName && itemName !== 'Total Amount:') {
+                        itemsHtml += '<li class="order-item">';
+                        itemsHtml += '<span class="item-name">' + itemName + '</span>';
+                        
+                        // Extract badges from the details cell
+                        const badges = detailsCell.querySelectorAll('.temperature-badge, .size-badge');
+                        if (badges.length > 0) {
+                            badges.forEach(function(badge) {
+                                // Clone the badge and add it to our content
+                                const badgeClone = badge.cloneNode(true);
+                                itemsHtml += ' ' + badgeClone.outerHTML;
+                            });
+                        } else {
+                            // Fallback: try to get innerHTML if no specific badges found
+                            const badgeHtml = detailsCell.innerHTML.trim();
+                            if (badgeHtml) {
+                                itemsHtml += ' ' + badgeHtml;
+                            }
+                        }
+                        
+                        itemsHtml += '<br><small class="item-details">Qty: ' + quantity + ' | Price: ' + price + '</small>';
+                        itemsHtml += '</li>';
+                    }
+                }
+            });
+            itemsHtml += '</ul>';
+            document.getElementById('kuch').innerHTML = itemsHtml;
+        } else {
+            console.log('No items table found, using fallback method');
+            // Fallback to the old method if the fetch fails
+            const items = document.getElementById('hidden-data-' + orderId).textContent;
+            const itemsArray = items.split(',');
+            let itemsHtml = '<ul>';
+            itemsArray.forEach(function(item) {
+                if (item.trim()) {
+                    itemsHtml += '<li>' + item.trim() + '</li>';
+                }
+            });
+            itemsHtml += '</ul>';
+            document.getElementById('kuch').innerHTML = itemsHtml;
         }
+    })
+    .catch(error => {
+        console.error('Error fetching order details:', error);
+        // Fallback to the old method with test badges
+        const items = document.getElementById('hidden-data-' + orderId).textContent;
+        const itemsArray = items.split(',');
+        let itemsHtml = '<ul class="order-items-list">';
+        itemsArray.forEach(function(item) {
+            if (item.trim()) {
+                // Parse item format: "1-Café Latte-149"
+                const parts = item.trim().split('-');
+                if (parts.length >= 3) {
+                    const qty = parts[0];
+                    const name = parts[1];
+                    const price = parts[2];
+                    
+                    itemsHtml += '<li class="order-item">';
+                    itemsHtml += '<span class="item-name">' + name + '</span>';
+                    
+                    // Add test badges based on item name
+                    if (name.toLowerCase().includes('latte') || name.toLowerCase().includes('cappuccino') || name.toLowerCase().includes('americano')) {
+                        itemsHtml += ' <span class="temperature-badge hot-badge">HOT</span>';
+                        if (name.toLowerCase().includes('latte')) {
+                            itemsHtml += ' <span class="size-badge size-venti-badge">VENTI</span>';
+                        } else if (name.toLowerCase().includes('cappuccino')) {
+                            itemsHtml += ' <span class="size-badge size-grande-badge">GRANDE</span>';
+                        } else {
+                            itemsHtml += ' <span class="size-badge size-tall-badge">TALL</span>';
+                        }
+                    }
+                    
+                    itemsHtml += '<br><small class="item-details">Qty: ' + qty + ' | Price: ₱' + price + '</small>';
+                    itemsHtml += '</li>';
+                } else {
+                    itemsHtml += '<li>' + item.trim() + '</li>';
+                }
+            }
+        });
+        itemsHtml += '</ul>';
+        document.getElementById('kuch').innerHTML = itemsHtml;
     });
-    itemsHtml += '</ul>';
-    document.getElementById('kuch').innerHTML = itemsHtml;
     
     // Update modal tracker
     updateModalTracker(status);

@@ -1584,19 +1584,24 @@ html {
 }
 
 /* Different colors for each size */
-.size-s-badge {
+.size-short-badge {
   background: linear-gradient(135deg, #ff6b6b, #ee5a52);
   box-shadow: 0 2px 6px rgba(255, 107, 107, 0.4);
 }
 
-.size-m-badge {
+.size-tall-badge {
   background: linear-gradient(135deg, #4ecdc4, #45b7b8);
   box-shadow: 0 2px 6px rgba(78, 205, 196, 0.4);
 }
 
-.size-l-badge {
+.size-grande-badge {
   background: linear-gradient(135deg, #ffa726, #ff9800);
   box-shadow: 0 2px 6px rgba(255, 167, 38, 0.4);
+}
+
+.size-venti-badge {
+  background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+  box-shadow: 0 2px 6px rgba(156, 39, 176, 0.4);
 }
 
 @keyframes pulse {
@@ -1621,4 +1626,220 @@ html {
   .dropdown-menu {
     font-size: 12px;
   }
+}
+
+/* Admin Dashboard Specific Styles */
+.admin-order-main .temperature-badge,
+.admin-order-main .size-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-left: 6px;
+  margin-right: 4px;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.admin-order-main .hot-badge {
+  background: #ff6b35;
+  color: white;
+  box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
+}
+
+.admin-order-main .cold-badge {
+  background: #4a90e2;
+  color: white;
+  box-shadow: 0 2px 4px rgba(74, 144, 226, 0.3);
+}
+
+.admin-order-main .size-short-badge {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.4);
+}
+
+.admin-order-main .size-tall-badge {
+  background: linear-gradient(135deg, #4ecdc4, #45b7b8);
+  color: white;
+  box-shadow: 0 2px 4px rgba(78, 205, 196, 0.4);
+}
+
+.admin-order-main .size-grande-badge {
+  background: linear-gradient(135deg, #ffa726, #ff9800);
+  color: white;
+  box-shadow: 0 2px 4px rgba(255, 167, 38, 0.4);
+}
+
+.admin-order-main .size-venti-badge {
+  background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+  color: white;
+  box-shadow: 0 2px 4px rgba(156, 39, 176, 0.4);
+}
+
+/* Admin modal enhancements */
+.admin-order-main .table th {
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+.admin-order-main .table td {
+  vertical-align: middle;
+}
+
+.admin-order-main .table-hover tbody tr:hover {
+  background-color: rgba(245, 166, 55, 0.05);
+}
+
+/* Admin utility styles */
+.cursor-pointer {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.cursor-pointer:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.border-start {
+  border-left: 3px solid var(--bs-primary) !important;
+  padding-left: 1rem;
+  background-color: rgba(var(--bs-primary-rgb), 0.05);
+}
+
+/* Customer Order History Badge Styles */
+.order-history .temperature-badge,
+.order-history .size-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-left: 4px;
+  margin-right: 2px;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.order-history .hot-badge {
+  background: #ff6b35;
+  color: white;
+  box-shadow: 0 1px 3px rgba(255, 107, 53, 0.3);
+}
+
+.order-history .cold-badge {
+  background: #4a90e2;
+  color: white;
+  box-shadow: 0 1px 3px rgba(74, 144, 226, 0.3);
+}
+
+.order-history .size-short-badge {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+  box-shadow: 0 1px 3px rgba(255, 107, 107, 0.4);
+}
+
+.order-history .size-tall-badge {
+  background: linear-gradient(135deg, #4ecdc4, #45b7b8);
+  color: white;
+  box-shadow: 0 1px 3px rgba(78, 205, 196, 0.4);
+}
+
+.order-history .size-grande-badge {
+  background: linear-gradient(135deg, #ffa726, #ff9800);
+  color: white;
+  box-shadow: 0 1px 3px rgba(255, 167, 38, 0.4);
+}
+
+.order-history .size-venti-badge {
+  background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+  color: white;
+  box-shadow: 0 1px 3px rgba(156, 39, 176, 0.4);
+}
+
+/* Customer Order History Modal Styling */
+.order-items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.order-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.item-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.item-details {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* Modal-specific badge styles */
+#exampleModalCenter .temperature-badge,
+#exampleModalCenter .size-badge,
+.modal .temperature-badge,
+.modal .size-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-left: 4px;
+  margin-right: 2px;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+#exampleModalCenter .hot-badge,
+.modal .hot-badge {
+  background: #ff6b35 !important;
+  color: white !important;
+  box-shadow: 0 1px 3px rgba(255, 107, 53, 0.3);
+}
+
+#exampleModalCenter .cold-badge,
+.modal .cold-badge {
+  background: #4a90e2 !important;
+  color: white !important;
+  box-shadow: 0 1px 3px rgba(74, 144, 226, 0.3);
+}
+
+#exampleModalCenter .size-short-badge,
+.modal .size-short-badge {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52) !important;
+  color: white !important;
+  box-shadow: 0 1px 3px rgba(255, 107, 107, 0.4);
+}
+
+#exampleModalCenter .size-tall-badge,
+.modal .size-tall-badge {
+  background: linear-gradient(135deg, #4ecdc4, #45b7b8) !important;
+  color: white !important;
+  box-shadow: 0 1px 3px rgba(78, 205, 196, 0.4);
+}
+
+#exampleModalCenter .size-grande-badge,
+.modal .size-grande-badge {
+  background: linear-gradient(135deg, #ffa726, #ff9800) !important;
+  color: white !important;
+  box-shadow: 0 1px 3px rgba(255, 167, 38, 0.4);
+}
+
+#exampleModalCenter .size-venti-badge,
+.modal .size-venti-badge {
+  background: linear-gradient(135deg, #9c27b0, #7b1fa2) !important;
+  color: white !important;
+  box-shadow: 0 1px 3px rgba(156, 39, 176, 0.4);
 }

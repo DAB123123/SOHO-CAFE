@@ -8,6 +8,7 @@ $status="in_progress";
 $addr=mysqli_real_escape_string($conn, $_POST['addr']);
 $amount=mysqli_real_escape_string($conn, $_POST['amount']);
 $id=mysqli_real_escape_string($conn, $_POST['id']);
+$size_info = isset($_POST['size_info']) ? mysqli_real_escape_string($conn, $_POST['size_info']) : NULL;
 
 // Handle payment proof upload
 $payment_proof = null;
@@ -33,7 +34,7 @@ if (isset($_FILES['payment_proof']) && $_FILES['payment_proof']['error'] == 0) {
     }
 }
 
-$sql = "INSERT INTO orders (id,name, description, status ,address,amount,payment_proof) VALUES ('$id','$name', '$description', '$status', '$addr', '$amount', '$payment_proof')";
+$sql = "INSERT INTO orders (id,name, description, size_info, status ,address,amount,payment_proof) VALUES ('$id','$name', '$description', '$size_info', '$status', '$addr', '$amount', '$payment_proof')";
 
 if($conn->query($sql) === TRUE) {
     // Get the ID of the newly inserted order

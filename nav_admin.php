@@ -12,6 +12,7 @@
           <a id="order" href="order_ad.php">Order List</a>
           <a id="menu" href="menu_ad.php">Menu</a>
           <a id="additem" href="add_menu.php">Add New Item</a>
+          <a id="sizepricing" href="manage_size_pricing.php">Size Pricing</a>
           <a id="logout" href="#" onclick="confirmLogout(event)">Logout</a>
         </div>
         <div class="navbar__right">

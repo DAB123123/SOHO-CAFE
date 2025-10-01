@@ -13,67 +13,7 @@
         <!-- Bootstrap CSS -->
 
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-  <link rel="stylesheet" href="assets/css/styles.css?v=3" />
-  
-  <style>
-    /* Temperature and size badges */
-    .temperature-badge, .size-badge {
-        display: inline-block;
-        padding: 3px 8px;
-        border-radius: 12px;
-        font-size: 0.75rem;
-        font-weight: bold;
-        margin-left: 6px;
-        margin-right: 4px;
-        vertical-align: middle;
-        line-height: 1;
-    }
-
-    .hot-badge {
-        background: #ff6b35;
-        color: white;
-        box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
-    }
-
-    .cold-badge {
-        background: #4a90e2;
-        color: white;
-        box-shadow: 0 2px 4px rgba(74, 144, 226, 0.3);
-    }
-
-    .size-s-badge {
-        background: #28a745;
-        color: white;
-        box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
-    }
-
-    .size-m-badge {
-        background: #ffc107;
-        color: black;
-        box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3);
-    }
-
-    .size-l-badge {
-        background: #dc3545;
-        color: white;
-        box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
-    }
-
-    /* Modal enhancements */
-    .table th {
-        font-weight: 600;
-        color: #495057;
-        font-size: 0.9rem;
-    }
-
-    .table td {
-        vertical-align: middle;
-    }
-
-    .table-hover tbody tr:hover {
-        background-color: rgba(245, 166, 55, 0.05);
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/styles.css?v=4" />
   
     <title>Admin Dashboard</title>
   </head>
@@ -419,21 +359,6 @@ echo '</tr>';
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <script src="assets/js/script.js"></script>
-<style>
-.cursor-pointer {
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-}
-.cursor-pointer:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.border-start {
-    border-left: 3px solid var(--bs-primary) !important;
-    padding-left: 1rem;
-    background-color: rgba(var(--bs-primary-rgb), 0.05);
-}
-</style>
 <script>
 function send_post(value,status)
 {

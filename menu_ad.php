@@ -148,17 +148,18 @@ $i=0;
 	echo '<div class="box food-box"> <div class="box-body text-center"> <div class="menu-item"> <img src="assets/img/menu/' . $row["menu_id"] . '.png?" class="img-fluid w-p75 img_size" ></div>';
 	echo '<div class="menu-details text-center"> <h4 class="mt-40 mb-10">' . $row["name"] . '</h4> <p>' . $row["description"] . '</p>';
 	
-	// Display temperature and size badges
+	// Display temperature and category badges (no size badge since sizes are now dynamic)
 	echo '<div class="item-badges mb-15">';
 	if (!empty($row["temperature"])) {
 		$tempClass = ($row["temperature"] == 'hot') ? 'badge-hot' : 'badge-cold';
 		echo '<span class="badge badge-temp ' . $tempClass . '">' . ucfirst($row["temperature"]) . '</span>';
 	}
-	if (!empty($row["size"])) {
-		echo '<span class="badge badge-size">' . $row["size"] . '</span>';
-	}
 	if (!empty($row["category"])) {
 		echo '<span class="badge badge-category">' . ucfirst($row["category"]) . '</span>';
+	}
+	// Add size info for drinks
+	if ($row["category"] == 'drinks') {
+		echo '<span class="badge badge-info">Dynamic Sizes</span>';
 	}
 	echo '</div>';
 	

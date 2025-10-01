@@ -7,17 +7,12 @@ $description=mysqli_real_escape_string($conn, $_POST['description']);
 $price=mysqli_real_escape_string($conn, $_POST['price']);
 $category=mysqli_real_escape_string($conn, $_POST['category']);
 $temperature = !empty($_POST['temperature']) ? mysqli_real_escape_string($conn, $_POST['temperature']) : NULL;
-$size = !empty($_POST['size']) ? mysqli_real_escape_string($conn, $_POST['size']) : NULL;
 
-// Prepare the SQL statement with category, temperature, and size
-if ($temperature === NULL && $size === NULL) {
-    $sql = "INSERT INTO menu (name, description, price, category, temperature, size, no_order) VALUES ('$name', '$description', '$price', '$category', NULL, NULL, '0')";
-} elseif ($temperature === NULL) {
-    $sql = "INSERT INTO menu (name, description, price, category, temperature, size, no_order) VALUES ('$name', '$description', '$price', '$category', NULL, '$size', '0')";
-} elseif ($size === NULL) {
-    $sql = "INSERT INTO menu (name, description, price, category, temperature, size, no_order) VALUES ('$name', '$description', '$price', '$category', '$temperature', NULL, '0')";
+// Prepare the SQL statement with category and temperature (no size field)
+if ($temperature === NULL) {
+    $sql = "INSERT INTO menu (name, description, price, category, temperature, no_order) VALUES ('$name', '$description', '$price', '$category', NULL, '0')";
 } else {
-    $sql = "INSERT INTO menu (name, description, price, category, temperature, size, no_order) VALUES ('$name', '$description', '$price', '$category', '$temperature', '$size', '0')";
+    $sql = "INSERT INTO menu (name, description, price, category, temperature, no_order) VALUES ('$name', '$description', '$price', '$category', '$temperature', '0')";
 }
 
 if ( $_FILES['userfile']['error']==1)

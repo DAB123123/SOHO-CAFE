@@ -8,17 +8,12 @@ $description=mysqli_real_escape_string($conn, $_POST['description']);
 $price=mysqli_real_escape_string($conn, $_POST['price']);
 $category=mysqli_real_escape_string($conn, $_POST['category']);
 $temperature = !empty($_POST['temperature']) ? mysqli_real_escape_string($conn, $_POST['temperature']) : NULL;
-$size = !empty($_POST['size']) ? mysqli_real_escape_string($conn, $_POST['size']) : NULL;
 
-// Prepare the SQL statement with category, temperature, and size
-if ($temperature === NULL && $size === NULL) {
-    $sql = "UPDATE menu SET name='$name', description='$description', price='$price', category='$category', temperature=NULL, size=NULL WHERE menu_id='$id'";
-} elseif ($temperature === NULL) {
-    $sql = "UPDATE menu SET name='$name', description='$description', price='$price', category='$category', temperature=NULL, size='$size' WHERE menu_id='$id'";
-} elseif ($size === NULL) {
-    $sql = "UPDATE menu SET name='$name', description='$description', price='$price', category='$category', temperature='$temperature', size=NULL WHERE menu_id='$id'";
+// Prepare the SQL statement with category and temperature (no size field)
+if ($temperature === NULL) {
+    $sql = "UPDATE menu SET name='$name', description='$description', price='$price', category='$category', temperature=NULL WHERE menu_id='$id'";
 } else {
-    $sql = "UPDATE menu SET name='$name', description='$description', price='$price', category='$category', temperature='$temperature', size='$size' WHERE menu_id='$id'";
+    $sql = "UPDATE menu SET name='$name', description='$description', price='$price', category='$category', temperature='$temperature' WHERE menu_id='$id'";
 }
 
 if ( $_FILES['userfile']['error']==1)

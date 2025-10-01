@@ -37,12 +37,16 @@ if(!(user.hasOwnProperty(userid)))
 
 function addtolocal(nid)
 {
-  if(user[userid].indexOf(nid)==-1)
+  // For backward compatibility with non-drink items
+  if(user[userid].findIndex(item => {
+    if (typeof item === 'object') return false;
+    return item === nid;
+  }) === -1)
   {
     var i;
     var n=user[userid].length;
     var key=nid;
-    for (i = n - 1; (i >= 0 && user[userid][i] > key); i--)
+    for (i = n - 1; (i >= 0 && typeof user[userid][i] === 'number' && user[userid][i] > key); i--)
         user[userid][i + 1] = user[userid][i];
 
     user[userid][i + 1] = key;
@@ -67,31 +71,17 @@ function addtolocal(nid)
 
 function deletetolocal(nid)
 {
-  if(user[userid].indexOf(nid)!=-1)
+  // Remove simple numeric items (backward compatibility)
+  var index = user[userid].findIndex(item => {
+    if (typeof item === 'object') return false;
+    return item === nid;
+  });
+  
+  if(index !== -1)
   {
-    var index = user[userid].indexOf(nid);
-    
-
-
-    var i;
-    var n=user[userid].length;
-    for (i = index; i < n - 1; i++)
-            user[userid][i] = user[userid][i + 1];
-            user[userid].pop();
-
-
-
-    
-    
+    user[userid].splice(index, 1);
     localStorage.setItem("user",JSON.stringify(user));
-    
-
   }
-
-
   
   console.log(user);
-
-  
-
 }

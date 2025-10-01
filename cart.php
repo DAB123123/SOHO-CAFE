@@ -92,7 +92,7 @@ require_once "config.php";
 
 <?php
 
-$arr = json_decode($_POST["data"]);
+$arr = json_decode($_POST["data"], true); // Add true for associative array
 
 // Validate that json_decode was successful and resulted in an array
 if (!is_array($arr)) {
@@ -100,68 +100,119 @@ if (!is_array($arr)) {
 }
 
    $total=0;
-   $a=array();
+   $processedItems = array(); // Track processed items
 
-$sql = "SELECT * from menu";
+$sql = "SELECT * from menu ORDER BY menu_id";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    // output data of each row
-
-   $i=0;
-
+    // Create a menu lookup for quick access
+    $menuLookup = array();
     while($row = $result->fetch_assoc()) {
-	
-	if($i>=count($arr))
-	break;
-	if(count($arr) > 0 && $i < count($arr)) {
-	    while($row["menu_id"]>$arr[$i])
-		    $i=$i+1;
-	    if($row["menu_id"]==$arr[$i])
-	    {
-	$total+=$row["price"];
-	array_push($a,$row["menu_id"]);
-	echo '<tr class="cart_item" id="div'.$row["menu_id"].'"> <td class="product-remove">';	
-	echo '<a class="remove" onclick="remove('. $row["menu_id"] .',' .$row["price"]. ')"></a> </td>';
-	echo '<td class="product-thumbnail"><a>';
-	echo '<img src="assets/img/menu/'. $row["menu_id"] . '.png" alt="img" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image"> </a> </td>';
-	echo '<td class="product-name" data-title="Product">';
-	echo '<div class="product-title-container">';
-	echo '<a class="title" id="dish'. $row["menu_id"] .'">'. htmlspecialchars($row["name"]) .'</a>';
-	
-	// Add temperature badge
-	if (!empty($row["temperature"])) {
-		$badge_class = $row["temperature"] == 'hot' ? 'hot-badge' : 'cold-badge';
-		echo '<span class="temperature-badge ' . $badge_class . '">' . strtoupper($row["temperature"]) . '</span>';
-	}
-	
-	// Add size badge
-	if (!empty($row["size"])) {
-		$size_class = 'size-' . strtolower($row["size"]) . '-badge';
-		echo '<span class="size-badge ' . $size_class . '">' . $row["size"] . '</span>';
-	}
-	
-	echo '</div>';
-	echo '<span class="attributes-select attributes-size">'. htmlspecialchars($row["description"]) .'</span>';
-	echo '</td>';
-	echo '<td class="product-quantity" data-title="Quantity"> <div class="quantity"> <div class="control">';
-	echo '<a class="btn-number qtyminus quantity-minus" onclick="decreasePrice('. $row["price"] .',' .$row["menu_id"]. ')" >-</a>';
-	echo '<input type="text" data-step="1" data-min="0" value="1" id="'. $row["menu_id"] .'" title="Qty" class="input-qty qty" size="4">';
-	echo '<a class="btn-number qtyplus quantity-plus" onclick="increasePrice('. $row["price"] .',' .$row["menu_id"]. ')">+</a>';
-	echo '</div> </div> </td> <td class="product-price" data-title="Price">';
-	echo '<span class="woocommerce-Price-amount amount"> <span class="woocommerce-Price-currencySymbol"> ₱</span> <span id="pricy'. $row["menu_id"] .'">'.$row["price"].'</span></span> </td> </tr>';
-	$i=$i+1;
-	    }
-	}
-	
+        $menuLookup[$row["menu_id"]] = $row;
     }
-	$arr=$a;
+    
+    // Process cart items
+    foreach($arr as $cartItem) {
+        if (is_array($cartItem) && isset($cartItem['id'])) {
+            // New format: drink with size
+            $menuId = $cartItem['id'];
+            $size = $cartItem['size'];
+            $price = $cartItem['price'];
+            $itemName = $cartItem['name'];
+            
+            if (isset($menuLookup[$menuId])) {
+                $row = $menuLookup[$menuId];
+                $total += $price;
+                array_push($processedItems, $cartItem);
+                
+                // Display item with size information
+                echo '<tr class="cart_item" id="div' . $cartItem['fullId'] . '">';
+                echo '<td class="product-remove">';
+                echo '<a class="remove" onclick="removeWithSize(\'' . $cartItem['fullId'] . '\', ' . $price . ')"></a>';
+                echo '</td>';
+                echo '<td class="product-thumbnail"><a>';
+                echo '<img src="assets/img/menu/' . $menuId . '.png" alt="img" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image">';
+                echo '</a></td>';
+                echo '<td class="product-name" data-title="Product">';
+                echo '<div class="product-title-container">';
+                echo '<a class="title" id="dish' . $cartItem['fullId'] . '">' . htmlspecialchars($itemName) . '</a>';
+                
+                // Add temperature badge
+                if (!empty($row["temperature"])) {
+                    $badge_class = $row["temperature"] == 'hot' ? 'hot-badge' : 'cold-badge';
+                    echo '<span class="temperature-badge ' . $badge_class . '">' . strtoupper($row["temperature"]) . '</span>';
+                }
+                
+                // Add size badge for drinks
+                echo '<span class="size-badge size-' . strtolower($size) . '-badge">' . strtoupper($size) . '</span>';
+                
+                echo '</div>';
+                echo '<span class="attributes-select attributes-size">' . htmlspecialchars($row["description"]) . '</span>';
+                echo '</td>';
+                echo '<td class="product-quantity" data-title="Quantity">';
+                echo '<div class="quantity"><div class="control">';
+                echo '<a class="btn-number qtyminus quantity-minus" onclick="decreasePriceWithSize(' . $price . ', \'' . $cartItem['fullId'] . '\')">-</a>';
+                echo '<input type="text" data-step="1" data-min="0" value="1" id="' . $cartItem['fullId'] . '" title="Qty" class="input-qty qty" size="4">';
+                echo '<a class="btn-number qtyplus quantity-plus" onclick="increasePriceWithSize(' . $price . ', \'' . $cartItem['fullId'] . '\')">+</a>';
+                echo '</div></div></td>';
+                echo '<td class="product-price" data-title="Price">';
+                echo '<span class="woocommerce-Price-amount amount">';
+                echo '<span class="woocommerce-Price-currencySymbol">₱</span>';
+                echo '<span id="pricy' . $cartItem['fullId'] . '">' . $price . '</span>';
+                echo '</span></td></tr>';
+            }
+        } else if (is_numeric($cartItem)) {
+            // Old format: simple menu ID (for non-drinks or legacy items)
+            $menuId = intval($cartItem);
+            
+            if (isset($menuLookup[$menuId])) {
+                $row = $menuLookup[$menuId];
+                $total += $row["price"];
+                array_push($processedItems, $menuId);
+                
+                // Display regular item
+                echo '<tr class="cart_item" id="div' . $menuId . '">';
+                echo '<td class="product-remove">';
+                echo '<a class="remove" onclick="remove(' . $menuId . ', ' . $row["price"] . ')"></a>';
+                echo '</td>';
+                echo '<td class="product-thumbnail"><a>';
+                echo '<img src="assets/img/menu/' . $menuId . '.png" alt="img" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image">';
+                echo '</a></td>';
+                echo '<td class="product-name" data-title="Product">';
+                echo '<div class="product-title-container">';
+                echo '<a class="title" id="dish' . $menuId . '">' . htmlspecialchars($row["name"]) . '</a>';
+                
+                // Add temperature badge
+                if (!empty($row["temperature"])) {
+                    $badge_class = $row["temperature"] == 'hot' ? 'hot-badge' : 'cold-badge';
+                    echo '<span class="temperature-badge ' . $badge_class . '">' . strtoupper($row["temperature"]) . '</span>';
+                }
+                
+                echo '</div>';
+                echo '<span class="attributes-select attributes-size">' . htmlspecialchars($row["description"]) . '</span>';
+                echo '</td>';
+                echo '<td class="product-quantity" data-title="Quantity">';
+                echo '<div class="quantity"><div class="control">';
+                echo '<a class="btn-number qtyminus quantity-minus" onclick="decreasePrice(' . $row["price"] . ', ' . $menuId . ')">-</a>';
+                echo '<input type="text" data-step="1" data-min="0" value="1" id="' . $menuId . '" title="Qty" class="input-qty qty" size="4">';
+                echo '<a class="btn-number qtyplus quantity-plus" onclick="increasePrice(' . $row["price"] . ', ' . $menuId . ')">+</a>';
+                echo '</div></div></td>';
+                echo '<td class="product-price" data-title="Price">';
+                echo '<span class="woocommerce-Price-amount amount">';
+                echo '<span class="woocommerce-Price-currencySymbol">₱</span>';
+                echo '<span id="pricy' . $menuId . '">' . $row["price"] . '</span>';
+                echo '</span></td></tr>';
+            }
+        }
+    }
+    
+    $arr = $processedItems;
 } else {
     echo "0 results";
 }
 
 $conn->close();
-
 
 ?>
 
@@ -359,31 +410,74 @@ $("#add_err").html('');
 var arry=user[userid];
 var i=0;
 var desc="";
-<?php for($i=0;$i<count($arr);$i+=1) 
-{
-?>
-var idy=<?php echo $arr[$i]; ?>;
-var quantity = document.getElementById(idy).value;
+var sizeInfoArray = []; // Array to store size information
 
-if(arry.indexOf(idy)!=-1)
-{
-var dish_name=document.getElementById("dish"+idy).innerHTML;
-var dish_price=document.getElementById("pricy"+idy).innerHTML;
-desc+=quantity+"-"+dish_name+"-"+dish_price+",";
-
-$.ajax({
-type:"POST",
-url:"try.php",
-data: "id=" + idy + "&quan=" + quantity,
-success:function(html)
-{
-if(html=='true')
-console.log('done');
-else
-console.log(html);
-}
-                });
-}
+// Process both old format (simple IDs) and new format (objects with size)
+<?php foreach($processedItems as $index => $item) { ?>
+    <?php if (is_array($item)) { 
+        // New format: drink with size
+        $itemId = $item['fullId'];
+        $menuId = $item['id'];
+        ?>
+        var itemId = "<?php echo $itemId; ?>";
+        var menuId = <?php echo $menuId; ?>;
+        var quantity = document.getElementById(itemId).value;
+        
+        // Check if this item exists in cart
+        var itemExists = arry.some(function(cartItem) {
+            return (typeof cartItem === 'object' && cartItem.fullId === itemId);
+        });
+        
+        if(itemExists) {
+            var dish_name = document.getElementById("dish" + itemId).innerHTML;
+            var dish_price = document.getElementById("pricy" + itemId).innerHTML;
+            desc += quantity + "-" + dish_name + "-" + dish_price + ",";
+            
+            // Add size info for this item
+            sizeInfoArray.push({
+                menu_id: menuId,
+                size: "<?php echo $item['size']; ?>",
+                quantity: parseInt(quantity),
+                item_name: dish_name
+            });
+            
+            $.ajax({
+                type:"POST",
+                url:"try.php", 
+                data: "id=" + menuId + "&quan=" + quantity + "&size=" + "<?php echo $item['size']; ?>",
+                success:function(html) {
+                    if(html=='true')
+                        console.log('done');
+                    else
+                        console.log(html);
+                }
+            });
+        }
+    <?php } else { 
+        // Old format: simple menu ID
+        $itemId = $item;
+        ?>
+        var idy = <?php echo $itemId; ?>;
+        var quantity = document.getElementById(idy).value;
+        
+        if(arry.indexOf(idy) !== -1) {
+            var dish_name = document.getElementById("dish" + idy).innerHTML;
+            var dish_price = document.getElementById("pricy" + idy).innerHTML;
+            desc += quantity + "-" + dish_name + "-" + dish_price + ",";
+            
+            $.ajax({
+                type:"POST",
+                url:"try.php",
+                data: "id=" + idy + "&quan=" + quantity,
+                success:function(html) {
+                    if(html=='true')
+                        console.log('done');
+                    else
+                        console.log(html);
+                }
+            });
+        }
+    <?php } ?>
 <?php } ?>
 
 var name='<?php echo $_SESSION['name']; ?>';
@@ -399,6 +493,7 @@ formData.append('addr', addr);
 formData.append('amount', totaly);
 formData.append('id', id);
 formData.append('payment_proof', paymentProof);
+formData.append('size_info', JSON.stringify(sizeInfoArray)); // Add size information
 
 $.ajax({
 type:"POST",

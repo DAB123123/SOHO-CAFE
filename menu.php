@@ -80,14 +80,6 @@ session_start();
 						<button class="filter-btn" onclick="showCategory('pastries')">Pastries</button>
 						<button class="filter-btn" onclick="showCategory('food')">Food</button>
 					</div>
-
-					<!-- Size Filter Buttons (hidden by default) -->
-					<div class="size-filter" id="size-filter" style="display: none;">
-						<button class="size-btn active" onclick="showSize('all')">All Sizes</button>
-						<button class="size-btn" onclick="showSize('S')">Small</button>
-						<button class="size-btn" onclick="showSize('M')">Medium</button>
-						<button class="size-btn" onclick="showSize('L')">Large</button>
-					</div>
 				</div>
 			</div>
 
@@ -102,11 +94,10 @@ session_start();
 			$pastries = $conn->query("SELECT * FROM menu WHERE category = 'pastries' ORDER BY name");
 			$food = $conn->query("SELECT * FROM menu WHERE category = 'food' ORDER BY name");
 
-			function displayMenuItems($result, $show_temperature = false, $show_size = false) {
+			function displayMenuItems($result, $show_temperature = false) {
 				if ($result->num_rows > 0) {
 					while($row = $result->fetch_assoc()) {
-						$size_attr = !empty($row["size"]) ? ' data-size="' . $row["size"] . '"' : '';
-						echo '<div class="menu-item"' . $size_attr . '>';
+						echo '<div class="menu-item">';
 						echo '<div class="menu-item-content">';
 						echo '<div class="menu-item-row">';
 						echo '<div class="menu-item-image">';
@@ -121,12 +112,6 @@ session_start();
 							echo '<span class="temperature-badge ' . $badge_class . '">' . strtoupper($row["temperature"]) . '</span>';
 						}
 						
-						// Add size badge for drinks
-						if ($show_size && !empty($row["size"])) {
-							$size_class = 'size-' . strtolower($row["size"]) . '-badge';
-							echo '<span class="size-badge ' . $size_class . '">' . $row["size"] . '</span>';
-						}
-						
 						echo '</h4>';
 						echo '<p>' . htmlspecialchars($row["description"]) . '</p>';
 						echo '</div>';
@@ -134,7 +119,14 @@ session_start();
 						echo '<div class="menu-item-price">';
 						echo '<p>₱' . number_format($row["price"], 0) .'</p>';
 						echo '<div class="menu-item-actions">';
-						echo '<button class="add-to-cart btn btn-outline-primary" onclick="addToCartWithNotification('. $row["menu_id"] . ', \'' . addslashes($row["name"]) . '\', this)">ADD TO CART</button>';
+						
+						// Check if item is a drink to show size selection
+						if ($row["category"] == 'drinks') {
+							echo '<button class="add-to-cart btn btn-outline-primary" onclick="showSizeSelection('. $row["menu_id"] . ', \'' . addslashes($row["name"]) . '\', ' . $row["price"] . ', this)">ADD TO CART</button>';
+						} else {
+							echo '<button class="add-to-cart btn btn-outline-primary" onclick="addToCartWithNotification('. $row["menu_id"] . ', \'' . addslashes($row["name"]) . '\', this)">ADD TO CART</button>';
+						}
+						
 						echo '</div>';
 						echo '</div>';
 						echo '</div>';
@@ -148,7 +140,7 @@ session_start();
             <div class="menu-section" id="hot-drinks-section">
                 <h3 class="section-title">Hot Drinks</h3>
                 <div class="menu-grid-container">
-                    <?php displayMenuItems($hot_drinks, true, true); ?>
+                    <?php displayMenuItems($hot_drinks, true); ?>
                 </div>
             </div>
 
@@ -156,7 +148,7 @@ session_start();
             <div class="menu-section" id="cold-drinks-section">
                 <h3 class="section-title">Cold Drinks</h3>
                 <div class="menu-grid-container">
-                    <?php displayMenuItems($cold_drinks, true, true); ?>
+                    <?php displayMenuItems($cold_drinks, true); ?>
                 </div>
             </div>
 
@@ -354,6 +346,48 @@ session_start();
 			</div> <!-- / .row -->
 		</div> <!-- / .container -->
 	</footer>
+
+	<!-- Size Selection Modal -->
+	<div id="size-selection-modal" class="size-modal">
+		<div class="size-modal-content">
+			<div class="size-modal-header">
+				<h3 id="modal-item-name">Select Size</h3>
+				<span class="size-modal-close" onclick="closeSizeModal()">&times;</span>
+			</div>
+			<div class="size-modal-body">
+				<div class="size-options">
+					<div class="size-option" data-size="short" data-multiplier="1">
+						<div class="size-info">
+							<h4>Short</h4>
+							<p>8 oz</p>
+						</div>
+						<div class="size-price" id="short-price">₱0</div>
+					</div>
+					<div class="size-option" data-size="tall" data-multiplier="1.25">
+						<div class="size-info">
+							<h4>Tall</h4>
+							<p>12 oz</p>
+						</div>
+						<div class="size-price" id="tall-price">₱0</div>
+					</div>
+					<div class="size-option" data-size="grande" data-multiplier="1.5">
+						<div class="size-info">
+							<h4>Grande</h4>
+							<p>16 oz</p>
+						</div>
+						<div class="size-price" id="grande-price">₱0</div>
+					</div>
+					<div class="size-option" data-size="venti" data-multiplier="1.75">
+						<div class="size-info">
+							<h4>Venti</h4>
+							<p>20 oz</p>
+						</div>
+						<div class="size-price" id="venti-price">₱0</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- JAVASCRIPT
 	================================================== -->
@@ -580,6 +614,171 @@ session_start();
                 console.log(user);
                 return true;
             }, 300); // Small delay for better perceived performance
+        }
+
+        // Global variable to store size pricing
+        let sizePricing = {};
+        
+        // Load size pricing from database
+        function loadSizePricing() {
+            fetch('get_size_pricing.php')
+                .then(response => response.json())
+                .then(data => {
+                    sizePricing = data;
+                    console.log('Size pricing loaded:', sizePricing);
+                })
+                .catch(error => {
+                    console.error('Error loading size pricing:', error);
+                    // Fallback to default pricing
+                    sizePricing = {
+                        'short': { description: '8 oz', multiplier: 1.00 },
+                        'tall': { description: '12 oz', multiplier: 1.25 },
+                        'grande': { description: '16 oz', multiplier: 1.50 },
+                        'venti': { description: '20 oz', multiplier: 1.75 }
+                    };
+                });
+        }
+
+        // Show size selection modal
+        function showSizeSelection(menuId, itemName, basePrice, buttonElement) {
+            const modal = document.getElementById('size-selection-modal');
+            const modalItemName = document.getElementById('modal-item-name');
+            
+            modalItemName.textContent = itemName;
+            
+            // Update prices and descriptions for each size
+            Object.keys(sizePricing).forEach(size => {
+                const priceElement = document.getElementById(size + '-price');
+                const sizeOption = document.querySelector(`[data-size="${size}"]`);
+                
+                if (priceElement && sizeOption) {
+                    const finalPrice = Math.round(basePrice * sizePricing[size].multiplier);
+                    priceElement.textContent = '₱' + finalPrice;
+                    
+                    // Update the data-multiplier attribute to match database
+                    sizeOption.setAttribute('data-multiplier', sizePricing[size].multiplier);
+                    
+                    // Update size description
+                    const sizeInfo = sizeOption.querySelector('.size-info p');
+                    if (sizeInfo) {
+                        sizeInfo.textContent = sizePricing[size].description;
+                    }
+                    
+                    // Update size option click handler
+                    sizeOption.onclick = function() {
+                        // Remove selected class from all options
+                        document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
+                        // Add selected class to clicked option
+                        this.classList.add('selected');
+                        
+                        // Add to cart with size information
+                        setTimeout(() => {
+                            addToCartWithSize(menuId, itemName, size, finalPrice, buttonElement);
+                            closeSizeModal();
+                        }, 200);
+                    };
+                }
+            });
+            
+            // Clear previous selections
+            document.querySelectorAll('.size-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        // Close size selection modal
+        function closeSizeModal() {
+            const modal = document.getElementById('size-selection-modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Load size pricing when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSizePricing();
+            
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                const modal = document.getElementById('size-selection-modal');
+                if (event.target === modal) {
+                    closeSizeModal();
+                }
+            };
+        });
+
+        // Enhanced addToCartWithSize function for drinks with sizes
+        function addToCartWithSize(menuId, itemName, size, price, buttonElement) {
+            // Get the current user cart
+            let user = {};
+            if (localStorage.getItem("user") != null) {
+                user = JSON.parse(localStorage.getItem("user"));
+            }
+
+            if (!(user.hasOwnProperty(userid))) {
+                if ((user.hasOwnProperty(0))) {
+                    user[userid] = user[0];
+                    delete user[0];
+                    localStorage.setItem("user", JSON.stringify(user));
+                } else {
+                    user[userid] = [];
+                }
+            }
+
+            // Create unique item ID with size (e.g., "123_short", "123_tall")
+            const sizeItemId = `${menuId}_${size}`;
+            const sizeDescription = sizePricing[size] ? sizePricing[size].description : size;
+            const displayName = `${itemName} (${size.charAt(0).toUpperCase() + size.slice(1)} ${sizeDescription})`;
+
+            // Check if this exact size combination already exists
+            if (user[userid].some(item => {
+                if (typeof item === 'object' && item.fullId) {
+                    return item.fullId === sizeItemId;
+                }
+                return item.toString() === sizeItemId;
+            })) {
+                showCartNotification('warning', 'Already in Cart', `${displayName} is already in your cart.`);
+                return false;
+            }
+
+            // Add item with size to cart
+            user[userid].push({
+                id: menuId,
+                size: size,
+                price: price,
+                name: itemName,
+                fullId: sizeItemId
+            });
+
+            // Update localStorage
+            localStorage.setItem("user", JSON.stringify(user));
+
+            // Add loading state
+            if (buttonElement) {
+                buttonElement.classList.add('loading');
+                const originalText = buttonElement.textContent;
+
+                // Brief success animation
+                buttonElement.style.background = '#28a745';
+                buttonElement.style.color = 'white';
+                buttonElement.textContent = 'Added!';
+
+                // Reset button after animation
+                setTimeout(() => {
+                    buttonElement.classList.remove('loading');
+                    buttonElement.style.background = '';
+                    buttonElement.style.color = '';
+                    buttonElement.textContent = originalText;
+                }, 1500);
+            }
+
+            // Show success notification
+            showCartNotification('success', 'Added to Cart', `${displayName} has been added to your cart! (₱${price})`);
+
+            console.log(user);
+            return true;
         }
     </script>
 

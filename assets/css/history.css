@@ -87,6 +87,11 @@ body {
 
 .modal-body th {
   padding-right: 10px;
+  font-weight: 600;
+  color: #495057;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
 }
 
 .modal-button {
@@ -120,18 +125,50 @@ body {
   border-width: 5px;
   /* border-color:#206a5d;*/
   /*background-color:#c6ffc1;*/
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
+.order_cards div#card-a:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
 .order_cards div#card-b {
   width: 20rem;
   border-width: 3px;
   /* border-color:#ffd56b;*/
   background-color: #edffa9;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
+.order_cards div#card-b:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
 .order_cards div#card-c {
   width: 20rem;
   border-width: 5px;
   /* border-color:#ff9a8c;*/
   background-color: #fbecec;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.order_cards div#card-c:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .ejewMc {
@@ -513,5 +550,385 @@ body {
 
   .modal-body .step-label {
     font-size: 10px;
+  }
+}
+
+/* Customer Order History Badge Styles */
+.order-history .temperature-badge,
+.order-history .size-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-left: 4px;
+  margin-right: 2px;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.order-history .hot-badge {
+  background: #ff6b35;
+  color: white;
+  box-shadow: 0 1px 3px rgba(255, 107, 53, 0.3);
+}
+
+.order-history .cold-badge {
+  background: #4a90e2;
+  color: white;
+  box-shadow: 0 1px 3px rgba(74, 144, 226, 0.3);
+}
+
+.order-history .size-short-badge {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+  box-shadow: 0 1px 3px rgba(255, 107, 107, 0.4);
+}
+
+.order-history .size-tall-badge {
+  background: linear-gradient(135deg, #4ecdc4, #45b7b8);
+  color: white;
+  box-shadow: 0 1px 3px rgba(78, 205, 196, 0.4);
+}
+
+.order-history .size-grande-badge {
+  background: linear-gradient(135deg, #ffa726, #ff9800);
+  color: white;
+  box-shadow: 0 1px 3px rgba(255, 167, 38, 0.4);
+}
+
+.order-history .size-venti-badge {
+  background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+  color: white;
+  box-shadow: 0 1px 3px rgba(156, 39, 176, 0.4);
+}
+
+/* Modal-specific badge styles for order history */
+#exampleModalCenter .temperature-badge,
+#exampleModalCenter .size-badge,
+.modal .temperature-badge,
+.modal .size-badge {
+  display: inline-block !important;
+  padding: 2px 6px !important;
+  border-radius: 8px !important;
+  font-size: 0.7rem !important;
+  font-weight: bold !important;
+  margin-left: 4px !important;
+  margin-right: 2px !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+}
+
+#exampleModalCenter .hot-badge,
+.modal .hot-badge {
+  background: #ff6b35 !important;
+  color: white !important;
+  box-shadow: 0 1px 3px rgba(255, 107, 53, 0.3) !important;
+}
+
+#exampleModalCenter .cold-badge,
+.modal .cold-badge {
+  background: #4a90e2 !important;
+  color: white !important;
+  box-shadow: 0 1px 3px rgba(74, 144, 226, 0.3) !important;
+}
+
+#exampleModalCenter .size-short-badge,
+.modal .size-short-badge {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52) !important;
+  color: white !important;
+  box-shadow: 0 1px 3px rgba(255, 107, 107, 0.4) !important;
+}
+
+#exampleModalCenter .size-tall-badge,
+.modal .size-tall-badge {
+  background: linear-gradient(135deg, #4ecdc4, #45b7b8) !important;
+  color: white !important;
+  box-shadow: 0 1px 3px rgba(78, 205, 196, 0.4) !important;
+}
+
+#exampleModalCenter .size-grande-badge,
+.modal .size-grande-badge {
+  background: linear-gradient(135deg, #ffa726, #ff9800) !important;
+  color: white !important;
+  box-shadow: 0 1px 3px rgba(255, 167, 38, 0.4) !important;
+}
+
+#exampleModalCenter .size-venti-badge,
+.modal .size-venti-badge {
+  background: linear-gradient(135deg, #9c27b0, #7b1fa2) !important;
+  color: white !important;
+  box-shadow: 0 1px 3px rgba(156, 39, 176, 0.4) !important;
+}
+
+/* Customer Order History Modal Styling */
+.order-items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #e9ecef;
+  border-radius: 5px;
+  background: #f8f9fa;
+  padding: 10px;
+}
+
+.order-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.item-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.item-details {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* Modal Base Styling and Positioning */
+.modal.fade .modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translate(0, -50px);
+}
+
+.modal.show .modal-dialog {
+  transform: none;
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Ensure modal doesn't interfere with body scroll */
+body.modal-open {
+  overflow: hidden;
+  padding-right: 0 !important;
+}
+
+/* Fix modal positioning issues */
+.modal {
+  padding-right: 0 !important;
+}
+
+.modal-dialog {
+  margin-top: auto;
+  margin-bottom: auto;
+  max-height: calc(100vh - 3.5rem);
+  display: flex;
+  align-items: center;
+}
+
+/* Enhanced Modal Styling */
+#exampleModalCenter .modal-dialog {
+  max-width: 600px;
+  margin: 1.75rem auto;
+}
+
+#exampleModalCenter .modal-content {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+#exampleModalCenter .modal-header {
+  color: white;
+  border-bottom: none;
+  padding: 1.25rem 1.5rem;
+}
+
+#exampleModalCenter .modal-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+#exampleModalCenter .close {
+  color: black;
+  opacity: 0.8;
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-shadow: none;
+}
+
+#exampleModalCenter .close:hover {
+  color: black;
+  opacity: 1;
+}
+
+#exampleModalCenter .modal-body {
+  padding: 1.5rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar for modal body */
+#exampleModalCenter .modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+#exampleModalCenter .modal-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+#exampleModalCenter .modal-body::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+#exampleModalCenter .modal-body::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Modal Table Styling */
+#exampleModalCenter table {
+  width: 100%;
+  margin-top: 15px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+#exampleModalCenter table th {
+  background: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  padding: 12px 15px;
+  border-bottom: 2px solid #e9ecef;
+  text-align: left;
+  min-width: 120px;
+}
+
+#exampleModalCenter table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f1f1f1;
+  vertical-align: top;
+}
+
+#exampleModalCenter table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Items container specific styling */
+#exampleModalCenter #kuch {
+  padding: 5px;
+}
+
+/* Loading state styling */
+#exampleModalCenter #kuch .text-center {
+  padding: 20px;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Responsive Modal Adjustments */
+@media (max-width: 768px) {
+  #exampleModalCenter .modal-dialog {
+    margin: 0.5rem;
+    max-width: none;
+  }
+
+  #exampleModalCenter .modal-body {
+    padding: 1rem;
+    max-height: 80vh;
+  }
+
+  #exampleModalCenter .order-items-list {
+    max-height: 200px;
+  }
+
+  #exampleModalCenter table th,
+  #exampleModalCenter table td {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  #exampleModalCenter .modal-dialog {
+    margin: 0.25rem;
+  }
+
+  #exampleModalCenter .modal-body {
+    padding: 0.75rem;
+    max-height: 85vh;
+  }
+
+  #exampleModalCenter .order-items-list {
+    max-height: 150px;
+  }
+
+  #exampleModalCenter table {
+    font-size: 0.85rem;
+  }
+
+  #exampleModalCenter table th {
+    font-size: 0.7rem;
+    padding: 6px 8px;
+  }
+
+  #exampleModalCenter table td {
+    padding: 6px 8px;
+  }
+}
+
+/* Responsive Order Cards */
+@media (max-width: 1200px) {
+  .order_cards div#card-a,
+  .order_cards div#card-b,
+  .order_cards div#card-c {
+    width: 18rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .order_cards div#card-a,
+  .order_cards div#card-b,
+  .order_cards div#card-c {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto 20px;
+  }
+
+  .order_cards .row {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .order_cards div#card-a,
+  .order_cards div#card-b,
+  .order_cards div#card-c {
+    width: 100%;
+    max-width: none;
+    margin: 0 auto 15px;
+    min-height: 350px;
+  }
+
+  .order_cards .header {
+    font-size: 0.7rem;
+    margin: 8px 10px;
+  }
+
+  .order_cards .content {
+    font-size: 0.95rem;
+    padding-left: 20px;
+  }
+
+  .modal-button button {
+    margin: 8px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
   }
 }

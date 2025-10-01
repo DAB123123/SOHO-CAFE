@@ -42,13 +42,13 @@ $(document).ready(function (e) {
 			success: function(data)
 		    {
 			if(data == 'true ')
-			{$("#add_error").html('<div class="alert alert-success"> <strong>Success!</strong> New Menu Item Added Successfully </div>');}
+			{$("#add_error").html('<div class="alert alert-success"> <strong>Success!</strong> Menu Item Updated Successfully </div>');}
 			else if (data == 'size ')
 			$("#add_error").html('<div class="alert alert-danger"> <strong>Image Size</strong> maximum 5 MB allowed. </div>');
 			else if(data == 'copy ')
-			$("#add_error").html('<div class="alert alert-danger"> <strong>Defualt Image</strong> uanble to add default image.</div>');
+			$("#add_error").html('<div class="alert alert-danger"> <strong>Default Image</strong> unable to add default image.</div>');
 			else if(data == 'false_image ')
-			$("#add_error").html('<div class="alert alert-danger"> <strong>Email Address</strong> already in system.</div>');
+			$("#add_error").html('<div class="alert alert-danger"> <strong>Image Upload</strong> failed to upload image.</div>');
 			else
 			$("#add_error").html(data);
 		    },error: function()
@@ -123,7 +123,7 @@ $(document).ready(function (e) {
               </div>
 
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label class="fw-700 fs-16 form-label">Category</label>
                     <select class="form-control" name="category" id="category" required>
@@ -134,7 +134,7 @@ $(document).ready(function (e) {
                     </select>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label class="fw-700 fs-16 form-label">Temperature</label>
                     <select class="form-control" name="temperature" id="temperature">
@@ -145,16 +145,15 @@ $(document).ready(function (e) {
                     <small class="form-text text-muted">For drinks only</small>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label class="fw-700 fs-16 form-label">Size</label>
-                    <select class="form-control" name="size" id="size">
-                      <option value="">Not Applicable</option>
-                      <option value="S" <?php echo ($row['size'] == 'S') ? 'selected' : ''; ?>>Small (S)</option>
-                      <option value="M" <?php echo ($row['size'] == 'M') ? 'selected' : ''; ?>>Medium (M)</option>
-                      <option value="L" <?php echo ($row['size'] == 'L') ? 'selected' : ''; ?>>Large (L)</option>
-                    </select>
-                    <small class="form-text text-muted">For drinks only</small>
+              </div>
+
+              <!-- Size Information Notice for Drinks -->
+              <div class="row" id="size-notice" style="display: none;">
+                <div class="col-md-12">
+                  <div class="alert alert-info">
+                    <i class="fa fa-info-circle"></i>
+                    <strong>Note:</strong> For drinks, customers can now select their preferred size (Short, Tall, Grande, Venti) when adding to cart. 
+                    Size pricing can be managed in the <a href="manage_size_pricing.php" target="_blank">Size Pricing</a> section.
                   </div>
                 </div>
               </div>
@@ -181,8 +180,8 @@ $(document).ready(function (e) {
 	      <div class="mb-10" id="add_error"></div>
              
              <div class="form-actions mt-10">
-              <button type="submit" class="btn btn-primary" id="save"> <i class="fa fa-check"></i> Save / Add</button>
-              <button type="button" class="btn btn-danger" >Cancel</button>
+              <button type="submit" class="btn btn-primary" id="save"> <i class="fa fa-save"></i> Update Item</button>
+              <button type="button" class="btn btn-danger" onclick="window.history.back()">Cancel</button>
             </div>
 	
 </div>
@@ -217,6 +216,30 @@ var reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
 }
 };
+
+
+// Show/hide size notice based on category selection
+function toggleSizeNotice() {
+    const category = document.getElementById('category').value;
+    const sizeNotice = document.getElementById('size-notice');
+    
+    if (category === 'drinks') {
+        sizeNotice.style.display = 'block';
+    } else {
+        sizeNotice.style.display = 'none';
+    }
+}
+
+// Add event listener for category change
+document.addEventListener('DOMContentLoaded', function() {
+    const categorySelect = document.getElementById('category');
+    
+    // Show notice on page load if category is drinks
+    toggleSizeNotice();
+    
+    // Add change event listener
+    categorySelect.addEventListener('change', toggleSizeNotice);
+});
 
 
 
