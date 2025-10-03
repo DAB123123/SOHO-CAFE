@@ -89,7 +89,7 @@
 
 					<!-- Subheading -->
 					<p class="section__subheading text-center">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam illo praesentium sequi in cum, beatae maiores quae qui.
+						 We’d love to hear from you! Whether you have questions, feedback, or event inquiries, our team at Sōho Cafe + Kitchen is here to help. Drop us a message, give us a call, or visit us in Biñan — we’re always ready to welcome you.
 					</p>
 
 				</div>

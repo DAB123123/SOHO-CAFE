@@ -1,63 +1,57 @@
 <?php
-// session_start();
 require_once "config.php";
+require 'phpmailer/PHPMailerAutoload.php';
 
+if (isset($_POST['inemail'])) {
+    $inemail = mysqli_real_escape_string($conn, $_POST['inemail']);
 
-$inemail=$_POST['inemail'];
+    // Check if email exists
+    $query = "SELECT * FROM user WHERE email='$inemail' LIMIT 1";
+    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+    $num_row = mysqli_num_rows($result);
 
+    if ($num_row == 1) {
+        $row = mysqli_fetch_assoc($result);
 
+        // Generate reset token & expiry
+        $token = bin2hex(random_bytes(50));
+        $expiry = date("Y-m-d H:i:s", strtotime("+1 hour"));
 
-$query="SELECT * FROM user where email='$inemail'";
-$result=mysqli_query($conn,$query) or die(mysqli_error($conn));
-$num_row=mysqli_num_rows($result);
-$row=mysqli_fetch_array($result);
-$email2 = "";
-if($num_row >= 1)
-{
+        // Save to database
+        $update = "UPDATE user SET reset_token='$token', reset_token_expire='$expiry' WHERE email='$inemail'";
+        mysqli_query($conn, $update) or die(mysqli_error($conn));
 
-// $subject='cafeteria recovery';
+        // Configure PHPMailer
+        $mail = new PHPMailer;
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'daryll.bobis.daryll@gmail.com';  // ✅ replace
+        $mail->Password = 'tfog bkec esvx xrln';     // ✅ replace (use Gmail App Password, not real pass)
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
 
-    require 'phpmailer/PHPMailerAutoload.php';
+        $mail->setFrom('daryll.bobis.daryll@gmail.com', 'SOHO CAFE & KITCHEN');
+        $mail->addAddress($inemail, $row['name']);
+        $mail->isHTML(true);
 
-    $mail = new PHPMailer;
-	
-	// $mail->SMTPDebug = 2;                               // Enable verbose debug output
+        $resetLink = "http://localhost/SOHO-CAFE/reset_password.php?token=$token&email=$inemail";
 
-    $mail->isSMTP();                                      // Set mailer to use SMTP
-    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-    $mail->SMTPAuth = true;                               // Enable SMTP authentication
-    $mail->Username = 'your_email';                 // SMTP username
-    $mail->Password = 'your_email_password';                           // SMTP password
-    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-    $mail->Port = 587;                                    // TCP port to connect to
+        $mail->Subject = 'Password Reset Request';
+        $mail->Body    = "Hello " . $row['name'] . ",<br><br>
+                          We received a request to reset your password.<br>
+                          Click the link below to reset your password:<br><br>
+                          <a href='$resetLink'>$resetLink</a><br><br>
+                          This link will expire in 1 hour.<br><br>
+                          If you did not request a password reset, ignore this email.";
 
-	$mail->AddReplyTo($inemail);
-    $mail->From = $email2;
-    $mail->FromName = $row['name'];
-    $mail->addAddress($inemail, 'Admin');     // Add a recipient
-
-    $mail->isHTML(true);                                  // Set email format to HTML
-	 $password_1=$row['password'];
- 	  $mail->Subject = 'Cafeteria recovery';
-    $mail->Body = "Reset Link:-<a href='http://localhost/ip/rlogin.php?id=$password_1&email=$inemail'  >Click Here</a>";
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-    if (!$mail->send()) {
-        echo 'Message could not be sent.';
-        echo 'Mailer Error: ' . $mail->ErrorInfo;
+        if ($mail->send()) {
+            echo 'true';
+        } else {
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        }
     } else {
-        echo 'true';
+        echo 'false';
     }
-
-
-
-
-
 }
-else
-echo 'false';
-
-
-
-
 ?>

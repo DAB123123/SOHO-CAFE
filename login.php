@@ -177,8 +177,7 @@ return false;
           <div class="content">
             <h3>New here ?</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-              ex ratione. Aliquid!
+              Create an account to order your favorite meals online, save your details for faster checkout.
             </p>
             <button class="btn transparent" id="sign-up-btn">
               Sign up
@@ -190,8 +189,7 @@ return false;
           <div class="content">
             <h3>One of us ?</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              laboriosam ad deleniti.
+              Already have an account? Sign in to continue ordering, track your past purchases, and stay updated with our latest cafe promotions.
             </p>
             <button class="btn transparent" id="sign-in-btn">
               Sign in

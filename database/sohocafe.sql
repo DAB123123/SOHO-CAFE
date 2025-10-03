@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 22, 2025 at 11:47 AM
+-- Generation Time: Oct 01, 2025 at 12:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -62,24 +62,31 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`menu_id`, `name`, `description`, `price`, `category`, `temperature`, `no_order`) VALUES
-(1, 'Espresso', 'Strong and bold espresso shot made from freshly ground beans.', 60, 'drinks', 'hot', 3),
-(2, 'Cappuccino', 'Espresso topped with steamed milk and foam.', 80, 'drinks', 'hot', 8),
-(3, 'Iced Americano', 'Chilled espresso with water over ice.', 75, 'drinks', 'cold', 0),
-(4, 'Café Latte', 'Smooth espresso with steamed milk.', 85, 'drinks', 'hot', 12),
-(5, 'Caramel Macchiato', 'Layered espresso, milk, and caramel drizzle.', 95, 'drinks', 'hot', 6),
-(6, 'Classic Waffles', 'Golden waffles served with maple syrup and butter.', 120, 'pastries', NULL, 4),
-(7, 'Avocado Toast', 'Toasted sourdough topped with mashed avocado and chili flakes.', 150, 'food', NULL, 8),
-(8, 'Egg Sandwich', 'Scrambled eggs with cheese on a brioche bun.', 110, 'food', NULL, 2),
-(9, 'Croissant', 'Buttery and flaky freshly baked croissant.', 55, 'pastries', NULL, 5),
-(10, 'Chocolate Muffin', 'Rich chocolate muffin with gooey center.', 60, 'pastries', NULL, 6),
-(11, 'Blueberry Pancakes', 'Fluffy pancakes topped with fresh blueberries and syrup.', 140, 'pastries', NULL, 7),
-(12, 'Caesar Salad', 'Crisp romaine with Caesar dressing, croutons, and parmesan.', 130, 'food', NULL, 1),
-(13, 'Chicken Wrap', 'Grilled chicken, veggies, and sauce in a tortilla wrap.', 160, 'food', NULL, 1),
-(14, 'Club Sandwich', 'Triple layered sandwich with ham, cheese, egg, and veggies.', 165, 'food', NULL, 2),
-(15, 'Fruit Smoothie', 'Blended seasonal fruits with yogurt and honey.', 90, 'drinks', 'cold', 1),
-(16, 'Iced Tea', 'Brewed black tea served over ice with lemon.', 60, 'drinks', 'cold', 1),
-(17, 'Hot Chocolate', 'Creamy cocoa topped with whipped cream.', 85, 'drinks', 'hot', 4),
-(18, 'Bottled Water', 'Mineral water (500ml).', 30, 'drinks', 'cold', 1);
+(1, 'Espresso', 'Strong and bold espresso shot made from freshly ground beans.', 80, 'drinks', 'hot', 0),
+(2, 'Cappuccino', 'Espresso topped with steamed milk and foam.', 80, 'drinks', 'hot', 0),
+(3, 'Iced Americano', 'Chilled espresso with water over ice.', 90, 'drinks', 'cold', 0),
+(4, 'Cafe Latte', 'Smooth espresso with steamed milk.', 90, 'drinks', 'hot', 0),
+(5, 'Caramel Macchiato', 'Layered espresso, milk, and caramel drizzle.', 90, 'drinks', 'hot', 0),
+(6, 'Classic Waffles', 'Golden waffles served with maple syrup and butter.', 120, 'pastries', NULL, 0),
+(7, 'Avocado Toast', 'Toasted sourdough topped with mashed avocado and chili flakes.', 150, 'food', NULL, 0),
+(8, 'Egg Sandwich', 'Scrambled eggs with cheese on a brioche bun.', 110, 'food', NULL, 0),
+(9, 'Croissant', 'Buttery and flaky freshly baked croissant.', 55, 'pastries', NULL, 0),
+(10, 'Chocolate Muffin', 'Rich chocolate muffin with gooey center.', 60, 'pastries', NULL, 0),
+(11, 'Blueberry Pancakes', 'Fluffy pancakes topped with fresh blueberries and syrup.', 140, 'pastries', NULL, 0),
+(12, 'Caesar Salad', 'Crisp romaine with Caesar dressing, croutons, and parmesan.', 130, 'food', NULL, 0),
+(13, 'Chicken Wrap', 'Grilled chicken, veggies, and sauce in a tortilla wrap.', 160, 'food', NULL, 0),
+(54, 'Burger Steak', 'Juicy burger patties smothered in savory mushroom gravy,', 80, 'food', NULL, 0),
+(15, 'Fruit Smoothie', 'Blended seasonal fruits with yogurt and honey.', 90, 'drinks', 'cold', 0),
+(16, 'Iced Tea', 'Brewed black tea served over ice with lemon.', 60, 'drinks', 'cold', 0),
+(17, 'Hot Chocolate', 'Creamy cocoa topped with whipped cream.', 90, 'drinks', 'hot', 0),
+(18, 'Bottled Water', 'Mineral water (500ml).', 30, 'drinks', 'cold', 0),
+(53, 'Chicken Parmesan', 'Crispy chicken fillet topped with parmesan sauce.', 150, 'food', NULL, 0),
+(55, 'Pepperoni Pizza', 'Classic pizza with slices of savory pepperoni.', 250, 'food', NULL, 0),
+(56, 'Cheese Pizza', 'A pizza with gooey melted cheese.', 250, 'food', NULL, 0),
+(57, 'Longganisa Nachos', 'Crispy nachos topped with savory garlic longganisa.', 100, 'food', NULL, 0),
+(58, 'Pesto', 'Al dente pasta tossed in a rich basil pesto sauce.', 120, 'food', NULL, 0),
+(59, 'Pasta Negra', 'Squid ink pasta with tender seafood and garlic', 120, 'food', NULL, 0),
+(60, 'Marinara Pasta', 'Classic pasta in a rich tomato marinara sauce.', 120, 'food', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -114,7 +121,8 @@ INSERT INTO `notifications` (`notification_id`, `order_id`, `message`, `is_read`
 (12, 39, 'New order placed by user.', 1, '2025-09-22 08:33:40'),
 (13, 41, 'New order placed by user.', 1, '2025-09-22 08:43:04'),
 (14, 42, 'New order placed by user.', 1, '2025-09-22 08:49:57'),
-(15, 43, 'New order placed by user.', 1, '2025-09-22 09:12:16');
+(15, 43, 'New order placed by user.', 1, '2025-09-22 09:12:16'),
+(16, 44, 'New order placed by user.', 1, '2025-10-01 07:38:56');
 
 -- --------------------------------------------------------
 
@@ -141,7 +149,8 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`order_id`, `id`, `name`, `description`, `size_info`, `status`, `address`, `amount`, `date`, `payment_proof`) VALUES
 (1, 1, 'kael', 'Cappucino', NULL, 'food_otw', '3asdasd', 75, '2025-08-15 10:49:20', NULL),
-(43, 15, 'awdawd', '1-Café Latte-85,1-Cappuccino-100,1-Caramel Macchiato-143,1-Espresso-105,2-Hot Chocolate-85,3-Classic Waffles-120,4-Croissant-55,5-Chocolate Muffin-60,6-Blueberry Pancakes-140,', '[{\"menu_id\":4,\"size\":\"short\",\"quantity\":1,\"item_name\":\"Café Latte\"},{\"menu_id\":2,\"size\":\"tall\",\"quantity\":1,\"item_name\":\"Cappuccino\"},{\"menu_id\":5,\"size\":\"grande\",\"quantity\":1,\"item_name\":\"Caramel Macchiato\"},{\"menu_id\":1,\"size\":\"venti\",\"quantity\":1,\"item_name\":\"Espresso\"},{\"menu_id\":17,\"size\":\"short\",\"quantity\":2,\"item_name\":\"Hot Chocolate\"}]', 'in_progress', 'TRY', 2323, '2025-09-22 09:12:16', 'payment_1758532336_15.png');
+(43, 15, 'awdawd', '1-Café Latte-85,1-Cappuccino-100,1-Caramel Macchiato-143,1-Espresso-105,2-Hot Chocolate-85,3-Classic Waffles-120,4-Croissant-55,5-Chocolate Muffin-60,6-Blueberry Pancakes-140,', '[{\"menu_id\":4,\"size\":\"short\",\"quantity\":1,\"item_name\":\"Café Latte\"},{\"menu_id\":2,\"size\":\"tall\",\"quantity\":1,\"item_name\":\"Cappuccino\"},{\"menu_id\":5,\"size\":\"grande\",\"quantity\":1,\"item_name\":\"Caramel Macchiato\"},{\"menu_id\":1,\"size\":\"venti\",\"quantity\":1,\"item_name\":\"Espresso\"},{\"menu_id\":17,\"size\":\"short\",\"quantity\":2,\"item_name\":\"Hot Chocolate\"}]', 'in_progress', 'TRY', 2323, '2025-09-22 09:12:16', 'payment_1758532336_15.png'),
+(44, 16, 'daryll', '1-Café Latte-106,', '[{\"menu_id\":4,\"size\":\"tall\",\"quantity\":1,\"item_name\":\"Café Latte\"}]', 'food_otw', 'asdasdasd', 106, '2025-10-01 07:38:56', 'payment_1759304336_16.png');
 
 -- --------------------------------------------------------
 
@@ -221,7 +230,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
 (7, 'daryll bobis', 'dar@gmail.com', '$2y$12$HnGo4wp8kUajBFKoDV2FY.EdVO3YY8gLa7q.FH9AMV1nx4e9E/pg6'),
-(15, 'awdawd', 'awd@gmail.com', '$2y$12$SQyJYE2WJcTmV2NJuYKlZOKQBtA2F.uIj.V6DykbF7fyR9WXRd8zy');
+(15, 'awdawd', 'awd@gmail.com', '$2y$12$SQyJYE2WJcTmV2NJuYKlZOKQBtA2F.uIj.V6DykbF7fyR9WXRd8zy'),
+(16, 'daryll', 'dab@gmail.com', '$2y$12$7OMPtw9DBHZJdTsWH6CYk.s1bOsyBRUWxmUUNPaqEhGUHXOfy0vou');
 
 --
 -- Indexes for dumped tables
@@ -284,19 +294,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `size_pricing`
@@ -314,7 +324,7 @@ ALTER TABLE `todo`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

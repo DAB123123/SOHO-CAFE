@@ -55,7 +55,7 @@
 
 					<!-- Description -->
 					<p class="section_discover__description">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+						At Sōho Cafe + Kitchen, we believe coffee is more than just a drink — it’s an experience worth sharing.  
 					</p>
 
 				</div>
@@ -70,15 +70,15 @@
 				<div class="col-md-6 align-self-center">
 
 					<!-- Content -->
-					<h2><em>Lorem ipsum</em> dolor sit amet</h2>
+					<h2><em>Our Story</em></h2>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias veritatis nisi, consequatur, laborum libero a neque ducimus. Porro rem illum quo nostrum quisquam asperiores, blanditiis, consectetur. Possimus facilis velit, voluptatibus!
+						Founded with a passion for great coffee and good food, Sōho Cafe + Kitchen has been serving the Biñan community for over 3 years. What started as a simple idea of creating a cozy place for friends and families to gather has grown into a well-loved cafe known for its signature blends and lively atmosphere.
 					</p>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis deleniti non, voluptate architecto, harum suscipit dignissimos eaque voluptatibus nobis natus error iure exercitationem. Officia facilis, maiores atque delectus commodi rerum.
+						Our menu is crafted to bring comfort and excitement to every visit — from freshly brewed coffee and specialty drinks, to delicious meals that make you feel at home. Each cup and dish is made with care, ensuring that every guest experiences the warmth of our kitchen.
 					</p>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur qui, itaque, accusantium accusamus eum voluptate ducimus eligendi laboriosam alias mollitia omnis harum et ut quaerat, minus repellendus sint. Inventore, iure.
+						Whether you’re here to study, catch up with friends, or simply enjoy a quiet evening, Sōho Cafe + Kitchen is your place of comfort and connection.
 					</p>
 
 				</div>
@@ -96,10 +96,9 @@
 					<!-- Blockquote -->
 					<blockquote class="section_quote__blockquote">
 						<p class="text-center">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae ab nobis cupiditate odit repudiandae maiores in et autem voluptate cum.
-						</p>
+							"Coffee is a language in itself — and we serve it with a touch of home."
 						<footer class="text-center">
-							George Bernard Shaw
+							Sōho Cafe + Kitchen Team
 						</footer>
 					</blockquote>
 
@@ -122,7 +121,7 @@
 
 					<!-- Subheading -->
 					<p class="section__subheading text-center">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia obcaecati sit odio velit culpa aspernatur consectetur natus quidem minima veritatis.
+						 More than just a cafe — we are a family of coffee lovers, food enthusiasts, and community builders. Every brew, every meal, and every smile we serve is part of our commitment to creating a space where people belong.
 					</p>
 
 				</div>
@@ -140,10 +139,10 @@
 
 					<div class="section_info__body">
 						<p class="lead text-heading">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident sequi ratione, accusamus quo mollitia architecto, explicabo obcaecati.
+							Our team works hard to make sure that each visit is memorable, filled with flavors and experiences that bring people together.
 						</p>
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum enim saepe aperiam eius, quam blanditiis necessitatibus dolorem dignissimos pariatur quas velit nihil tempora, libero unde molestiae! Illum, inventore. Iusto, autem!
+							From sourcing quality ingredients to crafting every cup with care, we ensure that Sōho Cafe + Kitchen continues to be a place where good times and great food come together.
 						</p>
 						<br>
 						<p>

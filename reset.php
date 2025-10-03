@@ -20,7 +20,7 @@
 <!-- @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap"); -->
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap">
 <!-- <link rel="stylesheet" href="assets/css/stylelogin.css" /> -->
-	<title>Espresso Express</title>
+	<title>Reset password</title>
 	<style >
 
 html,body,input { 
