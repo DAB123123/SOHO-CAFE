@@ -377,219 +377,174 @@ $conn->close();
 <script src="assets/js/custom.js"></script>
 
 <script>
-if ( window.history.replaceState ) {
-  window.history.replaceState( null, null, window.location.href );
+// Prevent form resubmission in history
+if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
 }
 
-var totalamount= <?php echo $total; ?>;
-
-document.getElementById("amount_total").innerHTML=totalamount;
-document.getElementById("payment_amount").innerHTML=totalamount;
-document.getElementById("payment_amount_qr").innerHTML=totalamount;
-
-// Check cart status on page load
-if (typeof checkCartAndToggleButton === 'function') {
-  checkCartAndToggleButton();
-}
+// initialize totals (use json_encode to safely output PHP number)
+var totalamount = <?php echo json_encode($total); ?>;
+document.getElementById("amount_total").innerHTML = totalamount;
+document.getElementById("payment_amount").innerHTML = totalamount;
+document.getElementById("payment_amount_qr").innerHTML = totalamount;
 
 // File upload preview
-document.getElementById('payment_proof').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    const previewContainer = document.getElementById('preview-container');
-    
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            previewContainer.innerHTML = '<div style="margin-top: 10px;"><strong>Preview:</strong><br><img src="' + e.target.result + '" style="max-width: 200px; max-height: 150px; border: 1px solid #ccc; border-radius: 5px;"></div>';
-        };
-        reader.readAsDataURL(file);
-    } else {
-        previewContainer.innerHTML = '';
-    }
-});
+var paymentProofInput = document.getElementById('payment_proof');
+if (paymentProofInput) {
+    paymentProofInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        const previewContainer = document.getElementById('preview-container');
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewContainer.innerHTML = '<div style="margin-top: 10px;"><strong>Preview:</strong><br><img src="' + e.target.result + '" style="max-width: 200px; max-height: 150px; border: 1px solid #ccc; border-radius: 5px;"></div>';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            previewContainer.innerHTML = '';
+        }
+    });
+}
+
+// Build order payload from DOM
+function buildOrderPayloadFromDOM() {
+    const rows = Array.from(document.querySelectorAll('.cart_item'));
+    let descParts = [];
+    let sizeInfoArray = [];
+
+    rows.forEach(row => {
+        // skip hidden or deleted rows
+        if (!row.offsetParent || row.style.display === 'none' || row.classList.contains('hidden')) return;
+
+        const fullid = row.dataset.fullid || row.id.replace('div','');
+        const menuid = row.dataset.menuid || '';
+        const size = row.dataset.size || '';
+
+        const qtyInput = document.getElementById(fullid) || document.getElementById(menuid);
+        const qty = qtyInput ? parseInt(qtyInput.value) || 0 : 0;
+        if (qty <= 0) return; // ignore zero quantity
+
+        const nameEl = row.querySelector('.title');
+        const priceEl = document.getElementById('pricy' + fullid) || document.getElementById('pricy' + menuid);
+
+        const name = nameEl ? nameEl.textContent.trim() : 'Item';
+        const price = priceEl ? parseFloat(priceEl.textContent.trim()) : 0;
+
+        descParts.push(qty + '-' + name + '-' + price);
+        sizeInfoArray.push({
+            menu_id: menuid,
+            size: size,
+            quantity: qty,
+            item_name: name
+        });
+    });
+
+    const desc = descParts.join(',') + (descParts.length ? ',' : '');
+    return { desc, sizeInfoArray };
+}
 
 $(document).ready(function(){
-  $("#btn_ad").click(function(){
-<?php if(isset($_SESSION['name'])) 
-{
-?>
-// SECURITY: Validate cart has items before processing (prevents inspect element manipulation)
-var cartItems = document.querySelectorAll('.cart_item');
-var hasVisibleItems = false;
-for (var i = 0; i < cartItems.length; i++) {
-  if (cartItems[i].style.display !== 'none') {
-    hasVisibleItems = true;
-    break;
-  }
-}
+    $("#btn_ad").click(function(){
+        <?php if(isset($_SESSION['name'])) { ?>
 
-if (!hasVisibleItems || totalamount <= 0) {
-  $("#add_err").html('<div class="alert-danger"> <strong>Cart Empty!</strong> Please add items to your cart before placing an order </div> <br>');
-  console.log('cart is empty - order blocked');
-  return;
-}
+        // Validate visible cart rows
+        const visibleRows = Array.from(document.querySelectorAll('.cart_item'))
+            .filter(r => r.offsetParent && r.style.display !== 'none' && !r.classList.contains('hidden'));
+        if (visibleRows.length === 0 || totalamount <= 0) {
+            $("#add_err").html('<div class="alert-danger"><strong>Cart Empty!</strong> Please add items to your cart before placing an order</div><br>');
+            return;
+        }
 
-var addr=document.getElementById('message').value;
-var checky=document.getElementById('checkz').checked;
-var paymentProof = document.getElementById('payment_proof').files[0];
+        // Basic form validations
+        const addr = document.getElementById('message').value.trim();
+        const checky = document.getElementById('checkz').checked;
+        const paymentProof = document.getElementById('payment_proof').files[0];
 
-if(checky==""||checky==null)
-{
-$("#add_err").html('<div class="alert-danger"> <strong>Terms & Condition!</strong> field required </div> <br>');
-console.log('dd');
-return ;}
-else if(addr==null || addr=="")
-{
-$("#add_err").html('<div class="alert-danger"> <strong>Address!</strong> Address is required </div> <br>');
-console.log('dd');
-return ;}
-else if(!paymentProof)
-{
-$("#add_err").html('<div class="alert-danger"> <strong>Payment Proof!</strong> Please upload payment proof </div> <br>');
-console.log('payment proof required');
-return ;}
-else
-$("#add_err").html('');
+        if (!checky) {
+            $("#add_err").html('<div class="alert-danger"><strong>Terms & Condition!</strong> field required</div><br>');
+            return;
+        } else if (!addr) {
+            $("#add_err").html('<div class="alert-danger"><strong>Address!</strong> Address is required</div><br>');
+            return;
+        } else if (!paymentProof) {
+            $("#add_err").html('<div class="alert-danger"><strong>Payment Proof!</strong> Please upload payment proof</div><br>');
+            return;
+        } else {
+            $("#add_err").html('');
+        }
 
+        const payload = buildOrderPayloadFromDOM();
+        const desc = payload.desc;
+        const sizeInfoArray = payload.sizeInfoArray;
 
-var arry=user[userid];
-var i=0;
-var desc="";
-var sizeInfoArray = []; // Array to store size information
+        if (!desc || desc.length === 0) {
+            $("#add_err").html('<div class="alert-danger"><strong>No valid items!</strong> Please add items to cart.</div><br>');
+            return;
+        }
 
-// Process both old format (simple IDs) and new format (objects with size)
-<?php foreach($processedItems as $index => $item) { ?>
-    <?php if (is_array($item)) { 
-        // New format: drink with size
-        $itemId = $item['fullId'];
-        $menuId = $item['id'];
-        ?>
-        var itemId = "<?php echo $itemId; ?>";
-        var menuId = <?php echo $menuId; ?>;
-        var quantity = document.getElementById(itemId).value;
-        
-        // Check if this item exists in cart
-        var itemExists = arry.some(function(cartItem) {
-            return (typeof cartItem === 'object' && cartItem.fullId === itemId);
+        // Optional: call try.php for each visible item
+        visibleRows.forEach(function(row){
+            const menuid = row.dataset.menuid || row.id.replace('div','');
+            const fullid = row.dataset.fullid || menuid;
+            const size = row.dataset.size || '';
+            const qtyInput = document.getElementById(fullid) || document.getElementById(menuid);
+            const quantity = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
+
+            const postData = size ? { id: menuid, quan: quantity, size: size } : { id: menuid, quan: quantity };
+            $.post('try.php', postData, function(html){
+                if (html !== 'true') console.log('try.php:', html);
+            });
         });
-        
-        if(itemExists) {
-            var dish_name = document.getElementById("dish" + itemId).innerHTML;
-            var dish_price = document.getElementById("pricy" + itemId).innerHTML;
-            desc += quantity + "-" + dish_name + "-" + dish_price + ",";
-            
-            // Add size info for this item
-            sizeInfoArray.push({
-                menu_id: menuId,
-                size: "<?php echo $item['size']; ?>",
-                quantity: parseInt(quantity),
-                item_name: dish_name
-            });
-            
-            $.ajax({
-                type:"POST",
-                url:"try.php", 
-                data: "id=" + menuId + "&quan=" + quantity + "&size=" + "<?php echo $item['size']; ?>",
-                success:function(html) {
-                    if(html=='true')
-                        console.log('done');
-                    else
-                        console.log(html);
+
+        // Prepare and send FormData to add_order.php
+        const name = <?php echo json_encode($_SESSION['name']); ?>;
+        const totaly = document.getElementById("amount_total").textContent.trim();
+        const id = <?php echo json_encode($_SESSION['login']); ?>;
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('description', desc);
+        formData.append('addr', addr);
+        formData.append('amount', totaly);
+        formData.append('id', id);
+        formData.append('payment_proof', paymentProof);
+        formData.append('size_info', JSON.stringify(sizeInfoArray));
+
+        $.ajax({
+            type: "POST",
+            url: "add_order.php",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(html) {
+                if (html === 'true') {
+                    // Clear client-side cart (localStorage)
+                    try {
+                        delete user[userid];
+                        delete user[0];
+                        localStorage.setItem("user", JSON.stringify(user));
+                    } catch(e) { console.log('local cleanup error', e); }
+                    window.location = "order_his.php";
+                } else {
+                    console.log('add_order.php response:', html);
+                    $("#add_err").html('<div class="alert-danger"><strong>Order Error!</strong> Please try again or contact admin.</div><br>');
                 }
-            });
-        }
-    <?php } else { 
-        // Old format: simple menu ID
-        $itemId = $item;
-        ?>
-        var idy = <?php echo $itemId; ?>;
-        var quantity = document.getElementById(idy).value;
-        
-        if(arry.indexOf(idy) !== -1) {
-            var dish_name = document.getElementById("dish" + idy).innerHTML;
-            var dish_price = document.getElementById("pricy" + idy).innerHTML;
-            desc += quantity + "-" + dish_name + "-" + dish_price + ",";
-            
-            $.ajax({
-                type:"POST",
-                url:"try.php",
-                data: "id=" + idy + "&quan=" + quantity,
-                success:function(html) {
-                    if(html=='true')
-                        console.log('done');
-                    else
-                        console.log(html);
-                }
-            });
-        }
-    <?php } ?>
-<?php } ?>
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX error', error);
+                $("#add_err").html('<div class="alert-danger"><strong>Network Error!</strong> Please try again.</div><br>');
+            }
+        });
 
-var name='<?php echo $_SESSION['name']; ?>';
-console.log(name);
-var totaly=document.getElementById("amount_total").innerHTML;
-var id=<?php echo $_SESSION['login']; ?>;
-
-// Create FormData object for file upload
-var formData = new FormData();
-formData.append('name', name);
-formData.append('description', desc);
-formData.append('addr', addr);
-formData.append('amount', totaly);
-formData.append('id', id);
-formData.append('payment_proof', paymentProof);
-formData.append('size_info', JSON.stringify(sizeInfoArray)); // Add size information
-
-$.ajax({
-type:"POST",
-url:"add_order.php",
-data: formData,
-processData: false,
-contentType: false,
-success:function(html)
-{
-if(html=='true')
-{
-delete user[userid];
-delete user[0];
-localStorage.setItem("user",JSON.stringify(user));
-console.log('placed');
-window.location = "order_his.php";
-}
-else
-console.log('false');
-}
-                });
-
-
-<?php } ?>
-
-<?php if(!isset($_SESSION['name'])) 
-{
-?>
-window.location = "login.php";
-<?php } ?>
-
-  });
+        <?php } else { ?>
+        // Not logged in
+        window.location = "login.php";
+        <?php } ?>
+    });
 });
-
 </script>
-<script>
-function openTerms() {
-  document.getElementById('termsModal').style.display = 'block';
-}
 
-function closeTerms() {
-  document.getElementById('termsModal').style.display = 'none';
-}
 
-// Close modal when clicking outside the content
-window.onclick = function(event) {
-  if (event.target == document.getElementById('termsModal')) {
-    closeTerms();
-  }
-}
-</script>
 
 
 </body>
