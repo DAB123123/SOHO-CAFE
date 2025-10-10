@@ -245,5 +245,8 @@
                 .appendTo('head');
         });
     </script>
+
+    <!-- Navigation Active Link Script -->
+    <script src="assets/js/script.js"></script>
 </body>
 </html>

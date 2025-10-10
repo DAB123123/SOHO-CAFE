@@ -27,7 +27,7 @@ if (isset($_POST['order_id'])) {
         // Order Information Section
         echo '<div class="mb-4">';
         echo '<h6 class="mb-3"><strong>Order Information</strong></h6>';
-        echo '<table class="table table-borderless table-sm">';
+        echo '<table class="table table-borderless table-sm order-details-info-table">';
         echo '<tr><td><strong>Order ID:</strong></td><td>#' . $order_row['order_id'] . '</td></tr>';
         echo '<tr><td><strong>Date:</strong></td><td>' . date('F j, Y g:i A', strtotime($order_row['date'])) . '</td></tr>';
         echo '<tr><td><strong>Status:</strong></td><td>';
@@ -58,7 +58,7 @@ if (isset($_POST['order_id'])) {
         // Customer Information Section
         echo '<div class="mb-4">';
         echo '<h6 class="mb-3"><strong>Customer Information</strong></h6>';
-        echo '<table class="table table-borderless table-sm">';
+        echo '<table class="table table-borderless table-sm order-details-info-table">';
         echo '<tr><td><strong>Customer Name:</strong></td><td>' . htmlspecialchars($order_row['name']) . '</td></tr>';
         echo '<tr><td><strong>Customer ID:</strong></td><td>#' . $order_row['id'] . '</td></tr>';
         echo '<tr><td><strong>Delivery Address:</strong></td><td>' . htmlspecialchars($order_row['address']) . '</td></tr>';

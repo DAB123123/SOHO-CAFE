@@ -10,6 +10,12 @@ $amount=mysqli_real_escape_string($conn, $_POST['amount']);
 $id=mysqli_real_escape_string($conn, $_POST['id']);
 $size_info = isset($_POST['size_info']) ? mysqli_real_escape_string($conn, $_POST['size_info']) : NULL;
 
+// SERVER-SIDE SECURITY: Validate order has items and valid amount
+if (empty(trim($description)) || $amount <= 0) {
+    echo 'false'; // Reject empty orders
+    exit();
+}
+
 // Handle payment proof upload
 $payment_proof = null;
 if (isset($_FILES['payment_proof']) && $_FILES['payment_proof']['error'] == 0) {

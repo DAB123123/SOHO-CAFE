@@ -69,6 +69,12 @@ require_once "config.php";
             <h3 class="custom_blog_title">
                         Shopping Cart
                     </h3>
+
+            <!-- Payment Instructions - Top -->
+            <div class="payment-info" style="margin-bottom: 20px;">
+                <strong style="color: #007bff;"><i class="fa fa-info-circle"></i> Payment Steps:</strong><br>
+                <span style="color: #333;">1. Scan QR code (top right) → 2. Pay ₱<span id="payment_amount">135</span> → 3. Upload screenshot → 4. Complete order</span>
+            </div>
             <!-- Main Cart Content -->
             <div class="row main-content-cart main-content">
                 <div class="col-sm-9">
@@ -260,8 +266,10 @@ $conn->close();
             <div class="row">
                 <div class="col-sm-12">
                     <div class="checkout-details">
-                        <h4 style="color: #333; margin-bottom: 20px; text-align: center;">Complete Your Order</h4>
-                        
+<h4 style="color: #333; margin-bottom: 20px; text-align: center;">Complete Your Order</h4>
+                        <p style="text-align:center; color:#777; font-size:14px; margin-top:-10px; margin-bottom:25px;">
+    Fields marked with an asterisk (<span style="color:#e93b81;">*</span>) are required.
+</p>
                         <!-- Total Amount -->
                         <div class="order-total">
                             <span style="font-size: 18px; color: #666;">Total Amount: </span>
@@ -274,7 +282,11 @@ $conn->close();
                                 <div class="form-group">
                                     <label style="display: flex; align-items: center; margin-bottom: 15px; font-size: 16px;">
                                         <input type="checkbox" id="checkz" required style="margin-right: 10px; transform: scale(1.2);">
-                                        I agree to <span style="color:#e93b81; margin-left: 5px;"><i>terms & conditions</i></span>
+                                        I agree to 
+<span style="color:#e93b81; margin-left: 5px;">
+  <i>terms & conditions</i>
+</span>
+<span style="color:#e93b81; margin-left: 5px;">*</span>
                                     </label>
                                 </div>
                             </div>
@@ -282,7 +294,7 @@ $conn->close();
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="message">
-                                        <i class="fa fa-map-marker"></i> Delivery Address *
+                                        <i class="fa fa-map-marker"></i> Delivery Address <span style="color:#e93b81;">*</span>
                                     </label>
                                     <textarea id="message" name="message" required 
                                             placeholder="Enter your complete delivery address..."></textarea>
@@ -292,7 +304,7 @@ $conn->close();
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="payment_proof">
-                                        <i class="fa fa-camera"></i> Payment Proof *
+                                        <i class="fa fa-camera"></i> Payment Proof <span style="color:#e93b81;">*</span>
                                     </label>
                                     <input type="file" class="form-control" id="payment_proof" name="payment_proof" accept="image/*" required>
                                     <small class="text-muted">Upload GCash payment screenshot (JPG, PNG, GIF - Max 5MB)</small>
@@ -300,13 +312,6 @@ $conn->close();
                                 <div id="preview-container" style="margin-top: 10px;"></div>
                             </div>
                         </div>
-                        
-                        <!-- Payment Instructions -->
-                        <div class="payment-info">
-                            <strong style="color: #007bff;"><i class="fa fa-info-circle"></i> Payment Steps:</strong><br>
-                            <span style="color: #333;">1. Scan QR code (top right) → 2. Pay ₱<span id="payment_amount">135</span> → 3. Upload screenshot → 4. Complete order</span>
-                        </div>
-                        
                         <!-- Error Messages & Buttons -->
                         <div id="add_err" style="margin-bottom: 15px;"></div>
                         
@@ -363,6 +368,11 @@ document.getElementById("amount_total").innerHTML=totalamount;
 document.getElementById("payment_amount").innerHTML=totalamount;
 document.getElementById("payment_amount_qr").innerHTML=totalamount;
 
+// Check cart status on page load
+if (typeof checkCartAndToggleButton === 'function') {
+  checkCartAndToggleButton();
+}
+
 // File upload preview
 document.getElementById('payment_proof').addEventListener('change', function(e) {
     const file = e.target.files[0];
@@ -384,6 +394,22 @@ $(document).ready(function(){
 <?php if(isset($_SESSION['name'])) 
 {
 ?>
+// SECURITY: Validate cart has items before processing (prevents inspect element manipulation)
+var cartItems = document.querySelectorAll('.cart_item');
+var hasVisibleItems = false;
+for (var i = 0; i < cartItems.length; i++) {
+  if (cartItems[i].style.display !== 'none') {
+    hasVisibleItems = true;
+    break;
+  }
+}
+
+if (!hasVisibleItems || totalamount <= 0) {
+  $("#add_err").html('<div class="alert-danger"> <strong>Cart Empty!</strong> Please add items to your cart before placing an order </div> <br>');
+  console.log('cart is empty - order blocked');
+  return;
+}
+
 var addr=document.getElementById('message').value;
 var checky=document.getElementById('checkz').checked;
 var paymentProof = document.getElementById('payment_proof').files[0];
