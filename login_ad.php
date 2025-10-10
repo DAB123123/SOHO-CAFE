@@ -142,7 +142,7 @@ return false;
 </script>
 </head>
 <body>
-<div id="app" style="background-image: url('assets/img/backy.jpg');">
+<div id="app" style="background-image: url('assets/img/admin_bg2.jpg');">
        <form method="POST"  class="form-horizontal"><input type="hidden" name="_token" value="lwd9TzVUwqmH3FkV1BJDbvN0oBkeetk7p2zuEJ2Y"> <h2 class="sr-only">Login Form</h2> <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div> <div class="form-group"><input id="inemail" type="email" name="email" value="" required="required" autofocus="autofocus" placeholder="Email" class="form-control"></div> <div class="form-group">
        	<input id="inpassword" type="password" name="password" required="required" placeholder="Password" class="form-control">
        </div> 

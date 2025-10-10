@@ -194,19 +194,9 @@ $total_cancel =  mysqli_fetch_assoc($sql);
           <!-- MAIN CARDS ENDS HERE -->
 
           <!-- CHARTS STARTS HERE -->
-          <div class="charts">
-            <div class="charts__left">
-              <div class="charts__left__title">
-                <div>
-                  <h1>Daily Reports</h1>
-                  <p>SOHO Cafe & Kitchen</p>
-                </div>
-                <i class="fa fa-usd" aria-hidden="true"></i>
-              </div>
-              <div id="apex1"></div>
-            </div>
 
-            <div class="charts__right">
+
+            <!--<div class="charts__right">
               <div class="charts__right__title">
                 <div>
                   <h1>To-Do list</h1>
@@ -215,65 +205,77 @@ $total_cancel =  mysqli_fetch_assoc($sql);
                   
                 <i class="fa fa-usd" aria-hidden="true"></i>
               </div>
-<?php require_once 'todo.php' ?>
+
              
-            </div>
-          </div>
+            </div> 
+          </div>-->
 
 
 
-            <div class="chart">
+<div class="charts">
+  <!-- LEFT: Trending Items -->
+  <div class="charts__left">
+    <div class="charts__left__title">
+      <div>
+        <h1>Trending Items</h1>
+        <p>SOHO Cafe & Kitchen</p>
+      </div>
+      <i class="fa fa-line-chart" aria-hidden="true"></i>
+    </div>
+    <div class="box-body drive">
+      <?php
+      $sql = "SELECT * FROM menu ORDER BY no_order DESC";
+      $result = $conn->query($sql);
+      $i = 1;
+      if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+              echo '<div class="d-md-flex justify-content-between align-items-center">';
+              echo '<div class="d-flex justify-content-start align-items-center mb-20 mb-md-0">';
+              echo '<p class="mb-0 fs-18 text-mute">#' . $i . '</p>';
+              echo '<img src="assets/img/menu/' . $row["menu_id"] . '.png" class="rounded10 w-80 mx-15" alt="">';
+              echo '<div><h5 class="mb-0 fw-500">' . $row["name"] . '</h5>';
+              echo '<p class="mb-0">₱' . $row['price'] . '</p></div></div>';
+              echo '<div class="text-center trending-count">';
+              echo '<h3 class="box-title fw-700 mb-0">' . $row["no_order"] . '</h3>';
+              echo '<p class="text-muted mb-0 small">no of order</p>';
+              echo '</div></div><hr>';
+              $i++;
+          }
+      } else {
+          echo "0 results";
+      }
+      ?>
+    </div>
+  </div>
+
+  <!-- CENTER: Daily Reports -->
+  <div class="charts__right wide">
+    <div class="charts__right__title">
+      <div>
+        <h1>Daily Reports</h1>
+        <p>SOHO Cafe & Kitchen</p>
+      </div>
+      <i class="fa fa-bar-chart" aria-hidden="true"></i>
+    </div>
+    <div id="apex1"></div>
+  </div>
+
+  <!-- RIGHT: To-Do List -->
+  <div class="charts__todo">
+    <div class="charts__right__title">
+      <div>
+        <h1>To-Do List</h1>
+      </div>
+      <i class="fa fa-list" aria-hidden="true"></i>
+    </div>
+    <div class="box-body">
+      <?php require_once 'todo.php'; ?>
+    </div>
+  </div>
+</div>
 
 
-               <div class="chart__rig">
-              <div class="chart__rig__title">
-                <div>
-                  <h1>Trending Items</h1>
-                  
-                </div>
-                <i class="fa fa-usd" aria-hidden="true"></i>
-              </div>
-              <div class="box-body drive">
-
-<?php
-
-$sql = "SELECT * from menu ORDER BY no_order DESC";
-$result = $conn->query($sql);
-
-$i=1;
-
-if ($result->num_rows > 0) {
-    // output data of each row
-
-    while($row = $result->fetch_assoc()) {
-
-	echo '<div class="d-md-flex justify-content-between align-items-center"> <div class="d-flex justify-content-start align-items-center mb-20 mb-md-0"> <div>';
-	echo '<p class="mb-0 fs-18 text-mute">#'. $i .'</p>';	
-	echo '</div> <div class="text-start">';
-	echo ' <img src="assets/img/menu/'. $row["menu_id"] .'.png" class="rounded10 w-80 mx-15" alt="">';
-	echo '</div><div>';
-	echo '<h5 class="mb-0 fw-500">'. $row["name"] .'</h5>';
-	echo '<p class="mb-0">₱'. $row['price'] .'<span class="text-success">&nbsp;</span></p>';
-	echo '</div> </div> <div class="d-flex justify-content-md-end align-items-center"> <div class="text-end mx-15"> <span class="fs-50 text-success icon-Chart-line"><span class="path1"></span><span class="path2"></span></span> </div> <div class="text-start w-90">';
-	echo '<h3 class="box-title mb-0 fw-500">' . $row["no_order"] . '</h3>';
-	echo '<p class="mb-0">no of order</p> </div> </div> </div> <hr>';
-
-$i=$i+1;
-
-    }
-} else {
-    echo "0 results";
-}
-
-$conn->close();
-?>
-
-
-    
-            </div>
-            </div>
-
-            <div class="chart__rig">
+            <!--<div class="chart__rig">
               <div class="chart__rig__title">
                 <div>
                   <h1>Customer</h1>
@@ -282,7 +284,7 @@ $conn->close();
                 <i class="fa fa-usd" aria-hidden="true"></i>
               </div>
               <div id="apex2"></div>
-            </div>
+            </div>-->
 
 
 

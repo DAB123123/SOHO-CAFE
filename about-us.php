@@ -31,7 +31,7 @@
 
 	<!-- HEADER
 	================================================== -->
-	<section class="section section_header" data-parallax="scroll" data-image-src="assets/img/36.jpg">
+	<section class="section section_header" data-parallax="scroll" data-image-src="assets/img/front.jpg">
 		<div class="container">
 			<div class="row">
 				<div class="col">
@@ -63,7 +63,7 @@
 
 					<!-- Image -->
 					<div class="section_discover__img">
-						<img src="assets/img/2.jpg" class="img-fluid" alt="...">
+						<img src="assets/img/drink.jpg" class="img-fluid" alt="...">
 					</div>
 
 				</div>
@@ -107,55 +107,7 @@
 		</div> <!-- / .container -->
 	</section>
 
-	<!-- INFO
-	================================================== -->
-	<section class="section section_info section_info_opposite">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-
-					<!-- Heading -->
-					<h2 class="section__heading text-center">
-						Behind the scenes
-					</h2>
-
-					<!-- Subheading -->
-					<p class="section__subheading text-center">
-						 More than just a cafe — we are a family of coffee lovers, food enthusiasts, and community builders. Every brew, every meal, and every smile we serve is part of our commitment to creating a space where people belong.
-					</p>
-
-				</div>
-			</div> <!-- / .row -->
-			<div class="row align-items-justify">
-				<div class="col-md-6 order-md-3">
-
-					<div class="section_info__img">
-						<img src="assets/img/24.jpg" alt="...">
-					</div>
-
-				</div>
-				<div class="col-md-1 order-md-2"></div>
-				<div class="col-md-5 order-md-1">
-
-					<div class="section_info__body">
-						<p class="lead text-heading">
-							Our team works hard to make sure that each visit is memorable, filled with flavors and experiences that bring people together.
-						</p>
-						<p>
-							From sourcing quality ingredients to crafting every cup with care, we ensure that Sōho Cafe + Kitchen continues to be a place where good times and great food come together.
-						</p>
-						<br>
-						<p>
-							<a href="contact-us.php" class="btn btn-primary">
-								Contact Us
-							</a>
-						</p>
-					</div>
-
-				</div>
-			</div> <!-- / .row -->
-		</div> <!-- / .container -->
-	</section>
+	
 
 
 

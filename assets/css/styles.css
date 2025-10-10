@@ -564,17 +564,22 @@ main {
 }
 
 .charts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 30px;
-  margin-top: 50px;
+  align-items: stretch;
+  width: 100%;
+  flex-wrap: nowrap;
 }
 
 .charts__left {
+  flex: 0 0 30%;
+  background: #ffffff;
   padding: 25px;
   border-radius: 5px;
-  background: #ffffff;
   box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .charts__left__title {
@@ -605,8 +610,66 @@ main {
   border: 0px solid #000000;
   padding: 15px;
 }
+.charts__right.wide {
+  flex: 1 1 40%;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+.charts__todo {
+  flex: 0 0 30%;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 13px #ededed, -5px -5px 13px #ffffff;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+.charts__left > div:last-child,
+.charts__right.wide > div:last-child,
+.charts__todo > div:last-child {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+@media (max-width: 1100px) {
+  .charts {
+    flex-direction: column;
+  }
+  .charts__left,
+  .charts__right.wide,
+  .charts__todo {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+.trending-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 80px;
+}
+
+.trending-count h3 {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 5px;
+  color: #2e4a66; /* or your accent color */
+}
+
+.trending-count p {
+  font-size: 13px;
+  color: #6c757d;
+}
 
 .charts__right {
+  flex: 1;
   padding: 25px;
   border-radius: 5px;
   background: #ffffff;

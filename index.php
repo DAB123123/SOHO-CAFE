@@ -32,7 +32,7 @@
 
 	<!-- WELCOME
 	================================================== -->
-	<section class="section section_welcome" data-parallax="scroll" data-image-src="assets/img/1.jpg">
+	<section class="section section_welcome" data-parallax="scroll" data-image-src="assets/img/front.jpg">
 
 		<!-- Content -->
 		<div class="section_welcome__main">
@@ -177,7 +177,7 @@
 
 					<!-- Description -->
 					<p class="section_about__description">
-						Fusing modern design with dark wood screens, rich materials and a subtle use of lighting.
+						A nighttime view of SOHŌ Café + Kitchen, a modern glass-fronted café with warm interior lighting. Several people are seated inside enjoying conversations and drinks, while motorcycles are parked outside in front of the café.
 					</p>
 
 				</div>

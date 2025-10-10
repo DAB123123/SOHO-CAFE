@@ -31,7 +31,7 @@
 
 	<!-- HEADER
 	================================================== -->
-	<section class="section section_header" data-parallax="scroll" data-image-src="assets/img/23.jpg">
+	<section class="section section_header" data-parallax="scroll" data-image-src="assets/img/front2.jpg">
 		<div class="container">
 			<div class="row">
 				<div class="col">
@@ -58,29 +58,26 @@
 						Take a sneak peek
 					</h2>
 
-					<!-- Subheading -->
-					<p class="section__subheading text-center">
-						Asperiores temporibus fuga possimus labore ex porro pariatur sed, nisi dolor, nobis architecto. Placeat facilis voluptas alias ducimus.
-					</p>
+
 
 					<!-- Carousel -->
 					<div class="section_carousel__slider">
 						<div class="section_carousel__slider__item">
-							<img src="assets/img/33.jpg" class="img-fluid" alt="...">
+							<img src="assets/img/front3.jpg" class="img-fluid" alt="...">
 							<div class="section_carousel__slider__item__caption text-center">
-								<h4 class="section_carousel__slider__item__caption__heading">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
+								<h4 class="section_carousel__slider__item__caption__heading"></h4>
 							</div>
 						</div>
 						<div class="section_carousel__slider__item">
-							<img src="assets/img/35.jpg" class="img-fluid" alt="...">
+							<img src="assets/img/front3.jpg" class="img-fluid" alt="...">
 							<div class="section_carousel__slider__item__caption text-center">
-								<h4 class="section_carousel__slider__item__caption__heading">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
+								<h4 class="section_carousel__slider__item__caption__heading"></h4>
 							</div>
 						</div>
 						<div class="section_carousel__slider__item">
-							<img src="assets/img/36.jpg" class="img-fluid" alt="...">
+							<img src="assets/img/front3.jpg" class="img-fluid" alt="...">
 							<div class="section_carousel__slider__item__caption text-center">
-								<h4 class="section_carousel__slider__item__caption__heading">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h4>
+								<h4 class="section_carousel__slider__item__caption__heading"></h4>
 							</div>
 						</div>
 					</div>
