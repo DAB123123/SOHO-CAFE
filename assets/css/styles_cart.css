@@ -257,6 +257,47 @@ table tr td:last-child {
 table tr:last-child td, table tr:last-child th {
 	border-bottom: none;
 }
+.terms-modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1000; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  background-color: rgba(0,0,0,0.6); 
+}
+
+.terms-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  color: #333;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  color: #555;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #e93b81;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.95);}
+  to {opacity: 1; transform: scale(1);}
+}
 /*----------------------------Auto Clear--------------------------------*/
 @media (min-width: 1500px) {
 	.auto-clear .col-bg-1:nth-child(12n+1) {

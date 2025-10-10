@@ -283,7 +283,7 @@ $conn->close();
                                     <label style="display: flex; align-items: center; margin-bottom: 15px; font-size: 16px;">
                                         <input type="checkbox" id="checkz" required style="margin-right: 10px; transform: scale(1.2);">
                                         I agree to 
-<span style="color:#e93b81; margin-left: 5px;">
+<span style="color:#e93b81; margin-left: 5px; cursor:pointer;" onclick="openTerms()">
   <i>terms & conditions</i>
 </span>
 <span style="color:#e93b81; margin-left: 5px;">*</span>
@@ -333,6 +333,25 @@ $conn->close();
             </div>
         </div>
 <div id="det"></div>
+<!-- Terms & Conditions Modal -->
+<div id="termsModal" class="terms-modal">
+  <div class="terms-content">
+    <span class="close-btn" onclick="closeTerms()">&times;</span>
+    <h2>Terms & Conditions</h2>
+    <p>
+      By placing an order, you agree to the following:
+      <br><br>
+      • Orders are final once confirmed.<br>
+      • Payment must be made through GCash before delivery.<br>
+      • Delivery times may vary depending on location and order volume.<br>
+      • Refunds or replacements are only allowed for wrong items.<br>
+      • Please ensure your delivery details are correct before submitting your order.
+      <br><br>
+      Thank you for ordering with us!
+    </p>
+  </div>
+</div>
+
     </main>
 
 <!-- JAVASCRIPT -->
@@ -555,6 +574,23 @@ window.location = "login.php";
 });
 
 </script>
+<script>
+function openTerms() {
+  document.getElementById('termsModal').style.display = 'block';
+}
+
+function closeTerms() {
+  document.getElementById('termsModal').style.display = 'none';
+}
+
+// Close modal when clicking outside the content
+window.onclick = function(event) {
+  if (event.target == document.getElementById('termsModal')) {
+    closeTerms();
+  }
+}
+</script>
+
 
 </body>
 
