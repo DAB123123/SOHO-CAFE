@@ -122,7 +122,9 @@ if (isset($_POST['order_id'])) {
                             $total_calculated += $subtotal;
                             
                             // Get menu item details including menu_id
-                            $menu_sql = "SELECT menu_id, temperature FROM menu WHERE name LIKE '" . mysqli_real_escape_string($conn, trim(explode('(', $dish_name)[0])) . "%'";
+                            // Extract base name without size info in parentheses
+                            $base_name = trim(explode('(', $dish_name)[0]);
+                            $menu_sql = "SELECT menu_id, temperature FROM menu WHERE name LIKE '" . mysqli_real_escape_string($conn, $base_name) . "%'";
                             $menu_result = mysqli_query($conn, $menu_sql);
                             $menu_data = mysqli_fetch_array($menu_result);
                             
@@ -138,12 +140,40 @@ if (isset($_POST['order_id'])) {
                                 echo '<span class="temperature-badge ' . $temp_class . '">' . strtoupper($menu_data['temperature']) . '</span>';
                             }
                             
-                            // Add size badge from size_info data
-                            if ($menu_data && isset($size_lookup[$menu_data['menu_id']])) {
-                                $size_info = $size_lookup[$menu_data['menu_id']];
-                                $size = strtolower($size_info['size']);
-                                $size_class = 'size-' . $size . '-badge';
-                                echo '<span class="size-badge ' . $size_class . '">' . strtoupper($size) . '</span>';
+                            // Add size badge from size_info data with inline styles
+                            $size_found = false;
+                            $size_colors = [
+                                'short' => 'background-color: #28a745 !important; color: white !important;',
+                                'tall' => 'background-color: #17a2b8 !important; color: white !important;',
+                                'grande' => 'background-color: #ffc107 !important; color: black !important;',
+                                'venti' => 'background-color: #dc3545 !important; color: white !important;'
+                            ];
+                            
+                            if ($menu_data) {
+                                // Try to find size info by menu_id
+                                if (isset($size_lookup[$menu_data['menu_id']])) {
+                                    $size_info = $size_lookup[$menu_data['menu_id']];
+                                    $size = strtolower($size_info['size']);
+                                    if (!empty($size)) {
+                                        $size_class = 'size-' . $size . '-badge';
+                                        $inline_style = isset($size_colors[$size]) ? $size_colors[$size] : '';
+                                        echo '<span class="size-badge ' . $size_class . '" style="display: inline-block; padding: 2px 6px; border-radius: 8px; font-size: 0.7rem; font-weight: bold; margin-left: 4px; ' . $inline_style . '">' . strtoupper($size) . '</span>';
+                                        $size_found = true;
+                                    }
+                                }
+                                
+                                // Fallback: search size_info by item name if menu_id didn't work
+                                if (!$size_found) {
+                                    foreach ($size_info_data as $size_item) {
+                                        if (isset($size_item['item_name']) && stripos($dish_name, $size_item['item_name']) !== false && !empty($size_item['size'])) {
+                                            $size = strtolower($size_item['size']);
+                                            $size_class = 'size-' . $size . '-badge';
+                                            $inline_style = isset($size_colors[$size]) ? $size_colors[$size] : '';
+                                            echo '<span class="size-badge ' . $size_class . '" style="display: inline-block; padding: 2px 6px; border-radius: 8px; font-size: 0.7rem; font-weight: bold; margin-left: 4px; ' . $inline_style . '">' . strtoupper($size) . '</span>';
+                                            break;
+                                        }
+                                    }
+                                }
                             }
                             
                             echo '</td>';

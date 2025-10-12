@@ -1980,3 +1980,14 @@ html {
   color: white !important;
   box-shadow: 0 1px 3px rgba(156, 39, 176, 0.4);
 }
+
+/* Keep navbar below Bootstrap modals (modal: 1050, backdrop: 1040) */
+.navbar,
+.fixed-top,
+.sticky-top,
+.navbar-fixed-top {
+  z-index: 1020 !important;
+}
+
+/* If you use a custom admin nav wrapper, include it here too */
+/* .admin-navbar, #admin-navbar { z-index: 1020 !important; } */

@@ -199,6 +199,27 @@
   color: white;
 }
 
+/* New size badge styles for coffee sizes */
+.size-short-badge {
+  background: #28a745 !important;
+  color: white !important;
+}
+
+.size-tall-badge {
+  background: #17a2b8 !important;
+  color: white !important;
+}
+
+.size-grande-badge {
+  background: #ffc107 !important;
+  color: black !important;
+}
+
+.size-venti-badge {
+  background: #dc3545 !important;
+  color: white !important;
+}
+
 /* ========================================
    CATEGORY FILTER STYLES
    ======================================== */

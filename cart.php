@@ -38,10 +38,8 @@ require_once "config.php";
 
     <!-- CSS Global -->
     <link rel="stylesheet" href="assets/css/theme.min.css">
-     <link rel="stylesheet" href="assets/css/styles_cart.css">
-
-
-    </head>
+    <link rel="stylesheet" href="assets/css/styles_cart.css">
+  </head>
 <body class="cart-page">
 
  <!-- / .navbar -->
@@ -133,7 +131,7 @@ if ($result->num_rows > 0) {
                 array_push($processedItems, $cartItem);
                 
                 // Display item with size information
-                echo '<tr class="cart_item" id="div' . $cartItem['fullId'] . '">';
+                echo '<tr class="cart_item" id="div' . $cartItem['fullId'] . '" data-menuid="' . $menuId . '" data-size="' . htmlspecialchars($size) . '" data-fullid="' . $cartItem['fullId'] . '">';
                 echo '<td class="product-remove">';
                 echo '<a class="remove" onclick="removeWithSize(\'' . $cartItem['fullId'] . '\', ' . $price . ')"></a>';
                 echo '</td>';
@@ -150,8 +148,16 @@ if ($result->num_rows > 0) {
                     echo '<span class="temperature-badge ' . $badge_class . '">' . strtoupper($row["temperature"]) . '</span>';
                 }
                 
-                // Add size badge for drinks
-                echo '<span class="size-badge size-' . strtolower($size) . '-badge">' . strtoupper($size) . '</span>';
+                // Add size badge for drinks with inline styles to force colors
+                $size_lower = strtolower($size);
+                $size_colors = [
+                    'short' => 'background-color: #28a745 !important; color: white !important;',
+                    'tall' => 'background-color: #17a2b8 !important; color: white !important;',
+                    'grande' => 'background-color: #ffc107 !important; color: black !important;',
+                    'venti' => 'background-color: #dc3545 !important; color: white !important;'
+                ];
+                $inline_style = isset($size_colors[$size_lower]) ? $size_colors[$size_lower] : '';
+                echo '<span class="size-badge size-' . $size_lower . '-badge" style="display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; margin-left: 8px; ' . $inline_style . '">' . strtoupper($size) . '</span>';
                 
                 echo '</div>';
                 echo '<span class="attributes-select attributes-size">' . htmlspecialchars($row["description"]) . '</span>';
@@ -177,8 +183,8 @@ if ($result->num_rows > 0) {
                 $total += $row["price"];
                 array_push($processedItems, $menuId);
                 
-                // Display regular item
-                echo '<tr class="cart_item" id="div' . $menuId . '">';
+                // Display regular item (no size for non-drinks)
+                echo '<tr class="cart_item" id="div' . $menuId . '" data-menuid="' . $menuId . '" data-size="" data-fullid="' . $menuId . '">';
                 echo '<td class="product-remove">';
                 echo '<a class="remove" onclick="remove(' . $menuId . ', ' . $row["price"] . ')"></a>';
                 echo '</td>';
@@ -412,6 +418,8 @@ function buildOrderPayloadFromDOM() {
     let descParts = [];
     let sizeInfoArray = [];
 
+    console.log('Building order payload from', rows.length, 'rows');
+
     rows.forEach(row => {
         // skip hidden or deleted rows
         if (!row.offsetParent || row.style.display === 'none' || row.classList.contains('hidden')) return;
@@ -419,6 +427,8 @@ function buildOrderPayloadFromDOM() {
         const fullid = row.dataset.fullid || row.id.replace('div','');
         const menuid = row.dataset.menuid || '';
         const size = row.dataset.size || '';
+
+        console.log('Processing row:', { fullid, menuid, size, rowId: row.id });
 
         const qtyInput = document.getElementById(fullid) || document.getElementById(menuid);
         const qty = qtyInput ? parseInt(qtyInput.value) || 0 : 0;
@@ -440,6 +450,7 @@ function buildOrderPayloadFromDOM() {
     });
 
     const desc = descParts.join(',') + (descParts.length ? ',' : '');
+    console.log('Built order payload:', { desc, sizeInfoArray });
     return { desc, sizeInfoArray };
 }
 

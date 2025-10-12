@@ -11570,6 +11570,43 @@ body.cart-page {
     box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
 }
 
+/* New size badge styles for coffee sizes */
+.size-badge.size-short-badge,
+span.size-badge.size-short-badge,
+.product-title-container .size-badge.size-short-badge {
+    background: #28a745 !important;
+    background-color: #28a745 !important;
+    color: white !important;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3) !important;
+}
+
+.size-badge.size-tall-badge,
+span.size-badge.size-tall-badge,
+.product-title-container .size-badge.size-tall-badge {
+    background: #17a2b8 !important;
+    background-color: #17a2b8 !important;
+    color: white !important;
+    box-shadow: 0 2px 4px rgba(23, 162, 184, 0.3) !important;
+}
+
+.size-badge.size-grande-badge,
+span.size-badge.size-grande-badge,
+.product-title-container .size-badge.size-grande-badge {
+    background: #ffc107 !important;
+    background-color: #ffc107 !important;
+    color: black !important;
+    box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3) !important;
+}
+
+.size-badge.size-venti-badge,
+span.size-badge.size-venti-badge,
+.product-title-container .size-badge.size-venti-badge {
+    background: #dc3545 !important;
+    background-color: #dc3545 !important;
+    color: white !important;
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3) !important;
+}
+
 /* Cart specific badge adjustments */
 .product-title-container {
     display: flex;
