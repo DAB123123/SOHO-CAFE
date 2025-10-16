@@ -305,112 +305,6 @@
 
 	</section>
 
-	<!-- TESTIMONIALS
-	================================================== -->
-  <section class="section section_testimonials section_border_bottom">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-
-					<!-- Heading -->
-					<h2 class="section__heading text-center" style="margin-bottom:50px">
-						What customers say about us
-					</h2>
-
-					<!-- Subheading -->
-					<p class="section__subheading text-center">
-						Give it a hear from some unbaised wanderers.
-					</p>
-
-				</div>
-			</div> <!-- / .row -->
-			<div class="row">
-				<div class="col">
-					<div class="section_testimonials__carousel">
-						<div class="section_testimonials__carousel__item text-center text-md-left">
-							<div class="row align-items-center">
-								<div class="col-md-3 order-md-3">
-
-									<!-- Photo -->
-									<div class="section_testimonials__photo">
-										<img src="assets/img/20.jpg" class="img-fluid" alt="...">
-									</div>
-
-								</div>
-								<div class="col-md-7 order-md-2">
-
-									<!-- Blockquote -->
-									<blockquote class="section_testimonials__blockquote mx-auto">
-										<p>
-                      Terrific decor, fabulous wait staff and the best muffins I have ever put in my mouth. Salad was amazing and the coffee reminded me of Mollien Café, Paris. Dessert, the warm butter cake was better than splendid. Can't wait to return.
-										</p>
-										<footer class="text-muted">
-											Richard Roe
-										</footer>
-									</blockquote>
-
-								</div>
-								<div class="col-md-1 order-md-1"></div>
-							</div> <!-- / .row -->
-						</div>
-						<div class="section_testimonials__carousel__item text-center text-md-left">
-							<div class="row align-items-center">
-								<div class="col-md-3 order-md-3">
-
-									<!-- Photo -->
-									<div class="section_testimonials__photo">
-										<img src="assets/img/21.jpg" class="img-fluid" alt="...">
-									</div>
-
-								</div>
-								<div class="col-md-7 order-md-2">
-
-									<!-- Blockquote -->
-									<blockquote class="section_testimonials__blockquote mx-auto">
-										<p>
-											Everything was such a pleasure! Fast service and the waiters were on top of everything!! Rahul &amp; Sahil, you guys were awesome!!!! Sahil you made our experience even better! Love your energy!!! Food was divine! We will definitely be back!
-										</p>
-										<footer class="text-muted">
-											Elisabeth Doe
-										</footer>
-									</blockquote>
-
-								</div>
-								<div class="col-md-1 order-md-1"></div>
-							</div> <!-- / .row -->
-						</div>
-						<div class="section_testimonials__carousel__item text-center text-md-left">
-							<div class="row align-items-center">
-								<div class="col-md-3 order-md-3">
-
-									<!-- Photo -->
-									<div class="section_testimonials__photo">
-										<img src="assets/img/22.jpg" class="img-fluid" alt="...">
-									</div>
-
-								</div>
-								<div class="col-md-7 order-md-2">
-
-									<!-- Blockquote -->
-									<blockquote class="section_testimonials__blockquote mx-auto">
-										<p>
-											Great support with fast and competent responses. Fantastically cute theme. Easy to use. Each update improves the quality even more than expected.
-										</p>
-										<footer class="text-muted">
-											Monica Roe
-										</footer>
-									</blockquote>
-
-								</div>
-								<div class="col-md-1 order-md-1"></div>
-							</div> <!-- / .row -->
-						</div>
-					</div> <!-- / .carousel -->
-				</div>
-			</div> <!-- / .row -->
-		</div> <!-- / .container -->
-	</section>
-
 
 	<section class="section section_gallery">
 		<div class="container">
@@ -418,7 +312,7 @@
 				<div class="col">
 
 					<!-- Heading -->
-					<h2 class="section__heading text-center" style="margin-bottom:50px">
+					<h2 class="section__heading text-center" >
 						The Café
 					</h2>
 
