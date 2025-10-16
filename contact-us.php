@@ -13,10 +13,9 @@
 	<meta name="theme-color" content="#ffffff">
 
 	<title>Contact Us</title>
-		<!-- JS Global -->
+	<!-- JS Global -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnKt8_N4-FKOnhI_pSaDL7g_g-XI1-R9E"></script>
 
 	<!-- JS Plugins -->
 	<script src="assets/plugins/parallax/parallax.min.js"></script>
@@ -24,12 +23,6 @@
 	<script src="assets/plugins/isotope/isotope.pkgd.min.js"></script>
 	<script src="assets/plugins/flickity/flickity.pkgd.min.js"></script>
 	<script src="assets/plugins/lightbox/js/lightbox.min.js"></script>
-	<script src="assets/plugins/reservation/reservation.js"></script>
-	<script src="assets/plugins/alerts/alerts.js"></script>
-
-	<!-- JS Custom -->
-	<script src="assets/js/theme.min.js"></script>
-	<script src="assets/js/custom.js"></script>
 
 	<!-- CSS Plugins -->
 	<link rel="stylesheet" href="assets/plugins/font-awesome/css/all.min.css">
@@ -38,187 +31,117 @@
 
 	<!-- CSS Global -->
 	<link rel="stylesheet" href="assets/css/theme.min.css">
-	<style >
-		
-		.alert {
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
-.alert-success {
-    color: #3c763d;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-}
+
+	<style>
+		.section__subheading {
+			font-size: 1.05rem;
+			color: #555;
+			margin-top: 15px;
+			text-align: center;
+		}
+		.contact-map {
+			border-radius: 12px;
+			overflow: hidden;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+			width: 100%;
+			height: 500px;
+		}
+		@media (max-width: 768px) {
+			.contact-map {
+				height: 350px;
+			}
+		}
 	</style>
-
-
   </head>
-  <body>
 
+  <body>
   <?php require_once 'nav.php' ?> 
 
-
+	<!-- HEADER -->
 	<section class="section section_header" data-parallax="scroll" data-image-src="assets/img/37.jpg">
 		<div class="container">
 			<div class="row">
 				<div class="col">
-
-					
 					<h1 class="section__heading section_header__heading text-center">
 						Contact Us
 					</h1>
-
 				</div>
 			</div> 
 		</div> 
 	</section>
 
-	<!-- CONTACT
-	================================================== -->
+	<!-- CONTACT -->
 	<section class="section section_contact">
 		<div class="container">
-			<div class="row">
-				<div class="col">
 
-					<!-- Heading -->
-					<h2 class="section__heading text-center">
-						Get in touch with us
-					</h2>
 
-					<!-- Subheading -->
-					<p class="section__subheading text-center">
-						 We’d love to hear from you! Whether you have questions, feedback, or event inquiries, our team at Sōho Cafe + Kitchen is here to help. Drop us a message, give us a call, or visit us in Biñan — we’re always ready to welcome you.
-					</p>
-
-				</div>
-			</div> <!-- / .row -->
 			<div class="row">
 				<div class="col-md-3 order-md-2">
-
 					<!-- Contact info -->
 					<div class="section_contact__info">
 						<div class="section_contact__info__item">
-							<h4 class="section_contact__info__item__heading">
-								Write us
-							</h4>
+							<h4 class="section_contact__info__item__heading">Write us</h4>
 							<p class="section_contact__info__item__content">
-								<a href="mailto:johndoedelacruz69@gmail.com">sohocafe@gmail.com</a>
+								<a href="mailto:sohocafe@gmail.com">sohocafe@gmail.com</a>
 							</p>
 						</div>
 						<div class="section_contact__info__item">
-							<h4 class="section_contact__info__item__heading">
-								Call us
-							</h4>
-							<p class="section_contact__info__item__content">
-								<a href="">09910229687</a>
-							</p>
+							<h4 class="section_contact__info__item__heading">Call us</h4>
+							<p class="section_contact__info__item__content"><a href="#">09910229687</a></p>
 						</div>
 						<div class="section_contact__info__item">
-							<h4 class="section_contact__info__item__heading">
-								Visit us
-							</h4>
+							<h4 class="section_contact__info__item__heading">Visit us</h4>
 							<p class="section_contact__info__item__content">
 								Sōho Cafe + Kitchen Biñan Branch Petron Timbao
 							</p>
 						</div>
 						<div class="section_contact__info__item">
-							<h4 class="section_contact__info__item__heading">
-								Social links
-							</h4>
+							<h4 class="section_contact__info__item__heading">Social links</h4>
 							<ul class="section_contact__info__item__content">
-								<li>
-									<a href="#">
-										<i class="fab fa-twitter"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fab fa-facebook-f"></i>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<i class="fab fa-instagram"></i>
-									</a>
-								</li>
+								<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+								<li><a href="#"><i class="fab fa-instagram"></i></a></li>
 							</ul>
 						</div>
 					</div>
-
 				</div>
-				<div class="col-md-9 order-md-1">
-					<div id="add_err2"></div>
-					<!-- Contact form -->
-					<form class="section_contact__form" id="contact__form" role="form">
-						<div class="form-group">
-							<label for="contact__form__name" class="sr-only">Full name</label>
-							<input type="text" class="form-control" id="fname" name="contact__form__name" placeholder="Full name">
-							<div class="invalid-feedback"></div>
-						</div>
-						<div class="form-group">
-							<label for="contact__form__email" class="sr-only">E-mail address</label>
-							<input type="email" class="form-control" id="email" name="contact__form__email" placeholder="E-mail address">
-							<div class="invalid-feedback"></div>
-						</div>
-						<div class="form-group">
-							<label for="contact__form__email" class="sr-only">Message</label>
-							<textarea class="form-control" id="message" name="contact__form__message" rows="9" placeholder="Message"></textarea>
-							<div class="invalid-feedback"></div>
-						</div>
-						<button type="submit" class="btn btn-primary" id="contact">
-							Send message
-						</button>
-					</form>
 
+				<div class="col-md-9 order-md-1">
+					<!-- Google Map Embed -->
+					<div class="contact-map">
+						<iframe
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3871.006066081345!2d121.0526821!3d14.2856633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d7006fb4f881%3A0x263352f212136bdc!2sSOHO%20Caf%C3%A9%20%2B%20Kitchen!5e0!3m2!1sen!2sph!4v1729075200000!5m2!1sen!2sph"
+							width="100%"
+							height="100%"
+							style="border:0;"
+							allowfullscreen=""
+							loading="lazy"
+							referrerpolicy="no-referrer-when-downgrade">
+						</iframe>
+					</div>
 				</div>
 			</div> <!-- / .row -->
-		</div> <!-- / .container -->
+		</div>
 	</section>
 
-
-	<!-- FOOTER
-	================================================== -->
-   <footer class="section section_footer">
+	<!-- FOOTER -->
+	<footer class="section section_footer">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4">
-
-					<!-- About Us -->
-					<h5 class="section_footer__heading">
-						About Us
-					</h5>
-					<p>
-						We have been brewing our own coffee and serving for 3 years now, and popular for our great coffee and lively atmosphere.
-					</p>
-
+					<h5 class="section_footer__heading">About Us</h5>
+					<p>We have been brewing our own coffee and serving for 3 years now, and popular for our great coffee and lively atmosphere.</p>
 				</div>
 				<div class="col-sm-4">
-
-					<!-- Contact info -->
-					<h5 class="section_footer__heading">
-						Contact info
-					</h5>
+					<h5 class="section_footer__heading">Contact info</h5>
 					<ul class="section_footer__info">
-						<li>
-							<i class="fas fa-map-marker-alt"></i> Sōho Cafe + Kitchen Biñan Branch Petron Timbao
-						</li>
-						<li>
-							<i class="fas fa-phone"></i> 09100229687
-						</li>
-						<li>
-							<i class="far fa-envelope"></i> <a href="mailto:johndoedelacruz69@gmail.com">sohocafe&kitchen@gmail.com</a>
-						</li>
+						<li><i class="fas fa-map-marker-alt"></i> Sōho Cafe + Kitchen Biñan Branch Petron Timbao</li>
+						<li><i class="fas fa-phone"></i> 09100229687</li>
+						<li><i class="far fa-envelope"></i> <a href="mailto:sohocafe&kitchen@gmail.com">sohocafe&kitchen@gmail.com</a></li>
 					</ul>
-
 				</div>
 				<div class="col-sm-4">
-
-					<!-- Opening hours -->
-					<h5 class="section_footer__heading">
-						Opening hours
-					</h5>
+					<h5 class="section_footer__heading">Opening hours</h5>
 					<div class="section_footer__open">
 						<div class="section_footer__open__days">Monday - Thursday</div>
 						<div class="section_footer__open__time">3:00 PM - 11:00 PM</div>
@@ -227,98 +150,16 @@
 						<div class="section_footer__open__days">Friday - Sunday</div>
 						<div class="section_footer__open__time">3:00 PM - 12:00 AM</div>
 					</div>
-
 				</div>
-			</div> <!-- / .row -->
+			</div>
 			<div class="row">
 				<div class="col-12">
-
-					<!-- Copyright -->
 					<div class="section_footer__copyright">
 						&copy; <span id="js-current-year"></span> SOHO Cafe & Kitchen. All rights reserved.
 					</div>
-
 				</div>
-			</div> <!-- / .row -->
-		</div> <!-- / .container -->
+			</div>
+		</div>
 	</footer>
-	<!-- JAVASCRIPT
-	================================================== -->
-
-	
-	<script type="text/javascript">
-        $(document).ready(function () {
-
-            $("#contact").click(function () {
-
-                fname = $("#fname").val();
-                email = $("#email").val();
-                message = $("#message").val();
-
-                $.ajax({
-                    type: "POST",
-                    url: "sendmsg.php",
-                    data: "fname=" + fname + "&email=" + email + "&message=" + message,
-                    success: function (html) {
-                        if (html == 'true') {
-
-                            $("#add_err2").html('<div class="alert alert-success"> \
-                                                 <strong>Message Sent!</strong> \ \
-                                                 </div>');
-
-                        } else if (html == 'fname_long') {
-                            $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>First Name</strong> must cannot exceed 50 characters. \ \
-                                                 </div>');
-						
-						} else if (html == 'fname_short') {
-                            $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>First Name</strong> must exceed 2 characters. \ \
-                                                 </div>');
-												 
-						} else if (html == 'email_long') {
-                            $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>Email</strong> must cannot exceed 50 characters. \ \
-                                                 </div>');
-						
-						} else if (html == 'email_short') {
-                            $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>Email</strong> must exceed 2 characters. \ \
-                                                 </div>');
-												 
-						} else if (html == 'eformat') {
-                            $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>Email</strong> format incorrect. \ \
-                                                 </div>');
-												 
-						} else if (html == 'message_long') {
-                            $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>Message</strong> must cannot exceed 50 characters. \ \
-                                                 </div>');
-						
-						} else if (html == 'message_short') {
-                            $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>Message</strong> must exceed 2 characters. \ \
-                                                 </div>');
-
-
-                        } else {
-                            $("#add_err2").html('<div class="alert alert-danger"> \
-                                                 <strong>Error'+html+'</strong> processing request. Please try again. \ \
-                                                 </div>');
-                        }
-                    },
-                    beforeSend: function () {
-                        $("#add_err2").html("loading...");
-                    }
-                });
-                return false;
-            });
-        });
-    </script>
-
-
-
-
   </body>
 </html>

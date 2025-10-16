@@ -341,6 +341,7 @@ $conn->close();
 <div id="det"></div>
 <!-- Terms & Conditions Modal -->
 <div id="termsModal" class="terms-modal">
+  <div class="terms-overlay" onclick="closeTerms()"></div>
   <div class="terms-content">
     <span class="close-btn" onclick="closeTerms()">&times;</span>
     <h2>Terms & Conditions</h2>
@@ -357,6 +358,7 @@ $conn->close();
     </p>
   </div>
 </div>
+
 
     </main>
 
@@ -553,6 +555,15 @@ $(document).ready(function(){
         <?php } ?>
     });
 });
+</script>
+<script>
+function openTerms() {
+  document.getElementById("termsModal").style.display = "block";
+}
+
+function closeTerms() {
+  document.getElementById("termsModal").style.display = "none";
+}
 </script>
 
 
