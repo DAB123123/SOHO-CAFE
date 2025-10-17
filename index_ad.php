@@ -229,10 +229,14 @@ $total_cancel =  mysqli_fetch_assoc($sql);
       $i = 1;
       if ($result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
+              // Cache busting for image
+              $img_path = 'assets/img/menu/' . $row["menu_id"] . '.png';
+              $img_url = $img_path . (file_exists($img_path) ? '?v=' . filemtime($img_path) : '?v=' . time());
+              
               echo '<div class="d-md-flex justify-content-between align-items-center">';
               echo '<div class="d-flex justify-content-start align-items-center mb-20 mb-md-0">';
               echo '<p class="mb-0 fs-18 text-mute">#' . $i . '</p>';
-              echo '<img src="assets/img/menu/' . $row["menu_id"] . '.png" class="rounded10 w-80 mx-15" alt="">';
+              echo '<img src="' . $img_url . '" class="rounded10 w-80 mx-15" alt="">';
               echo '<div><h5 class="mb-0 fw-500">' . $row["name"] . '</h5>';
               echo '<p class="mb-0">₱' . $row['price'] . '</p></div></div>';
               echo '<div class="text-center trending-count">';

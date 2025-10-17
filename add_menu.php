@@ -33,16 +33,19 @@ $(document).ready(function (e) {
 			processData:false,
 			success: function(data)
 		    {
-			if(data == 'true ')
+			// Trim whitespace from response
+			data = data.trim();
+			
+			if(data == 'true')
 			{$("#add_error").html('<div class="alert alert-success"> <strong>Success!</strong> New Menu Item Added Successfully </div>');}
-			else if (data == 'size ')
+			else if (data == 'size')
 			$("#add_error").html('<div class="alert alert-danger"> <strong>Image Size</strong> maximum 5 MB allowed. </div>');
-			else if(data == 'copy ')
-			$("#add_error").html('<div class="alert alert-danger"> <strong>Defualt Image</strong> uanble to add default image.</div>');
-			else if(data == 'false_image ')
-			$("#add_error").html('<div class="alert alert-danger"> <strong>Email Address</strong> already in system.</div>');
+			else if(data == 'copy')
+			$("#add_error").html('<div class="alert alert-warning"> <strong>Warning!</strong> Menu item added but default image could not be copied. Please upload an image manually.</div>');
+			else if(data == 'false_image')
+			$("#add_error").html('<div class="alert alert-danger"> <strong>Upload Failed!</strong> Menu item added but image upload failed. Please try uploading the image again.</div>');
 			else
-			$("#add_error").html(data);
+			$("#add_error").html('<div class="alert alert-info">Response: ' + data + '</div>');
 		    },error: function()
 	    	{
 	    	} 	        
@@ -171,7 +174,7 @@ $(document).ready(function (e) {
              
              <div class="form-actions mt-10">
               <button type="submit" class="btn btn-primary" id="save"> <i class="fa fa-check"></i> Save / Add</button>
-              <button type="button" class="btn btn-danger" >Cancel</button>
+              <button type="button" class="btn btn-danger" onclick="window.location.href='menu_ad.php'">Cancel</button>
             </div>
 	
 </div>

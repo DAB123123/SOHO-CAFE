@@ -38,20 +38,28 @@ $(document).ready(function (e) {
 			data:  new FormData(this),
 			contentType: false,
     	    cache: false,
-			processData:false,
-			success: function(data)
-		    {
-			if(data == 'true ')
-			{$("#add_error").html('<div class="alert alert-success"> <strong>Success!</strong> Menu Item Updated Successfully </div>');}
-			else if (data == 'size ')
-			$("#add_error").html('<div class="alert alert-danger"> <strong>Image Size</strong> maximum 5 MB allowed. </div>');
-			else if(data == 'copy ')
-			$("#add_error").html('<div class="alert alert-danger"> <strong>Default Image</strong> unable to add default image.</div>');
-			else if(data == 'false_image ')
-			$("#add_error").html('<div class="alert alert-danger"> <strong>Image Upload</strong> failed to upload image.</div>');
-			else
-			$("#add_error").html(data);
-		    },error: function()
+		processData:false,
+		success: function(data)
+	    {
+		// Trim whitespace from response
+		data = data.trim();
+		
+		// Log response for debugging
+		console.log('Server response:', data);
+		
+		if(data == 'true')
+		{$("#add_error").html('<div class="alert alert-success"> <strong>Success!</strong> Menu Item Updated Successfully </div>');}
+		else if (data == 'size')
+		$("#add_error").html('<div class="alert alert-danger"> <strong>Image Size</strong> maximum 5 MB allowed. </div>');
+		else if(data == 'copy')
+		$("#add_error").html('<div class="alert alert-warning"> <strong>Warning!</strong> Menu item updated but default image could not be copied. Please upload an image manually.</div>');
+		else if(data == 'false_image')
+		$("#add_error").html('<div class="alert alert-danger"> <strong>Upload Failed!</strong> Menu item updated but image upload failed. Please try uploading the image again.</div>');
+		else if(data == 'false')
+		$("#add_error").html('<div class="alert alert-danger"> <strong>Database Error!</strong> Failed to update menu item. Please try again.</div>');
+		else
+		$("#add_error").html('<div class="alert alert-info"><strong>Debug:</strong> Server returned: ' + data + '</div>');
+	    },error: function()
 	    	{
 	    	} 	        
 	   });
@@ -163,11 +171,11 @@ $(document).ready(function (e) {
                 <div class="col-md-3">
                   <h4 class="box-title mt-20">Uploaded Image</h4>
                   <div class="product-img text-start">
-                    <img src="assets/img/menu/<?php echo $row['menu_id'];?>.png?" alt="" class="mb-15 img_size"  id="output">
-                    <p>Upload Anonther Image</p>
+                    <img src="assets/img/menu/<?php echo $row['menu_id'];?>.png?v=<?php echo time(); ?>" alt="" class="mb-15 img_size"  id="output">
+                    <p>Upload Another Image</p>
                     <div class="btn btn-info mb-10 d-grid">
 <input type="hidden" name="id" value="<?php echo $row['menu_id'];?>" />
-                                            <input type="file" class="upload " id="fily" name="userfile" onchange="loadFile(event)" accept="image/*" > 
+                                            <input type="file" class="upload " id="fily" name="userfile" accept="image/*" > 
                     </div>
                     <br>
                    <!--  <button class="btn btn-success">Edit</button>

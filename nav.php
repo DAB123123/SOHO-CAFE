@@ -8,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
 <div class="container">
 
 <!-- Navbar: Brand -->
-<a class="navbar-brand d-lg-none" href="index.html">SOHO CAFE</a>
+<a class="navbar-brand d-lg-none" href="index.php">SOHO CAFE</a>
 
 <!-- Navbar: Toggler -->
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

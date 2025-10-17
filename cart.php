@@ -22,7 +22,7 @@ require_once "config.php";
     <link rel="apple-touch-icon" sizes="180x180" href="assets/ico/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/ico/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/ico/favicon-16x16.png">
-    <link rel="manifest" href="assets/ico/manifest.json">
+    <link rel="manifest" href="assets/ico/site.webmanifest">
     <link rel="mask-icon" href="assets/ico/safari-pinned-tab.svg" color="#5bbad5">
     <link rel="shortcut icon" href="assets/ico/favicon.ico">
     <meta name="msapplication-config" content="assets/ico/browserconfig.xml">
@@ -130,13 +130,17 @@ if ($result->num_rows > 0) {
                 $total += $price;
                 array_push($processedItems, $cartItem);
                 
+                // Cache busting for image
+                $img_path = 'assets/img/menu/' . $menuId . '.png';
+                $img_url = $img_path . (file_exists($img_path) ? '?v=' . filemtime($img_path) : '?v=' . time());
+                
                 // Display item with size information
                 echo '<tr class="cart_item" id="div' . $cartItem['fullId'] . '" data-menuid="' . $menuId . '" data-size="' . htmlspecialchars($size) . '" data-fullid="' . $cartItem['fullId'] . '">';
                 echo '<td class="product-remove">';
                 echo '<a class="remove" onclick="removeWithSize(\'' . $cartItem['fullId'] . '\', ' . $price . ')"></a>';
                 echo '</td>';
                 echo '<td class="product-thumbnail"><a>';
-                echo '<img src="assets/img/menu/' . $menuId . '.png" alt="img" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image">';
+                echo '<img src="' . $img_url . '" alt="img" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image">';
                 echo '</a></td>';
                 echo '<td class="product-name" data-title="Product">';
                 echo '<div class="product-title-container">';
@@ -183,13 +187,17 @@ if ($result->num_rows > 0) {
                 $total += $row["price"];
                 array_push($processedItems, $menuId);
                 
+                // Cache busting for image
+                $img_path = 'assets/img/menu/' . $menuId . '.png';
+                $img_url = $img_path . (file_exists($img_path) ? '?v=' . filemtime($img_path) : '?v=' . time());
+                
                 // Display regular item (no size for non-drinks)
                 echo '<tr class="cart_item" id="div' . $menuId . '" data-menuid="' . $menuId . '" data-size="" data-fullid="' . $menuId . '">';
                 echo '<td class="product-remove">';
                 echo '<a class="remove" onclick="remove(' . $menuId . ', ' . $row["price"] . ')"></a>';
                 echo '</td>';
                 echo '<td class="product-thumbnail"><a>';
-                echo '<img src="assets/img/menu/' . $menuId . '.png" alt="img" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image">';
+                echo '<img src="' . $img_url . '" alt="img" class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image">';
                 echo '</a></td>';
                 echo '<td class="product-name" data-title="Product">';
                 echo '<div class="product-title-container">';
@@ -367,9 +375,70 @@ $conn->close();
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Cart JS Functions -->
-<script src="assets/js/cartitem.php"></script>
-<script src="assets/js/menuitem.php"></script>
+<!-- Cart JS Functions - Load with explicit type -->
+<script type="text/javascript" src="assets/js/cartitem.php"></script>
+<script type="text/javascript" src="assets/js/menuitem.php"></script>
+
+<!-- Fallback for cart functions in case external scripts don't load -->
+<script type="text/javascript">
+// Define fallback functions if not already loaded
+if (typeof updateCartBadge !== 'function') {
+    function updateCartBadge() {
+        var cartBadge = document.querySelector('.cart-badge');
+        if (cartBadge) {
+            var visibleItems = document.querySelectorAll('.cart_item');
+            var itemCount = 0;
+            for (var i = 0; i < visibleItems.length; i++) {
+                var qtyInput = visibleItems[i].querySelector('.input-qty');
+                if (qtyInput) {
+                    itemCount += parseInt(qtyInput.value) || 1;
+                }
+            }
+            cartBadge.textContent = itemCount;
+            if (itemCount === 0) {
+                cartBadge.style.display = 'none';
+            }
+        }
+    }
+}
+
+if (typeof showEmptyCartMessage !== 'function') {
+    function showEmptyCartMessage() {
+        var cartTableBody = document.getElementById('demo');
+        if (cartTableBody) {
+            cartTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px;"><h4 style="color: #666;">Your cart is empty</h4><p style="color: #999; margin: 20px 0;">Add items from the menu to continue.</p><a href="menu.php" class="btn btn-primary" style="margin-top: 10px;"><i class="fa fa-shopping-cart"></i> Browse Menu</a></td></tr>';
+        }
+        var completeOrderBtn = document.getElementById('btn_ad');
+        if (completeOrderBtn) {
+            completeOrderBtn.disabled = true;
+            completeOrderBtn.style.opacity = '0.5';
+            completeOrderBtn.style.cursor = 'not-allowed';
+        }
+    }
+}
+
+if (typeof checkCartAndToggleButton !== 'function') {
+    function checkCartAndToggleButton() {
+        var cartItems = document.querySelectorAll('.cart_item');
+        var hasVisibleItems = cartItems.length > 0;
+        var completeOrderBtn = document.getElementById('btn_ad');
+        if (completeOrderBtn) {
+            if (hasVisibleItems && totalamount > 0) {
+                completeOrderBtn.disabled = false;
+                completeOrderBtn.style.opacity = '1';
+                completeOrderBtn.style.cursor = 'pointer';
+            } else {
+                completeOrderBtn.disabled = true;
+                completeOrderBtn.style.opacity = '0.5';
+                completeOrderBtn.style.cursor = 'not-allowed';
+            }
+        }
+        if (!hasVisibleItems) {
+            showEmptyCartMessage();
+        }
+    }
+}
+</script>
 
 <!-- JS Plugins -->
 <script src="assets/plugins/parallax/parallax.min.js"></script>
@@ -396,6 +465,43 @@ document.getElementById("amount_total").innerHTML = totalamount;
 document.getElementById("payment_amount").innerHTML = totalamount;
 document.getElementById("payment_amount_qr").innerHTML = totalamount;
 
+// Initialize cart on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Check cart status on load
+    if (typeof checkCartAndToggleButton === 'function') {
+        checkCartAndToggleButton();
+    }
+    
+    // Update cart badge if navigation badge exists
+    if (typeof updateCartBadge === 'function') {
+        updateCartBadge();
+    }
+    
+    // Initialize button state based on cart items
+    var cartItems = document.querySelectorAll('.cart_item');
+    var hasVisibleItems = false;
+    for (var i = 0; i < cartItems.length; i++) {
+        if (cartItems[i].style.display !== 'none') {
+            hasVisibleItems = true;
+            break;
+        }
+    }
+    
+    if (!hasVisibleItems || totalamount <= 0) {
+        var btn = document.getElementById('btn_ad');
+        if (btn) {
+            btn.disabled = true;
+            btn.style.opacity = '0.5';
+            btn.style.cursor = 'not-allowed';
+        }
+        
+        // Show empty cart message if no items
+        if (typeof showEmptyCartMessage === 'function') {
+            showEmptyCartMessage();
+        }
+    }
+});
+
 // File upload preview
 var paymentProofInput = document.getElementById('payment_proof');
 if (paymentProofInput) {
@@ -416,31 +522,32 @@ if (paymentProofInput) {
 
 // Build order payload from DOM
 function buildOrderPayloadFromDOM() {
-    const rows = Array.from(document.querySelectorAll('.cart_item'));
-    let descParts = [];
-    let sizeInfoArray = [];
+    var rows = document.querySelectorAll('.cart_item');
+    var descParts = [];
+    var sizeInfoArray = [];
 
     console.log('Building order payload from', rows.length, 'rows');
 
-    rows.forEach(row => {
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
         // skip hidden or deleted rows
-        if (!row.offsetParent || row.style.display === 'none' || row.classList.contains('hidden')) return;
+        if (!row.offsetParent || row.style.display === 'none' || row.classList.contains('hidden')) continue;
 
-        const fullid = row.dataset.fullid || row.id.replace('div','');
-        const menuid = row.dataset.menuid || '';
-        const size = row.dataset.size || '';
+        var fullid = row.dataset.fullid || row.id.replace('div','');
+        var menuid = row.dataset.menuid || '';
+        var size = row.dataset.size || '';
 
-        console.log('Processing row:', { fullid, menuid, size, rowId: row.id });
+        console.log('Processing row:', { fullid: fullid, menuid: menuid, size: size, rowId: row.id });
 
-        const qtyInput = document.getElementById(fullid) || document.getElementById(menuid);
-        const qty = qtyInput ? parseInt(qtyInput.value) || 0 : 0;
-        if (qty <= 0) return; // ignore zero quantity
+        var qtyInput = document.getElementById(fullid) || document.getElementById(menuid);
+        var qty = qtyInput ? parseInt(qtyInput.value) || 0 : 0;
+        if (qty <= 0) continue; // ignore zero quantity
 
-        const nameEl = row.querySelector('.title');
-        const priceEl = document.getElementById('pricy' + fullid) || document.getElementById('pricy' + menuid);
+        var nameEl = row.querySelector('.title');
+        var priceEl = document.getElementById('pricy' + fullid) || document.getElementById('pricy' + menuid);
 
-        const name = nameEl ? nameEl.textContent.trim() : 'Item';
-        const price = priceEl ? parseFloat(priceEl.textContent.trim()) : 0;
+        var name = nameEl ? nameEl.textContent.trim() : 'Item';
+        var price = priceEl ? parseFloat(priceEl.textContent.trim()) : 0;
 
         descParts.push(qty + '-' + name + '-' + price);
         sizeInfoArray.push({
@@ -449,11 +556,11 @@ function buildOrderPayloadFromDOM() {
             quantity: qty,
             item_name: name
         });
-    });
+    }
 
-    const desc = descParts.join(',') + (descParts.length ? ',' : '');
-    console.log('Built order payload:', { desc, sizeInfoArray });
-    return { desc, sizeInfoArray };
+    var desc = descParts.join(',') + (descParts.length ? ',' : '');
+    console.log('Built order payload:', { desc: desc, sizeInfoArray: sizeInfoArray });
+    return { desc: desc, sizeInfoArray: sizeInfoArray };
 }
 
 $(document).ready(function(){
@@ -461,17 +568,24 @@ $(document).ready(function(){
         <?php if(isset($_SESSION['name'])) { ?>
 
         // Validate visible cart rows
-        const visibleRows = Array.from(document.querySelectorAll('.cart_item'))
-            .filter(r => r.offsetParent && r.style.display !== 'none' && !r.classList.contains('hidden'));
+        var allRows = document.querySelectorAll('.cart_item');
+        var visibleRows = [];
+        for (var i = 0; i < allRows.length; i++) {
+            var r = allRows[i];
+            if (r.offsetParent && r.style.display !== 'none' && !r.classList.contains('hidden')) {
+                visibleRows.push(r);
+            }
+        }
+        
         if (visibleRows.length === 0 || totalamount <= 0) {
             $("#add_err").html('<div class="alert-danger"><strong>Cart Empty!</strong> Please add items to your cart before placing an order</div><br>');
             return;
         }
 
         // Basic form validations
-        const addr = document.getElementById('message').value.trim();
-        const checky = document.getElementById('checkz').checked;
-        const paymentProof = document.getElementById('payment_proof').files[0];
+        var addr = document.getElementById('message').value.trim();
+        var checky = document.getElementById('checkz').checked;
+        var paymentProof = document.getElementById('payment_proof').files[0];
 
         if (!checky) {
             $("#add_err").html('<div class="alert-danger"><strong>Terms & Condition!</strong> field required</div><br>');
@@ -486,9 +600,9 @@ $(document).ready(function(){
             $("#add_err").html('');
         }
 
-        const payload = buildOrderPayloadFromDOM();
-        const desc = payload.desc;
-        const sizeInfoArray = payload.sizeInfoArray;
+        var payload = buildOrderPayloadFromDOM();
+        var desc = payload.desc;
+        var sizeInfoArray = payload.sizeInfoArray;
 
         if (!desc || desc.length === 0) {
             $("#add_err").html('<div class="alert-danger"><strong>No valid items!</strong> Please add items to cart.</div><br>');
@@ -496,25 +610,26 @@ $(document).ready(function(){
         }
 
         // Optional: call try.php for each visible item
-        visibleRows.forEach(function(row){
-            const menuid = row.dataset.menuid || row.id.replace('div','');
-            const fullid = row.dataset.fullid || menuid;
-            const size = row.dataset.size || '';
-            const qtyInput = document.getElementById(fullid) || document.getElementById(menuid);
-            const quantity = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
+        for (var i = 0; i < visibleRows.length; i++) {
+            var row = visibleRows[i];
+            var menuid = row.dataset.menuid || row.id.replace('div','');
+            var fullid = row.dataset.fullid || menuid;
+            var size = row.dataset.size || '';
+            var qtyInput = document.getElementById(fullid) || document.getElementById(menuid);
+            var quantity = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
 
-            const postData = size ? { id: menuid, quan: quantity, size: size } : { id: menuid, quan: quantity };
+            var postData = size ? { id: menuid, quan: quantity, size: size } : { id: menuid, quan: quantity };
             $.post('try.php', postData, function(html){
                 if (html !== 'true') console.log('try.php:', html);
             });
-        });
+        }
 
         // Prepare and send FormData to add_order.php
-        const name = <?php echo json_encode($_SESSION['name']); ?>;
-        const totaly = document.getElementById("amount_total").textContent.trim();
-        const id = <?php echo json_encode($_SESSION['login']); ?>;
+        var name = <?php echo json_encode($_SESSION['name']); ?>;
+        var totaly = document.getElementById("amount_total").textContent.trim();
+        var id = <?php echo json_encode($_SESSION['login']); ?>;
 
-        const formData = new FormData();
+        var formData = new FormData();
         formData.append('name', name);
         formData.append('description', desc);
         formData.append('addr', addr);

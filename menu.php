@@ -10,7 +10,7 @@ session_start();
 	<link rel="apple-touch-icon" sizes="180x180" href="assets/ico/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="assets/ico/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="assets/ico/favicon-16x16.png">
-	<link rel="manifest" href="assets/ico/manifest.json">
+	<link rel="manifest" href="assets/ico/site.webmanifest">
 	<link rel="mask-icon" href="assets/ico/safari-pinned-tab.svg" color="#5bbad5">
 	<link rel="shortcut icon" href="assets/ico/favicon.ico">
 	<meta name="msapplication-config" content="assets/ico/browserconfig.xml">
@@ -97,11 +97,15 @@ session_start();
 			function displayMenuItems($result, $show_temperature = false) {
 				if ($result->num_rows > 0) {
 					while($row = $result->fetch_assoc()) {
+						// Cache busting: add file modification time to image URL
+						$image_path = 'assets/img/menu/' . $row["menu_id"] . '.png';
+						$cache_buster = file_exists($image_path) ? '?v=' . filemtime($image_path) : '?v=' . time();
+						
 						echo '<div class="menu-item">';
 						echo '<div class="menu-item-content">';
 						echo '<div class="menu-item-row">';
 						echo '<div class="menu-item-image">';
-						echo '<img src="assets/img/menu/' . $row["menu_id"] . '.png" alt="' . htmlspecialchars($row["name"]) . '">';
+						echo '<img src="' . $image_path . $cache_buster . '" alt="' . htmlspecialchars($row["name"]) . '">';
 						echo '</div>';
 						echo '<div class="menu-item-details">';
 						echo '<h4>' . htmlspecialchars($row["name"]);

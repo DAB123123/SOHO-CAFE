@@ -144,8 +144,13 @@ $i=0;
 
 	if($i==0)
 	echo '<div class="row">';
+	
+	// Cache busting for image
+	$img_path = 'assets/img/menu/' . $row["menu_id"] . '.png';
+	$img_url = $img_path . (file_exists($img_path) ? '?v=' . filemtime($img_path) : '?v=' . time());
+	
 	echo '<div class="col-xxxl-3 col-xl-4 col-lg-6 col-12">';
-	echo '<div class="box food-box"> <div class="box-body text-center"> <div class="menu-item"> <img src="assets/img/menu/' . $row["menu_id"] . '.png?" class="img-fluid w-p75 img_size" ></div>';
+	echo '<div class="box food-box"> <div class="box-body text-center"> <div class="menu-item"> <img src="' . $img_url . '" class="img-fluid w-p75 img_size" ></div>';
 	echo '<div class="menu-details text-center"> <h4 class="mt-40 mb-10">' . $row["name"] . '</h4> <p>' . $row["description"] . '</p>';
 	
 	// Display temperature and category badges (no size badge since sizes are now dynamic)

@@ -6,25 +6,23 @@ header('Content-Type: application/javascript');
 
 function increasePrice(p,id){
   addtolocal(id);
-document.getElementById(id).value++;
-totalamount+=p;
-
-document.getElementById("amount_total").innerHTML=totalamount;
-document.getElementById("payment_amount").innerHTML=totalamount;
-document.getElementById("payment_amount_qr").innerHTML=totalamount;
-
+  var qtyInput = document.getElementById(id);
+  if (qtyInput) {
+    qtyInput.value++;
+    totalamount+=p;
+    updateTotalDisplay();
+  }
 };
 function decreasePrice(p,id){
+  var qtyInput = document.getElementById(id);
+  if(qtyInput && qtyInput.value>1) {
+    qtyInput.value--;
+    totalamount-=p;
+  }
+  if(totalamount<=0)
+    totalamount=0;
 
-  if(document.getElementById(id).value>1)
-{document.getElementById(id).value--;
-totalamount-=p;}
-if(totalamount<=0)
-totalamount=0;
-
-document.getElementById("amount_total").innerHTML=totalamount;
-document.getElementById("payment_amount").innerHTML=totalamount;
-document.getElementById("payment_amount_qr").innerHTML=totalamount;
+  updateTotalDisplay();
 }
 
 
@@ -35,38 +33,48 @@ function remove(id,price)
 {
   deletetolocal(id);
   
-
   var  cl=id;
   var num="div";
   num+=id;
   
-  document.getElementById(num).style.display="none";
+  // Get quantity before hiding
+  var qtyInput = document.getElementById(id);
+  if (!qtyInput) {
+    console.error('Quantity input not found for id:', id);
+    return;
+  }
+  
+  var quantity = parseInt(qtyInput.value) || 1;
+  var deleted_price = price * quantity;
 
-var quantity=document.getElementById(id).value;
-var deleted_price=price*quantity;
+  // Remove the element immediately (compatible method)
+  var element = document.getElementById(num);
+  if (element && element.parentNode) {
+    element.parentNode.removeChild(element);
+  }
+  
+  // Update total amount
+  totalamount -= deleted_price;
+  if(totalamount <= 0)
+    totalamount = 0;
 
-totalamount-=deleted_price;
-if(totalamount<=0)
-totalamount=0;
-
-document.getElementById("amount_total").innerHTML=totalamount;
-document.getElementById("payment_amount").innerHTML=totalamount;
-document.getElementById("payment_amount_qr").innerHTML=totalamount;
-
+  updateTotalDisplay();
+  
   // Check cart status after removal
   checkCartAndToggleButton();
   
+  // Update cart badge count
+  updateCartBadge();
 }
 
 // New functions for size-based cart items
 function increasePriceWithSize(p, fullId) {
-  // Add to cart (this will increment quantity in localStorage)
-  // For size items, we need to handle this differently
   var qtyInput = document.getElementById(fullId);
   if (qtyInput) {
     qtyInput.value++;
     totalamount += p;
     updateTotalDisplay();
+    updateCartBadge();
   }
 }
 
@@ -77,31 +85,41 @@ function decreasePriceWithSize(p, fullId) {
     totalamount -= p;
     if (totalamount <= 0) totalamount = 0;
     updateTotalDisplay();
+    updateCartBadge();
   }
 }
 
 function removeWithSize(fullId, price) {
+  // Get quantity before removing
+  var qtyInput = document.getElementById(fullId);
+  if (!qtyInput) {
+    console.error('Quantity input not found for fullId:', fullId);
+    return;
+  }
+  
+  var quantity = parseInt(qtyInput.value) || 1;
+  var deleted_price = price * quantity;
+  
   // Remove from localStorage
   removeItemFromCart(fullId);
   
-  // Hide the DOM element
+  // Remove the element immediately from DOM (compatible method)
   var divElement = document.getElementById("div" + fullId);
-  if (divElement) {
-    divElement.style.display = "none";
+  if (divElement && divElement.parentNode) {
+    divElement.parentNode.removeChild(divElement);
   }
   
   // Update total amount
-  var qtyInput = document.getElementById(fullId);
-  if (qtyInput) {
-    var quantity = parseInt(qtyInput.value) || 1;
-    var deleted_price = price * quantity;
-    totalamount -= deleted_price;
-    if (totalamount <= 0) totalamount = 0;
-    updateTotalDisplay();
-  }
+  totalamount -= deleted_price;
+  if (totalamount <= 0) totalamount = 0;
+  
+  updateTotalDisplay();
   
   // Check cart status after removal
   checkCartAndToggleButton();
+  
+  // Update cart badge count
+  updateCartBadge();
 }
 
 function removeItemFromCart(fullId) {
@@ -132,16 +150,9 @@ function updateTotalDisplay() {
 }
 
 function checkCartAndToggleButton() {
-  // Check if there are any visible cart items
+  // Check if there are any cart items in DOM
   var cartItems = document.querySelectorAll('.cart_item');
-  var hasVisibleItems = false;
-  
-  for (var i = 0; i < cartItems.length; i++) {
-    if (cartItems[i].style.display !== 'none') {
-      hasVisibleItems = true;
-      break;
-    }
-  }
+  var hasVisibleItems = cartItems.length > 0;
   
   // Enable or disable the complete order button
   var completeOrderBtn = document.getElementById('btn_ad');
@@ -155,5 +166,49 @@ function checkCartAndToggleButton() {
       completeOrderBtn.style.opacity = '0.5';
       completeOrderBtn.style.cursor = 'not-allowed';
     }
+  }
+  
+  // If no items left, show empty cart message
+  if (!hasVisibleItems) {
+    showEmptyCartMessage();
+  }
+}
+
+function updateCartBadge() {
+  // Update the cart badge count in the navigation
+  var cartBadge = document.querySelector('.cart-badge');
+  if (cartBadge) {
+    var visibleItems = document.querySelectorAll('.cart_item');
+    var itemCount = 0;
+    
+    // Use traditional for loop for compatibility
+    for (var i = 0; i < visibleItems.length; i++) {
+      var qtyInput = visibleItems[i].querySelector('.input-qty');
+      if (qtyInput) {
+        itemCount += parseInt(qtyInput.value) || 1;
+      }
+    }
+    
+    cartBadge.textContent = itemCount;
+    
+    // Hide badge if count is 0
+    if (itemCount === 0) {
+      cartBadge.style.display = 'none';
+    }
+  }
+}
+
+function showEmptyCartMessage() {
+  var cartTableBody = document.getElementById('demo');
+  if (cartTableBody) {
+    cartTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px;"><h4 style="color: #666;">Your cart is empty</h4><p style="color: #999; margin: 20px 0;">Add items from the menu to continue.</p><a href="menu.php" class="btn btn-primary" style="margin-top: 10px;"><i class="fa fa-shopping-cart"></i> Browse Menu</a></td></tr>';
+  }
+  
+  // Also disable the Complete Order button
+  var completeOrderBtn = document.getElementById('btn_ad');
+  if (completeOrderBtn) {
+    completeOrderBtn.disabled = true;
+    completeOrderBtn.style.opacity = '0.5';
+    completeOrderBtn.style.cursor = 'not-allowed';
   }
 }
