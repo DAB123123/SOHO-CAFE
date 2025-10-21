@@ -9636,7 +9636,7 @@ body {
 .section_about {
   min-height: 500px;
   padding-top: 30px;
-  background: url(../img/front2.jpg) no-repeat 50% / cover;
+  background: url(../img/sohofront.jpg) no-repeat 50% / cover;
 }
 
 @media (min-width: 768px) {

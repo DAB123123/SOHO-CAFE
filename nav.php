@@ -33,7 +33,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <!-- Navbar: Brand -->
 <a class="navbar-brand d-none d-lg-flex" href="index.php">
-SOHO CAFE
+SOHŌ CAFE
 </a>
 
 <!-- Navbar navigation: Right -->

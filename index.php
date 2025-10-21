@@ -45,7 +45,7 @@
 							<span class="text-primary">Café</span> & Kitchen
 						</h2>
 						<h1 class="section__heading section_welcome__heading text-center">
-							SOHO Cafe
+							SOHŌ Cafe
 						</h1>
 						<p class="section__subheading section_welcome__subheading text-center text-muted">
 							More than just a coffee, but a lifestyle.
@@ -117,7 +117,7 @@
 
 					<!-- Image -->
 					<div class="section_discover__img">
-						<img src="assets/img/artcoffee.jpg" class="img-fluid" alt="...">
+						<img src="assets/img/food1.jpeg" class="img-fluid" alt="...">
 					</div>
 
 				</div>
@@ -143,7 +143,7 @@
 
 					<!-- Description -->
 					<p class="section_discover__description">
-						For consistency he relies on finesse, instinct, and the deft touch
+						At SOHŌ Café, consistency comes from passion — every brew crafted with precision, intuition, and a touch of creativity that makes each sip unforgettable.
 					</p>
 
 				</div>
@@ -151,17 +151,16 @@
 
 					<!-- Image -->
 					<div class="section_discover__img alt">
-						<img src="assets/img/coffeeroast.gif" class="img-fluid" alt="...">
+						<img src="assets/img/sohocofee.jpg" class="img-fluid" alt="...">
 					</div>
 
 				</div>
 				<div class="col-md-6 order-md-1 align-self-center">
 
 					<!-- Content -->
-					<h2><em>Art of the roast</em></h2>
+					<h2><em>The Essence of SOHŌ</em></h2>
 					<p>
-						The artisan coffee roaster utilizes all 5 senses in constant pursuit of the ever ephemeral perfect roast. Paul employs a 6th sense - corazón or heart. It took him years to master the art of coffee roasting, about as long as it took to figure out why his grandmother's tortillas tasted so good. Simple really, she made them with love.
-					</p>
+						At SOHŌ Cafe, every cup tells a story — a blend of craft, color, and comfort. From the smooth espresso that awakens your senses to the soft pink hues that sweeten your day, each drink is made with precision and heart. It’s more than coffee; it’s a moment of calm, crafted with care under the warmth of the morning sun.
 
 				</div>
 			</div> <!-- / .row -->
@@ -177,7 +176,7 @@
 
 					<!-- Description -->
 					<p class="section_about__description">
-						A nighttime view of SOHŌ Café + Kitchen, a modern glass-fronted café with warm interior lighting. Several people are seated inside enjoying conversations and drinks, while motorcycles are parked outside in front of the café.
+						A nighttime view of SOHŌ Café + Kitchen, a modern glass-fronted café with warm interior lighting. Several people are seated inside enjoying conversations and drinks.
 					</p>
 
 				</div>
@@ -213,12 +212,12 @@
 			<div class="section_dishes__carousel__item">
 
 				<!-- Image -->
-				<img src="assets/img/americano-featured.png" alt="..." class="section_dishes__carousel__item__img">
+				<img src="assets/img/red.jpeg" alt="..." class="section_dishes__carousel__item__img">
 
 				<!-- Body -->
 				<div class="section_dishes__carousel__item__body">
 					<h5 class="section_dishes__carousel__item__body__heading mb-0">
-						Americano <span>₱200</span>
+						Red Velvet Cookies <span>₱30</span>
 					</h5>
 				</div>
 
@@ -226,12 +225,12 @@
       <div class="section_dishes__carousel__item">
 
 				<!-- Image -->
-				<img src="assets/img/latte-featured.jpg" alt="..." class="section_dishes__carousel__item__img">
+				<img src="assets/img/Marinara.jpeg" alt="..." class="section_dishes__carousel__item__img">
 
 				<!-- Body -->
 				<div class="section_dishes__carousel__item__body">
 					<h5 class="section_dishes__carousel__item__body__heading mb-0">
-						Latte <span>₱170</span>
+						Marinara Pasta <span>₱120</span>
 					</h5>
 				</div>
 
@@ -239,12 +238,12 @@
 			<div class="section_dishes__carousel__item">
 
 				<!-- Image -->
-				<img src="assets/img/icedcoffee-featured.jpg" alt="..." class="section_dishes__carousel__item__img">
+				<img src="assets/img/matcha.jpg" alt="..." class="section_dishes__carousel__item__img">
 
 				<!-- Body -->
 				<div class="section_dishes__carousel__item__body">
 					<h5 class="section_dishes__carousel__item__body__heading mb-0">
-						Iced Coffee <span>₱190</span>
+						Matcha Cookies <span>₱30</span>
 					</h5>
 				</div>
 
@@ -252,12 +251,12 @@
 			<div class="section_dishes__carousel__item">
 
 				<!-- Image -->
-				<img src="assets/img/macrons-featured.jpg" alt="..." class="section_dishes__carousel__item__img">
+				<img src="assets/img/brownies.jpeg" alt="..." class="section_dishes__carousel__item__img">
 
 				<!-- Body -->
 				<div class="section_dishes__carousel__item__body">
 					<h5 class="section_dishes__carousel__item__body__heading mb-0">
-						Macrons <span>₱250</span>
+						Chocolate Brownies <span>₱50</span>
 					</h5>
 				</div>
 
@@ -265,12 +264,12 @@
 			<div class="section_dishes__carousel__item">
 
 				<!-- Image -->
-				<img src="assets/img/donuts-featured.jpg" alt="..." class="section_dishes__carousel__item__img">
+				<img src="assets/img/cheese.jpg" alt="..." class="section_dishes__carousel__item__img">
 
 				<!-- Body -->
 				<div class="section_dishes__carousel__item__body">
 					<h5 class="section_dishes__carousel__item__body__heading mb-0">
-						Donuts <span>₱90</span>
+						Cheese Pizza <span>₱250</span>
 					</h5>
 				</div>
 
@@ -278,111 +277,92 @@
       <div class="section_dishes__carousel__item">
 
 				<!-- Image -->
-				<img src="assets/img/sandwich-featured.jpg" alt="..." class="section_dishes__carousel__item__img">
+				<img src="assets/img/chicken.jpg" alt="..." class="section_dishes__carousel__item__img">
 
 				<!-- Body -->
 				<div class="section_dishes__carousel__item__body">
 					<h5 class="section_dishes__carousel__item__body__heading mb-0">
-						Sandwich <span>₱150</span>
+						Chicken Parmesan <span>₱150</span>
 					</h5>
 				</div>
 
 			</div>
-			<div class="section_dishes__carousel__item">
 
-				<!-- Image -->
-				<img src="assets/img/burger-featured.jpg" alt="..." class="section_dishes__carousel__item__img">
-
-				<!-- Body -->
-				<div class="section_dishes__carousel__item__body">
-					<h5 class="section_dishes__carousel__item__body__heading mb-0">
-						Burger <span>₱180</span>
-					</h5>
-				</div>
-
-			</div>
 		</div> <!-- / .section_dishes__carousel -->
 
 	</section>
 
 
-	<section class="section section_gallery">
-		<div class="container">
-			<div class="row">
-				<div class="col">
+<template id="gallery-template">
+<section class="section section_gallery">
+	<div class="container">
+		<div class="row">
+			<div class="col">
 
-					<!-- Heading -->
-					<h2 class="section__heading text-center" >
-						The Café
-					</h2>
+				<!-- Heading -->
+				<h2 class="section__heading text-center">
+					The Café
+				</h2>
 
-					<!-- Subheading -->
-					<p class="section__subheading text-center">
-						A peak into an amazing experience
-					</p>
+				<!-- Subheading -->
+				<p class="section__subheading text-center">
+					A peak into an amazing experience
+				</p>
 
-				</div>
-			</div> <!-- / .row -->
-			<div class="row section_gallery__grid">
-				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+			</div>
+		</div> <!-- / .row -->
+		<div class="row section_gallery__grid">
+			<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+				<a href="assets/img/ga1.jpg" data-lightbox="gallery">
+					<img src="assets/img/ga1.jpg" class="img-fluid" alt="...">
+				</a>
+			</div>
 
-					<a href="assets/img/ga1.jpg" data-lightbox="gallery">
-						<img src="assets/img/ga1.jpg" class="img-fluid" alt="...">
-					</a>
+			<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+				<a href="assets/img/ga2.jpg" data-lightbox="gallery">
+					<img src="assets/img/ga2.jpg" class="img-fluid" alt="...">
+				</a>
+			</div>
 
-				</div>
-				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+			<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+				<a href="assets/img/ga9.jpg" data-lightbox="gallery">
+					<img src="assets/img/ga9.jpg" class="img-fluid" alt="...">
+				</a>
+			</div>
 
-					<a href="assets/img/ga2.jpg" data-lightbox="gallery">
-						<img src="assets/img/ga2.jpg" class="img-fluid" alt="...">
-					</a>
+			<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+				<a href="assets/img/ga10.jpg" data-lightbox="gallery">
+					<img src="assets/img/ga10.jpg" class="img-fluid" alt="...">
+				</a>
+			</div>
 
-				</div>
-				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+			<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+				<a href="assets/img/ga7.jpg" data-lightbox="gallery">
+					<img src="assets/img/ga7.jpg" class="img-fluid" alt="...">
+				</a>
+			</div>
 
-					<a href="assets/img/ga9.jpg" data-lightbox="gallery">
-						<img src="assets/img/ga9.jpg" class="img-fluid" alt="...">
-					</a>
+			<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+				<a href="assets/img/ga5.jpg" data-lightbox="gallery">
+					<img src="assets/img/ga5.jpg" class="img-fluid" alt="...">
+				</a>
+			</div>
 
-				</div>
-				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+			<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+				<a href="assets/img/ga8.jpg" data-lightbox="gallery">
+					<img src="assets/img/ga8.jpg" class="img-fluid" alt="...">
+				</a>
+			</div>
 
-					<a href="assets/img/ga10.jpg" data-lightbox="gallery">
-						<img src="assets/img/ga10.jpg" class="img-fluid" alt="...">
-					</a>
-
-				</div>
-				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
-
-					<a href="assets/img/ga7.jpg" data-lightbox="gallery">
-						<img src="assets/img/ga7.jpg" class="img-fluid" alt="...">
-					</a>
-
-				</div>
-				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
-
-					<a href="assets/img/ga5.jpg" data-lightbox="gallery">
-						<img src="assets/img/ga5.jpg" class="img-fluid" alt="...">
-					</a>
-
-				</div>
-				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
-
-					<a href="assets/img/ga8.jpg" data-lightbox="gallery">
-						<img src="assets/img/ga8.jpg" class="img-fluid" alt="...">
-					</a>
-
-				</div>
-				<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
-
-					<a href="assets/img/ga4.jpg" data-lightbox="gallery">
-						<img src="assets/img/ga4.jpg" class="img-fluid" alt="...">
-					</a>
-
-				</div>
-			</div> <!-- / .row -->
-		</div> <!-- / .container -->
-	</section>
+			<div class="col-6 col-sm-6 col-md-4 section_gallery__grid__item">
+				<a href="assets/img/ga4.jpg" data-lightbox="gallery">
+					<img src="assets/img/ga4.jpg" class="img-fluid" alt="...">
+				</a>
+			</div>
+		</div> <!-- / .row -->
+	</div> <!-- / .container -->
+</section>
+</template>
 
   <footer class="section section_footer">
 		<div class="container">
