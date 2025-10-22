@@ -117,7 +117,7 @@
 
 					<!-- Image -->
 					<div class="section_discover__img">
-						<img src="assets/img/food1.jpeg" class="img-fluid" alt="...">
+						<img src="assets/img/food1.1.jpg" class="img-fluid" alt="...">
 					</div>
 
 				</div>
@@ -238,7 +238,7 @@
 			<div class="section_dishes__carousel__item">
 
 				<!-- Image -->
-				<img src="assets/img/matcha.jpg" alt="..." class="section_dishes__carousel__item__img">
+				<img src="assets/img/matcha.jpeg" alt="..." class="section_dishes__carousel__item__img">
 
 				<!-- Body -->
 				<div class="section_dishes__carousel__item__body">
@@ -264,7 +264,7 @@
 			<div class="section_dishes__carousel__item">
 
 				<!-- Image -->
-				<img src="assets/img/cheese.jpg" alt="..." class="section_dishes__carousel__item__img">
+				<img src="assets/img/cheese.jpeg" alt="..." class="section_dishes__carousel__item__img">
 
 				<!-- Body -->
 				<div class="section_dishes__carousel__item__body">
@@ -277,7 +277,7 @@
       <div class="section_dishes__carousel__item">
 
 				<!-- Image -->
-				<img src="assets/img/chicken.jpg" alt="..." class="section_dishes__carousel__item__img">
+				<img src="assets/img/chicken.jpeg" alt="..." class="section_dishes__carousel__item__img">
 
 				<!-- Body -->
 				<div class="section_dishes__carousel__item__body">
